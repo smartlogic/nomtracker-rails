@@ -108,3 +108,6 @@ end
 
 # All that for this:
 Rails.boot!
+
+# Load postboot file to change Rails paths
+require File.join(File.dirname(__FILE__), 'postboot')
