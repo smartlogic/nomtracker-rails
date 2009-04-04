@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
+                 		xmlns:components="com.hackurday.nomtracker.view.components.*"
+                 		currentState="{NTFacade.STATE_LOGIN}"
+                 		creationComplete="facade.startup(this)">
+
+	<mx:Script>
+		<![CDATA[
+			import com.hackurday.nomtracker.NTFacade;
+			import com.hackurday.nomtracker.view.events.SessionEvent;
+
+			private var facade:NTFacade = NTFacade.getInstance();
+		]]>
+	</mx:Script>
+	
+	<mx:Style source="assets/stylesheets/NomTrackerStyles.css" />
+	
+	<mx:Label styleName="nomTrackerTitle" text="nomtracker" />
+	
+	<mx:states>
+		<mx:State name="{NTFacade.STATE_LOGIN}">
+			<mx:AddChild>
+				<components:Loginview id="loginView" />
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="{NTFacade.STATE_IDLE}">
+			<mx:AddChild>
+				<mx:LinkButton styleName="logoutButton" label="logout" 
+							   click="dispatchEvent( new SessionEvent(SessionEvent.LOGOUT) )" />
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+
+</mx:WindowedApplication>
