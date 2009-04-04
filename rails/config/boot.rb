@@ -44,6 +44,7 @@ module Rails
     def load_initializer
       require "#{RAILS_ROOT}/vendor/rails/railties/lib/initializer"
       Rails::Initializer.run(:install_gem_spec_stubs)
+      Rails::GemDependency.add_frozen_gem_path
     end
   end
 
@@ -107,6 +108,3 @@ end
 
 # All that for this:
 Rails.boot!
-
-# Load postboot file to change Rails paths
-require(File.join(File.dirname(__FILE__), 'postboot'))
