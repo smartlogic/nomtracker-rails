@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   creationComplete="init()">
+		   
+	<mx:Script>
+		<![CDATA[
+			import com.hackurday.nomtracker.view.LoginMediator;
+			import com.hackurday.nomtracker.NTFacade;
+			
+			private var facade:NTFacade = NTFacade.getInstance();
+			
+			private function init():void {
+				facade.registerMediator( new LoginMediator(this) );
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Style source="assets/stylesheets/LoginStyles.css" />
+	
+	<mx:Form id="loginForm">
+		
+		<mx:FormItem label="Email:" width="100%">
+			<mx:TextInput id="emailTextInput" width="100%" />
+		</mx:FormItem>
+		
+		<mx:FormItem label="Pass:" width="100%">
+			<mx:TextInput id="passwordTextInput" width="100%" />
+		</mx:FormItem>
+		
+		<mx:Button id="loginButton" label="Login" />
+		
+	</mx:Form>
+	
+</mx:Canvas>
