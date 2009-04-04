@@ -45,29 +45,12 @@
         %h3 track
         
         %h4 debt
-        #debt-panel
-          - form_tag :action => 'add/debt' do
-            = text_field :transaction, :source, :class => 'nom-text name'
-            owes 
-            = text_field :transaction, :sink, :class => 'nom-text name'
-            $
-            = text_field :transaction, :quantity, :class => 'nom-text quantity'
-            %span.buttons
-              = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+        = render :partial => 'add_debt'
 
         %h4 meal
-        #meal-panel
-          - form_tag :action => 'meal', :controller => 'add' do
-            = text_field :transaction, :names, :class => 'nom-text name-collection'
-            ate together.
-            %br
-            = text_field :transaction, :payer, :class => 'nom-text name'
-            paid $
-            = text_field :transaction, :quantity, :class => 'nom-text quantity'
-            %span.buttons
-              = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+        = render :partial => 'add_meal'
 
       .span-24.prepend-1.append-1   
-        - if current_user.logged_in?
+        - if logged_in?
           = render :partial => 'report'         
 

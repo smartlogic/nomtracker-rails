@@ -1,0 +1,12 @@
+#meal-panel
+  - form_tag :action => 'meal', :controller => 'add' do
+    = text_field :transaction, :names, :class => 'nom-text name-collection'
+    ate together.
+    %br
+    = text_field :transaction, :payer, :class => 'nom-text name'
+    paid $
+    = text_field :transaction, :quantity, :class => 'nom-text quantity'
+    %span.buttons
+      = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+        
+

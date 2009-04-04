@@ -1,3 +1,4 @@
+- @user = current_user
 %h3 manage
 
 %h4 debts
@@ -9,8 +10,23 @@
     %th qty
     %th 
 
-  - @user.debts.each do |debt|
+  - @user.debts.each do |trn|
     %tr 
-      %td= debt.user
-      %td= debt.total
-      %td= link_to_function PAY
+      %td= trn.from_user.email
+      %td= trn.amount
+      %td= link_to_function "PAY", nil
+
+%h4 credits
+%strong who owes you?
+
+%table 
+  %tr 
+    %th name
+    %th qty
+    %th 
+
+  - @user.credits.each do |trn|
+    %tr 
+      %td= trn.to_user.email
+      %td= trn.amount
+      %td= link_to_function "REQUEST PAYMENT", nil
