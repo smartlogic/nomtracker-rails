@@ -1,0 +1,17 @@
+- @user = User.new
+%h3 manage
+
+%h4 debts
+%strong who do you owe?
+
+%table 
+  %tr 
+    %th name
+    %th qty
+    %th 
+
+  - @user.debts.each do |debt|
+    %tr 
+      %td= debt.user
+      %td= debt.total
+      %td= link_to_function PAY

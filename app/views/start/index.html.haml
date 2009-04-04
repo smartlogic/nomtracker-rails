@@ -1,0 +1,72 @@
+!!!
+
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
+    %title
+      Starts:
+      = controller.action_name
+    = stylesheet_link_tag 'blueprint/screen'
+    /[if IE]
+      = stylesheet_link_tag 'blueprint/ie'
+    = stylesheet_link_tag 'scaffold'
+
+    %style 
+      :sass
+        .nom-icon-button
+          :margin 0em 0
+        .nom-text
+          :margin 0.5em 0
+          :border 1px solid #bbb
+          :font-size 1.5em
+        .nom-text:focus
+          :border 1px solid #666
+        .name
+          :width 10em
+        .quantity 
+          :width 6em
+           
+  %body
+    %p{ :style => "color: green" }
+      = flash[:notice]
+
+    .container
+      .span-24
+        .span-11.box
+          %h1
+            welcome to nomtracker
+        .span-11.box.last
+          %ul
+            %li= link_to "login / register", login_url
+
+      %hr.space
+
+      .span-24.prepend-1.append-1  
+        %h3 track
+        
+        %h4 debt
+        #debt-panel
+          - form_tag :action => 'add/debt' do
+            = text_field :transaction, :source, :class => 'nom-text name'
+            owes 
+            = text_field :transaction, :sink, :class => 'nom-text name'
+            $
+            = text_field :transaction, :quantity, :class => 'nom-text quantity'
+            %span.buttons
+              = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+
+        %h4 meal
+        #meal-panel
+          - form_tag :action => 'meal', :controller => 'add' do
+            = text_field :transaction, :names, :class => 'nom-text name-collection'
+            ate together.
+            %br
+            = text_field :transaction, :payer, :class => 'nom-text name'
+            paid $
+            = text_field :transaction, :quantity, :class => 'nom-text quantity'
+            %span.buttons
+              = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+
+      .span-24.prepend-1.append-1   
+        -# = render :partial => 'report'         
+
