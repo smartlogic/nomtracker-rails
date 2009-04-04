@@ -30,11 +30,34 @@ class StoryHelper
   # Load up testing data for your test suite. Follows same pattern as load_seed
   def self.load_data
   
+    adam= User.create!(:login => 'adam', :password => 'adamadam',:password_confirmation => 'adamadam', :email => "adam@a.com")
+    nick= User.create!(:login => 'nick', :password => 'nicknick', :password_confirmation => 'nicknick', :email => "nick@a.com")
+    michael= User.create!(:login => 'michael', :password => 'mikemike', :password_confirmation => 'mikemike', :email => "mike@a.com")
+
+    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 5)
+    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 2)
+    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 2.50)
+    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 3.25)
+    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 1.25)
+
+    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 1.25)
+    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 2)
+    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 3.25)
+    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 4.25)
+    
+    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 2.25)
+    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 3.25)
+    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 5.25)
+    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 9.25)
   end
   
   # Purge the data that you loaded. Follows same pattern at purge_seed
   def self.purge_data
     self.purge_assets
+
+    [User, Transaction].reverse.each do |m|
+      m.destroy_all
+    end
   end
 
   private
