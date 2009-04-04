@@ -1,6 +1,9 @@
 package com.hackurday.nomtracker.controller {
 	
-	import org.puremvc.as3.patterns.command.AsyncMacroCommand;
+	import flash.desktop.NativeApplication;
+	
+	import org.puremvc.as3.interfaces.INotification;
+	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
 	/**
 	 * Shutdown command.
@@ -10,12 +13,11 @@ package com.hackurday.nomtracker.controller {
 	 * @date 04/04/2009
 	 * @version 0.1
 	 */
-	public class ShutdownCommand extends AsyncMacroCommand {
+	public class ShutdownCommand extends SimpleCommand {
 	   
-		override protected function initializeAsyncMacroCommand():void {
-			trace('[ShutdownCommand::initializeAsyncMacroCommand]');
-			addSubCommand(LogoutCommand);
-			addSubCommand(ExitApplicationCommand);
+	   	override public function execute(note:INotification):void {
+			trace('[ShutdownCommand::execute]');
+			NativeApplication.nativeApplication.exit();
 		}	
 		
 	}

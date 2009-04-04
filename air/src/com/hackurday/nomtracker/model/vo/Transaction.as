@@ -1,14 +1,14 @@
 package com.hackurday.nomtracker.model.vo {
 	
-	[RemoteClass(alias="User")]
+	[RemoteClass(alias="Transaction")]
 	[Bindable]
-	public class User {
+	public class Transaction {
 		
+		public var amount:Number;
 		public var createdAt:Date;
-		public var email:String;
-		public var name:String;
+		public var fromUser:User;
 		public var id:int;	
-		public var login:String;
+		public var toUser:User;
 		public var updatedAt:Date;
 		
 	}

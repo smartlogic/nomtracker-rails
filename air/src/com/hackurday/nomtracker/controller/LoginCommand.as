@@ -41,8 +41,7 @@ package com.hackurday.nomtracker.controller {
 			/* BYPASS LOGIN FOR NOW */
 			var user:User = new User();
 			user.email = "justin@smartlogicsolutions.com";
-			user.firstName = "Justin";
-			user.lastName = "Brown";
+			user.name = "Justin Brown";
 			var re:ResultEvent = new ResultEvent(ResultEvent.RESULT, false, true, user);
 			onSessionCreated(re);
 		}

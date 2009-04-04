@@ -1,11 +1,17 @@
 /* CSS file */
 .nomTrackerTitle {
 	horizontal-center: 0px;
-	top: 10px;	
+	top: 5px;	
 	font-size: 18pt;
 }
 
 .logoutButton {
+	right: 5px;
+	top: 5px;
 	color: #0000FF;
 	text-decoration: underline;	
+}
+
+.loginView {
+	border-style: solid;
 }

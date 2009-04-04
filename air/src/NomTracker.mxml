@@ -20,14 +20,17 @@
 	<mx:states>
 		<mx:State name="{NTFacade.STATE_LOGIN}">
 			<mx:AddChild>
-				<components:Loginview id="loginView" />
+				<components:Loginview id="loginView"
+									  styleName="loginView" />
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="{NTFacade.STATE_IDLE}">
+			<!--
 			<mx:AddChild>
 				<mx:LinkButton styleName="logoutButton" label="logout" 
 							   click="dispatchEvent( new SessionEvent(SessionEvent.LOGOUT) )" />
 			</mx:AddChild>
+			-->
 		</mx:State>
 	</mx:states>
 

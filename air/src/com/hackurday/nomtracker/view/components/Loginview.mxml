@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   width="270"
 		   creationComplete="init()">
 		   
 	<mx:Script>
 		<![CDATA[
 			import com.hackurday.nomtracker.view.LoginMediator;
 			import com.hackurday.nomtracker.NTFacade;
+			
+			public static const REGISTER_STATE:String = "registerState";
 			
 			private var facade:NTFacade = NTFacade.getInstance();
 			
@@ -19,16 +22,58 @@
 	
 	<mx:Form id="loginForm">
 		
-		<mx:FormItem label="Email:" width="100%">
-			<mx:TextInput id="emailTextInput" width="100%" />
+		<mx:FormItem label="Username:" width="100%">
+			<mx:TextInput id="usernameTextInput" width="100%" />
 		</mx:FormItem>
 		
 		<mx:FormItem label="Pass:" width="100%">
-			<mx:TextInput id="passwordTextInput" width="100%" />
+			<mx:TextInput id="passwordTextInput" width="100%"
+						  displayAsPassword="true" />
 		</mx:FormItem>
 		
-		<mx:Button id="loginButton" label="Login" />
+		<mx:HBox id="loginControlsHBox" width="100%">
+			
+			<mx:LinkButton id="registerButton" label="Register"
+						   click="currentState = REGISTER_STATE" />
+			
+			<mx:Spacer width="100%" />
+			
+			<mx:Button id="loginButton" label="Login" />
+			
+		</mx:HBox>
 		
 	</mx:Form>
+	
+	<mx:states>
+		<mx:State name="{REGISTER_STATE}">
+			<mx:AddChild relativeTo="{loginControlsHBox}" position="before">
+				<mx:FormItem id="emailFormItem" label="Email:" width="100%">
+					<mx:TextInput id="emailTextInput" width="100%" />
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:SetProperty target="{loginButton}" name="label" value="Register" />
+			<mx:SetProperty target="{registerButton}" name="label" value="cancel" />
+			<mx:SetEventHandler target="{registerButton}" name="click" handler="currentState = ''" />
+		</mx:State>
+	</mx:states>
+	
+	<mx:transitions>
+	
+		<mx:Transition fromState="*" toState="{REGISTER_STATE}">
+			<mx:Sequence targets="{[this,loginControlsHBox,emailFormItem]}" duration="600">
+				<mx:Resize filter="resize" />
+				<mx:Move filter="move" />
+				<mx:AddChildAction filter="add" />
+			</mx:Sequence>
+		</mx:Transition>
+		
+		<mx:Transition fromState="{REGISTER_STATE}" toState="*">
+			<mx:Sequence targets="{[this,loginControlsHBox,emailFormItem]}" duration="600">
+				<mx:RemoveChildAction filter="remove" />
+				<mx:Move filter="move" />
+				<mx:Resize filter="resize" />
+			</mx:Sequence>
+		</mx:Transition>
+	</mx:transitions>
 	
 </mx:Canvas>

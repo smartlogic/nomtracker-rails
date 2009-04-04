@@ -71,7 +71,7 @@ package com.hackurday.nomtracker.view {
 			trace("[LoginMediator::onLoginClick]");
 			var credentials:Object = 
 				{
-					email: loginView.emailTextInput.text,
+					login: loginView.usernameTextInput.text,
 					password: loginView.passwordTextInput.text 
 				};
 				

@@ -3,6 +3,8 @@ package com.hackurday.nomtracker.view {
 	import com.hackurday.nomtracker.NTFacade;
 	import com.hackurday.nomtracker.view.events.SessionEvent;
 	
+	import flash.events.Event;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
@@ -58,11 +60,18 @@ package com.hackurday.nomtracker.view {
 		
 		override public function onRegister():void {
 			app.addEventListener(SessionEvent.LOGOUT, onLogout);
+			app.addEventListener(Event.CLOSING, onApplicationClosing, true);
 		}
 		
 		/* === Functions === */
 		
 		/* --- Event Handlers --- */
+		
+		private function onApplicationClosing(evt:Event):void {
+			trace('[NTMediator::onApplicationClosing]');
+			evt.preventDefault();
+			sendNotification(NTFacade.EXIT_APPLICATION);
+		}
 		
 		private function onLogout(evt:SessionEvent):void {
 			trace("[NTMediator::onLogout]");
