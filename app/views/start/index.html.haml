@@ -68,5 +68,6 @@
               = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
 
       .span-24.prepend-1.append-1   
-        -# = render :partial => 'report'         
+        - if current_user.logged_in?
+          = render :partial => 'report'         
 
