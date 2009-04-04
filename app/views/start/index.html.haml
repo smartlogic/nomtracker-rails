@@ -51,6 +51,6 @@
         = render :partial => 'add_meal'
 
       .span-24.prepend-1.append-1   
-        - if logged_id?
+        - if logged_in?
           = render :partial => 'report'         
 
