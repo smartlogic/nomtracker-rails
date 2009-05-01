@@ -28,10 +28,10 @@ module StoryAccessors
   
   module Methods
 
-    ####### Accounts #######
-    # %w(amy sarah joanne julia erin).each do |acct|
-    #   meta_accessor(acct.to_s, Account, "login")
-    # end
+    ####### Users #######
+    %w(adam nick michael).each do |acct|
+      meta_accessor(acct, User, "login")
+    end
     
   end
   
