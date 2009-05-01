@@ -1,6 +1,11 @@
 <p>
-  <b>User:</b>
-  <%=h @transaction.user %>
+  <b>From:</b>
+  <%=h @transaction.from_user.login %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%= h @transaction.to_user.login %>
 </p>
 
 <p>

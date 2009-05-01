@@ -43,9 +43,8 @@ end
 
 class ActionController::TestCase
   extend StoryAccessors::Methods  # this probably isn't the right thing to do....
-  include AuthenticatedTestHelper
   
-  def load_session
+  def setup
     # allows us to use the self.log_in function to log in a certain user
     @scoped_session = {}
   end
