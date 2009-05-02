@@ -13,8 +13,8 @@ class StartControllerTest < ActionController::TestCase
       assert_template 'splash'
     end
     
-    should "display a login link in the header" do
-      
+    should "display a login link" do
+      assert_select "a", {:href => new_session_path}
     end
     
   end
