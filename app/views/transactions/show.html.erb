@@ -1,11 +1,11 @@
 <p>
   <b>From:</b>
-  <%=h @transaction.from_user.login %>
+  <%=h @transaction.creditor.login %>
 </p>
 
 <p>
   <b>To:</b>
-  <%= h @transaction.to_user.login %>
+  <%= h @transaction.debtor.login %>
 </p>
 
 <p>

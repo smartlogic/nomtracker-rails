@@ -34,21 +34,21 @@ class StoryHelper
     nick= User.create!(:login => 'nick', :password => 'nicknick', :password_confirmation => 'nicknick', :email => "nick@a.com")
     michael= User.create!(:login => 'michael', :password => 'mikemike', :password_confirmation => 'mikemike', :email => "mike@a.com")
 
-    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 5)
-    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 2)
-    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 2.50)
-    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 3.25)
-    Transaction.create!(:from_user => adam, :to_user => nick, :amount => 1.25)
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 5)
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 2)
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 2.50)
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 3.25)
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 1.25)
 
-    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 1.25)
-    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 2)
-    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 3.25)
-    Transaction.create!(:from_user => michael, :to_user => adam, :amount => 4.25)
+    Transaction.create!(:creditor => michael, :debtor => adam, :amount => 1.25)
+    Transaction.create!(:creditor => michael, :debtor => adam, :amount => 2)
+    Transaction.create!(:creditor => michael, :debtor => adam, :amount => 3.25)
+    Transaction.create!(:creditor => michael, :debtor => adam, :amount => 4.25)
     
-    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 2.25)
-    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 3.25)
-    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 5.25)
-    Transaction.create!(:from_user => nick, :to_user => michael, :amount => 9.25)
+    Transaction.create!(:creditor => nick, :debtor => michael, :amount => 2.25)
+    Transaction.create!(:creditor => nick, :debtor => michael, :amount => 3.25)
+    Transaction.create!(:creditor => nick, :debtor => michael, :amount => 5.25)
+    Transaction.create!(:creditor => nick, :debtor => michael, :amount => 9.25)
   end
   
   # Purge the data that you loaded. Follows same pattern at purge_seed

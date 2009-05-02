@@ -3,7 +3,7 @@ class StartController < ApplicationController
 
   def index
     logger.debug('logged in')
-    #@transactions = current_user.tra
+    @transactions = current_user.transactions
   end
   
   private

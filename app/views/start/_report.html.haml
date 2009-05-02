@@ -12,7 +12,7 @@
 
   - @user.debts.each do |trn|
     %tr 
-      %td= trn.from_user.email
+      %td= trn.creditor.email
       %td= trn.amount
       %td= link_to_function "PAY", nil
 
@@ -27,6 +27,6 @@
 
   - @user.credits.each do |trn|
     %tr 
-      %td= trn.to_user.email
+      %td= trn.debtor.email
       %td= trn.amount
       %td= link_to_function "REQUEST PAYMENT", nil

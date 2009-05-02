@@ -9,8 +9,8 @@
 
 <% for transaction in @transactions %>
   <tr>
-    <td><%=h transaction.from_user.login %></td>
-    <td><%=h transaction.to_user.login %></td>
+    <td><%=h transaction.creditor.login %></td>
+    <td><%=h transaction.debtor.login %></td>
     <td><%=h transaction.amount %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
