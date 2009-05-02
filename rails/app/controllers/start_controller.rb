@@ -4,12 +4,4 @@ class StartController < ApplicationController
   def index
     logger.debug('logged in')
   end
-  
-  private
-    def custom_login_required
-      return true if authorized?
-      render :action => 'splash'
-      return false
-    end
-
 end
