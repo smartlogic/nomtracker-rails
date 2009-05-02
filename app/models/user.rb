@@ -50,10 +50,27 @@ class User < ActiveRecord::Base
     u
   end
   
-  state_machine :user_state, :initial => :pending do
+  state_machine :user_state, :initial => :unregistered do
+    
+    event :register do
+      transition :unregistered => :pending
+    end
     
     event :activate do
       transition :pending => :active
+    end
+    
+    state :pending do
+      before_save :make_activation_code
+
+      validates_presence_of     :password,                   :if => :password_required?
+      validates_presence_of     :password_confirmation,      :if => :password_required?
+      validates_confirmation_of :password,                   :if => :password_required?
+      validates_length_of       :password, :within => 6..40, :if => :password_required?
+      
+      validates_presence_of     :name
+      validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
+      validates_length_of       :name,     :maximum => 100
     end
     
     state :active do
@@ -77,4 +94,9 @@ class User < ActiveRecord::Base
     )
   end
   
+  private
+    def make_activation_code
+      self.activation_code = self.class.make_token
+    end
+      
 end

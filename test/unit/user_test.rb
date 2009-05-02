@@ -7,13 +7,13 @@ class UserTest < ActiveSupport::TestCase
       @user = User.new
     end
     
-    should "default to :pending user_state" do
-      assert_equal "pending", @user.user_state
+    should "default to :unregistered user_state" do
+      assert_equal "unregistered", @user.user_state
     end
     
     should "only require an email address to support ad hoc debt creation" do
       @user.email = 'joe@slsdev.net'
-      assert_difference 'User.with_user_state(:pending).count' do
+      assert_difference 'User.with_user_state(:unregistered).count' do
         @user.save
         assert !@user.new_record?, "#{@user.errors.full_messages.to_sentence}"
       end
@@ -28,15 +28,40 @@ class UserTest < ActiveSupport::TestCase
     end
     
   end
+  
+  context "When a user is :unregistered" do
+    setup do
+      @user = User.create!(:email => 'john@slsdev.net')
+    end
+    
+    should "be able to transition to pending after saving name and password" do
+      @user.update_attributes!(:password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
+      @user.register!
+      assert_equal 'pending', @user.user_state
+    end
+  end
+  
+  context "When a user is :pending" do
+    setup do
+      @user = User.create!(:email => 'john@slsdev.net')
+      @user.update_attributes!(:password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
+      @user.register!
+    end
+    
+    should "be able to transition to :active" do
+      @user.activate!
+      assert_equal 'active', @user.user_state
+    end
+  end
 
-  context "When a new user is prepared to be saved directly into the active user_state" do
+  context "When a new user is prepared to be saved directly into the :pending user_state" do
     setup do
       @user = User.new(create_user_attrs)
-      @user.user_state = 'active'
+      @user.user_state = 'pending'
     end
     
     should "be able to be saved directly to the database" do
-      assert_difference 'User.with_user_state(:active).count' do
+      assert_difference 'User.with_user_state(:pending).count' do
         assert_nothing_raised { @user.save! }
       end
     end
