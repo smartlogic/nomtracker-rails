@@ -14,7 +14,7 @@ env_gemfile    = File.join(RAILS_ROOT, "config", rails_env, "geminstaller.yml")
 
 [common_gemfile, env_gemfile].each do |file|
   if File.exists?(file)
-    GemInstaller.install("--exceptions --config=#{common_gemfile}") if perform_install
-    GemInstaller.autogem("--exceptions --config=#{common_gemfile}")
+    GemInstaller.install("--exceptions --config=#{file}") if perform_install
+    GemInstaller.autogem("--exceptions --config=#{file}")
   end
 end
