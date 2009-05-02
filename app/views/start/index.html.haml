@@ -6,28 +6,15 @@
     %title
       Starts:
       = controller.action_name
+
     = stylesheet_link_tag 'blueprint/screen'
     /[if IE]
       = stylesheet_link_tag 'blueprint/ie'
     = stylesheet_link_tag 'scaffold'
+    = stylesheet_link_tag 'nomtracker'
 
-    %style 
-      :sass
-        .nom-icon-button
-          :margin 0em 0
-        .nom-text
-          :margin 0.5em 0
-          :border 1px solid #bbb
-          :font-size 1.5em
-        .nom-text:focus
-          :border 1px solid #666
-        .name
-          :width 10em
-        .quantity 
-          :width 6em
-           
   %body
-    %p{ :style => "color: green" }
+    %p#flash
       = flash[:notice]
 
     .container
@@ -40,6 +27,10 @@
             %li= link_to "login / register", login_url
 
       %hr.space
+
+      .span-24.prepend-1.append-1  
+        %h3 history
+
 
       .span-24.prepend-1.append-1  
         %h3 track
