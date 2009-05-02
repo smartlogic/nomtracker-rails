@@ -30,9 +30,9 @@ class StoryHelper
   # Load up testing data for your test suite. Follows same pattern as load_seed
   def self.load_data
   
-    adam= User.create_and_activate!(:name => "Adam", :password => 'adamadam',:password_confirmation => 'adamadam', :email => "adam@slsdev.net")
-    nick= User.create_and_activate!(:name => "Nick", :password => 'nicknick', :password_confirmation => 'nicknick', :email => "nick@slsdev.net")
-    michael= User.create_and_activate!(:name => "Michael", :password => 'mikemike', :password_confirmation => 'mikemike', :email => "mike@slsdev.net")
+    adam= User.create_and_activate(:name => "Adam", :password => 'adamadam',:password_confirmation => 'adamadam', :email => "adam@slsdev.net")
+    nick= User.create_and_activate(:name => "Nick", :password => 'nicknick', :password_confirmation => 'nicknick', :email => "nick@slsdev.net")
+    michael= User.create_and_activate(:name => "Michael", :password => 'mikemike', :password_confirmation => 'mikemike', :email => "mike@slsdev.net")
 
     Transaction.create!(:creditor => adam, :debtor => nick, :amount => 5)
     Transaction.create!(:creditor => adam, :debtor => nick, :amount => 2)
