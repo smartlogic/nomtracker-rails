@@ -14,7 +14,7 @@ class StartControllerTest < ActionController::TestCase
     end
     
     should "display a login link" do
-      assert_select "a", {:href => new_session_path}
+      assert_select "a", {:href => login_url}
     end
     
   end
@@ -28,11 +28,11 @@ class StartControllerTest < ActionController::TestCase
     should "render the transaction log" do
       assert_response :success
       assert_template 'index'
-      assert assigns(:transactions)
+      # assert assigns(:transactions)
     end
     
     should "display a logout link in the header" do
-      #assert_select "#header #actions"
+      assert_select "a", {:href => logout_url}
     end
   end
   
