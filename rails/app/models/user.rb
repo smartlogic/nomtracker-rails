@@ -18,11 +18,17 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
-  has_many :transactions
-  
-  has_many :debts, :class_name => 'Transaction', :foreign_key => 'to_user_id'
-  has_many :credits, :class_name => 'Transaction', :foreign_key => 'from_user_id'
+  has_many :credits, :class_name => 'Transaction', :foreign_key => 'creditor_id'
+  has_many :debts,   :class_name => 'Transaction', :foreign_key => 'debtor_id'
 
+  def transactions
+    Transaction.find(
+      :all,
+      :conditions => ['creditor_id = ? OR debtor_id = ?', id, id],
+      :order => 'created_at DESC'
+    )
+  end
+  
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -48,9 +54,4 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
-
-  protected
-    
-
-
 end

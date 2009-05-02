@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(:version => 20090502161008) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "transactions", :force => true do |t|
-    t.integer  "from_user_id"
-    t.integer  "to_user_id"
-    t.decimal  "amount",       :precision => 8, :scale => 2
+    t.integer  "creditor_id"
+    t.integer  "debtor_id"
+    t.decimal  "amount",      :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end

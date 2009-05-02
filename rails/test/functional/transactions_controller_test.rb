@@ -14,7 +14,12 @@ class TransactionsControllerTest < ActionController::TestCase
 
   test "should create transaction" do
     assert_difference('Transaction.count') do
-      post :create, :transaction => { }
+      post :create, :transaction => {
+        :creditor => adam,
+        :debtor => nick,
+        :amount => 1
+      }
+      assert_equal 'Transaction was successfully created.', flash[:notice]
     end
 
     assert_redirected_to transaction_path(assigns(:transaction))
