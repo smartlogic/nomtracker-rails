@@ -9,13 +9,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_require_login
-    assert_no_difference 'User.count' do
-      u = create_user(:login => nil)
-      assert u.errors.on(:login)
-    end
-  end
-
   def test_should_require_password
     assert_no_difference 'User.count' do
       u = create_user(:password => nil)
@@ -37,18 +30,25 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  def test_should_require_name
+    assert_no_difference 'User.count' do
+      u = create_user(:name => nil)
+      assert u.errors.on(:name)
+    end
+  end
+
   def test_should_reset_password
     adam.update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    assert_equal adam, User.authenticate(adam.login, 'new password')
+    assert_equal adam, User.authenticate(adam.email, 'new password')
   end
 
   def test_should_not_rehash_password
-    adam.update_attributes(:login => 'adam2')
-    assert_equal adam, User.authenticate('adam2', 'adamadam')
+    adam.update_attributes(:email => 'adam2@slsdev.net')
+    assert_equal adam, User.authenticate('adam2@slsdev.net', 'adamadam')
   end
 
   def test_should_authenticate_user
-    assert_equal adam, User.authenticate(adam.login, 'adamadam')
+    assert_equal adam, User.authenticate(adam.email, 'adamadam')
   end
 
   def test_should_set_remember_token
@@ -92,7 +92,7 @@ class UserTest < ActiveSupport::TestCase
 
 protected
   def create_user(options = {})
-    record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
+    record = User.new({ :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }.merge(options))
     record.save
     record
   end
