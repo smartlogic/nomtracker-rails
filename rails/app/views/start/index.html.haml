@@ -23,8 +23,9 @@
           %h1
             welcome to nomtracker
         .span-11.box.last
+          == Hello #{current_user.login}
           %ul
-            %li= link_to "login / register", login_url
+            %li= link_to "logout", logout_url, :method => :destroy
 
       %hr.space
 
