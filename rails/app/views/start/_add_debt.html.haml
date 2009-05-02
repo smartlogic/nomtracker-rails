@@ -1,9 +1,9 @@
-#debt-panel
-  - form_tag :action => 'add/debt' do
-    = text_field :transaction, :source, :class => 'nom-text name'
-    owes 
-    = text_field :transaction, :sink, :class => 'nom-text name'
-    $
-    = text_field :transaction, :quantity, :class => 'nom-text quantity'
-    %span.buttons
-      = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+- remote_form_for Transaction.new do |f|
+  = f.text_field :debtor_email, :class => 'nom-text name'
+  owes 
+  = f.text_field :creditor_email, :class => 'nom-text name'
+  $
+  = f.text_field :amount, :class => 'nom-text quantity'
+  %span.buttons
+    = f.submit "Continue"
+    = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)

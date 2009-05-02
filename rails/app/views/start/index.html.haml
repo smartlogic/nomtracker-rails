@@ -6,7 +6,7 @@
     %title
       Starts:
       = controller.action_name
-
+    = javascript_include_tag :defaults
     = stylesheet_link_tag 'blueprint/screen'
     /[if IE]
       = stylesheet_link_tag 'blueprint/ie'
@@ -14,9 +14,6 @@
     = stylesheet_link_tag 'nomtracker'
 
   %body
-    %p#flash
-      = flash[:notice]
-
     .container
       .span-24
         .span-11.box
@@ -29,16 +26,21 @@
 
       %hr.space
 
+      #flash
+        = flash[:notice]
+
       .span-24.prepend-1.append-1  
         %h3 track
         
         %h4 debt
-        = render :partial => 'add_debt'
+        #debt-form
+          = render :partial => 'add_debt'
 
-        %h4 meal
-        = render :partial => 'add_meal'
+        -#
+          %h4 meal
+          = render :partial => 'add_meal'
 
-      .span-24.prepend-1.append-1   
+      #report.span-24.prepend-1.append-1   
         - if logged_in?
-          = render :partial => 'report'         
+          = render :partial => 'report', :locals => {:user => current_user} 
 

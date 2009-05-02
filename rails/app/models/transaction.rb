@@ -6,4 +6,18 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :creditor
   validates_presence_of :debtor
 
+  def creditor_email=(email)
+    self.creditor = User.find_by_email(email)
+  end
+  def debtor_email=(email)
+    self.debtor = User.find_by_email(email)
+  end
+  def creditor_email
+    return "" if creditor.nil?
+    creditor.email
+  end
+  def debtor_email
+    return "" if debtor.nil?
+    debtor.email
+  end
 end
