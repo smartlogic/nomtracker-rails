@@ -2,41 +2,80 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  def test_should_create_user
-    assert_difference 'User.count' do
-      user = create_user
-      assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+  context "When a new User object has been instantiated" do
+    setup do
+      @user = User.new
     end
+    
+    should "default to :pending user_state" do
+      assert_equal "pending", @user.user_state
+    end
+    
+    should "only require an email address to support ad hoc debt creation" do
+      @user.email = 'joe@slsdev.net'
+      assert_difference 'User.with_user_state(:pending).count' do
+        @user.save
+        assert !@user.new_record?, "#{@user.errors.full_messages.to_sentence}"
+      end
+    end
+    
+    should "require email" do
+      @user.email = nil
+      assert_no_difference 'User.count' do
+        @user.save
+        assert @user.errors.on(:email)
+      end
+    end
+    
   end
 
-  def test_should_require_password
-    assert_no_difference 'User.count' do
-      u = create_user(:password => nil)
-      assert u.errors.on(:password)
+  context "When a new user is prepared to be saved directly into the active user_state" do
+    setup do
+      @user = User.new(create_user_attrs)
+      @user.user_state = 'active'
     end
-  end
-
-  def test_should_require_password_confirmation
-    assert_no_difference 'User.count' do
-      u = create_user(:password_confirmation => nil)
-      assert u.errors.on(:password_confirmation)
+    
+    should "be able to be saved directly to the database" do
+      assert_difference 'User.with_user_state(:active).count' do
+        assert_nothing_raised { @user.save! }
+      end
     end
-  end
-
-  def test_should_require_email
-    assert_no_difference 'User.count' do
-      u = create_user(:email => nil)
-      assert u.errors.on(:email)
+    
+    should "require password" do
+      @user.password = nil
+      assert_no_difference 'User.count' do
+        @user.save
+        assert @user.errors.on(:password)
+      end      
     end
-  end
-
-  def test_should_require_name
-    assert_no_difference 'User.count' do
-      u = create_user(:name => nil)
-      assert u.errors.on(:name)
+    
+    should "require password_confirmation" do
+      @user.password_confirmation = nil
+      assert_no_difference 'User.count' do
+        @user.save
+        assert @user.errors.on(:password_confirmation)
+      end      
     end
+    
+    should "require email" do
+      @user.email = nil
+      assert_no_difference 'User.count' do
+        @user.save
+        assert @user.errors.on(:email)
+      end
+    end
+    
+    should "require name" do
+      @user.name = nil
+      assert_no_difference 'User.count' do
+        @user.save
+        assert @user.errors.on(:name)
+      end
+      
+    end
+    
   end
-
+  
   def test_should_reset_password
     adam.update_attributes(:password => 'new password', :password_confirmation => 'new password')
     assert_equal adam, User.authenticate(adam.email, 'new password')
@@ -92,8 +131,11 @@ class UserTest < ActiveSupport::TestCase
 
 protected
   def create_user(options = {})
-    record = User.new({ :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }.merge(options))
-    record.save
+    record = User.create_and_activate(create_user_attrs.merge(options))
     record
+  end
+  
+  def create_user_attrs
+    { :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }
   end
 end
