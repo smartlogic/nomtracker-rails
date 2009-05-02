@@ -28,6 +28,7 @@ class StartControllerTest < ActionController::TestCase
     should "render the transaction log" do
       assert_response :success
       assert_template 'index'
+      assert assigns(:transactions)
     end
     
     should "display a logout link in the header" do

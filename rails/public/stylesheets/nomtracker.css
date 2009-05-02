@@ -1,0 +1,20 @@
+.nom-icon-button {
+  margin: 0em 0;
+}
+.nom-text {
+  margin: 0.5em 0;
+  border: 1px solid #bbb;
+  font-size: 1.5em;
+}
+.nom-text:focus {
+  border: 1px solid #666;
+}
+.name {
+  width: 10em;
+}
+.quantity {
+  width: 6em;
+}
+#flash {
+  color: green;
+}
