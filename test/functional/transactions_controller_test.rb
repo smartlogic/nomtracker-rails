@@ -1,50 +1,43 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class TransactionsControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:transactions)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create transaction" do
-    assert_difference('Transaction.count') do
-      post :create, :transaction => {
-        :creditor => adam,
-        :debtor => nick,
-        :amount => 1
-      }
-      assert_equal 'Transaction was successfully created.', flash[:notice]
+  context "an authenticated user" do
+    setup do
+      log_in adam
     end
 
-    assert_redirected_to transaction_path(assigns(:transaction))
-  end
-
-  test "should show transaction" do
-    get :show, :id => Transaction.first.id
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, :id => Transaction.first.id
-    assert_response :success
-  end
-
-  test "should update transaction" do
-    put :update, :id => Transaction.first.id, :transaction => { }
-    assert_redirected_to transaction_path(assigns(:transaction))
-  end
-
-  test "should destroy transaction" do
-    assert_difference('Transaction.count', -1) do
-      delete :destroy, :id => Transaction.first.id
+    should "create transaction" do
+      assert_difference('Transaction.count') do
+        post :create, :transaction => {
+          :creditor => adam,
+          :debtor => nick,
+          :amount => 1
+        }
+        assert_response :success
+      end
     end
 
-    assert_redirected_to transactions_path
+    should "create transaction from emails" do
+      assert_difference('Transaction.count') do
+        post :create, :transaction => {
+          :creditor_email => adam.email,
+          :debtor_email => nick.email,
+          :amount => 1
+        }
+        assert_response :success
+      end
+    end
+
+    should "update transaction" do
+      put :update, :id => Transaction.first.id, :transaction => { }
+      assert_response :ok
+    end
+
+    should "destroy transaction" do
+      assert_difference('Transaction.count', -1) do
+        delete :destroy, :id => Transaction.first.id
+      end
+      assert_response :ok
+    end
   end
 end

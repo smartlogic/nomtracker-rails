@@ -1,4 +1,3 @@
-- @user = current_user
 %h3 manage
 
 %h4 debts
@@ -11,7 +10,7 @@
     %th amount
     %th 
 
-  - @user.debts.each do |trn|
+  - user.debts.each do |trn|
     %tr 
       %td= time_ago_in_words(trn.created_at) + " ago"
       %td= trn.creditor.email
@@ -28,7 +27,7 @@
     %th amount
     %th 
 
-  - @user.credits.each do |trn|
+  - user.credits.each do |trn|
     %tr 
       %td= time_ago_in_words(trn.created_at) + " ago"
       %td= trn.debtor.email
