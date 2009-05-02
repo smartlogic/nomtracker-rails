@@ -16,7 +16,7 @@
       %td= time_ago_in_words(trn.created_at) + " ago"
       %td= trn.creditor.email
       %td= number_to_currency trn.amount
-      %td= link_to_function "PAY", nil
+      %td= link_to_function "Mark as Paid", nil
 
 %h4 credits
 %strong who owes you?
@@ -33,4 +33,4 @@
       %td= time_ago_in_words(trn.created_at) + " ago"
       %td= trn.debtor.email
       %td= number_to_currency trn.amount
-      %td= link_to_function "REQUEST PAYMENT", nil
+      %td= link_to_function "Poke User", nil
