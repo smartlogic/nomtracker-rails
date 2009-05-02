@@ -14,9 +14,15 @@ class Transaction < ActiveRecord::Base
 
   def creditor_email=(email)
     self.creditor = User.find_by_email(email)
+    if self.creditor.nil?
+      self.creditor = User.create(:email => email)
+    end
   end
   def debtor_email=(email)
     self.debtor = User.find_by_email(email)
+    if self.debtor.nil?
+      self.debtor = User.create(:email => email)
+    end
   end
   def creditor_email
     return "" if creditor.nil?
