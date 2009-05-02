@@ -14,7 +14,15 @@ class StartControllerTest < ActionController::TestCase
     end
     
     should "display a login link" do
-      assert_select "a", {:href => login_url}
+      assert_select "a", {:text => "Log In"} do
+        assert_select "[href=?]", login_url
+      end
+    end
+    
+    should "display a register link" do
+      assert_select "a", {:text => "Register"} do
+        assert_select "[href=?]", new_user_url
+      end
     end
     
   end
