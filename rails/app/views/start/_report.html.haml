@@ -6,14 +6,16 @@
 
 %table 
   %tr 
-    %th name
-    %th qty
+    %th date
+    %th user
+    %th amount
     %th 
 
   - @user.debts.each do |trn|
     %tr 
+      %td= time_ago_in_words(trn.created_at) + " ago"
       %td= trn.creditor.email
-      %td= trn.amount
+      %td= number_to_currency trn.amount
       %td= link_to_function "PAY", nil
 
 %h4 credits
@@ -21,12 +23,14 @@
 
 %table 
   %tr 
-    %th name
-    %th qty
+    %th date
+    %th user
+    %th amount
     %th 
 
   - @user.credits.each do |trn|
     %tr 
+      %td= time_ago_in_words(trn.created_at) + " ago"
       %td= trn.debtor.email
-      %td= trn.amount
+      %td= number_to_currency trn.amount
       %td= link_to_function "REQUEST PAYMENT", nil
