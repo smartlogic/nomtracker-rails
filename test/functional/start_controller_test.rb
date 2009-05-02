@@ -8,23 +8,9 @@ class StartControllerTest < ActionController::TestCase
       get(:index)
     end
     
-    should "render the splash page" do
-      assert_response :success
-      assert_template 'splash'
+    should "redirect to the login page" do
+      assert_redirected_to login_path
     end
-    
-    should "display a login link" do
-      assert_select "a", {:text => "Log In"} do
-        assert_select "[href=?]", login_url
-      end
-    end
-    
-    should "display a register link" do
-      assert_select "a", {:text => "Register"} do
-        assert_select "[href=?]", new_user_url
-      end
-    end
-    
   end
   
   context "An authenticated user accesses the root of the site" do

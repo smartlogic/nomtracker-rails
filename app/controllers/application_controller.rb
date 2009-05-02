@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   def custom_login_required
     return true if authorized?
-    render :action => 'splash'
+    redirect_to login_path
     return false
   end
 end

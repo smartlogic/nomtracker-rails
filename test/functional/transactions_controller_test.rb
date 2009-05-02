@@ -40,4 +40,12 @@ class TransactionsControllerTest < ActionController::TestCase
       assert_response :ok
     end
   end
+
+
+  context "an unauthenticated user" do
+    should "be redirected to login" do
+      post :create
+      assert_redirected_to login_path
+    end
+  end
 end
