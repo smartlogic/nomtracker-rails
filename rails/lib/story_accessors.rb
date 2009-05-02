@@ -30,7 +30,7 @@ module StoryAccessors
 
     ####### Users #######
     %w(adam nick michael).each do |acct|
-      meta_accessor(acct, User, "login")
+      meta_accessor(acct, User, "email", "#{acct}@slsdev.net")
     end
     
   end
