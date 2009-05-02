@@ -4,5 +4,3 @@ defaults:
 gems:
 - name: rails
   version: '= 2.3.2'
-- name: rr
-  version: '= 0.8.1'
