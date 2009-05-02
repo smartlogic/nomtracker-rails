@@ -4,3 +4,6 @@ defaults:
 gems:
 - name: rails
   version: '= 2.3.2'
+- name: state_machine
+  version: '~> 0.7.3'
+  

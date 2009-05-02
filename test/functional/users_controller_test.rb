@@ -6,6 +6,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference 'User.count' do
       create_user
       assert_response :redirect
+      assert_equal 'active', User.find_by_email('quire@example.com').user_state
     end
   end
 
