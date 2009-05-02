@@ -28,6 +28,26 @@ class TransactionsControllerTest < ActionController::TestCase
       end
     end
 
+    should "not be able to create a transaction for someone else" do
+      assert_difference('Transaction.count', 0) do
+        post :create, :transaction => {
+          :creditor_email => nick.email,
+          :debtor_email => michael.email,
+          :amount => 1
+        }
+      end
+    end
+
+    should "not be able to create a transaction from and to yourself" do
+      assert_difference('Transaction.count', 0) do
+        post :create, :transaction => {
+          :creditor_email => adam.email,
+          :debtor_email => adam.email,
+          :amount => 1
+        }
+      end
+    end
+
     should "update transaction" do
       put :update, :id => Transaction.first.id, :transaction => { }
       assert_response :ok

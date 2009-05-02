@@ -6,6 +6,12 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :creditor
   validates_presence_of :debtor
 
+  def validate
+    if creditor == debtor
+      errors.add "Creditor", "and Debtor must be different"
+    end
+  end
+
   def creditor_email=(email)
     self.creditor = User.find_by_email(email)
   end
