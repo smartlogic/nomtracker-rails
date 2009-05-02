@@ -2,9 +2,15 @@ class TransactionsController < ApplicationController
   before_filter :custom_login_required
   def create
     @transaction = Transaction.new(params[:transaction])
+    @transaction.valid?
+    unless @transaction.creditor == current_user or @transaction.debtor == current_user
+      @transaction.errors.add("You", "must be the creditor or debtor of this transaction")
+    end
     render :update do |page|
-      if @transaction.save
-        page.replace_html 'report', :partial => '/start/report', :locals => { :user => current_user } 
+      if @transaction.errors.empty? and @transaction.save
+        page.replace_html 'report',
+          :partial => '/start/report', 
+          :locals => { :user => current_user } 
         page.replace_html 'debt-form', :partial => '/start/add_debt' 
       else
         page.replace_html 'flash', @transaction.errors.full_messages.join("<br/>")
@@ -28,10 +34,5 @@ class TransactionsController < ApplicationController
     else
       update_flash @transaction.errors
     end
-  end
-
-  private
-
-  def update_flash(error, page)
   end
 end
