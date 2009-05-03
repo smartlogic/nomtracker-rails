@@ -1,5 +1,16 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+# custom shoulda macro
+def should_require(field)
+  should "require #{field}" do
+    @user.send(field.to_s + '=', nil)
+    assert_no_difference 'User.count' do
+      @user.save
+      assert @user.errors.on(field)
+    end      
+  end
+end
+
 class UserTest < ActiveSupport::TestCase
 
   context "When a new User object has been instantiated" do
@@ -7,71 +18,84 @@ class UserTest < ActiveSupport::TestCase
       @user = User.new
     end
     
-    should "default to :pending user_state" do
-      assert_equal "pending", @user.user_state
+    should "default to :unregistered user_state" do
+      assert_equal "unregistered", @user.user_state
     end
     
     should "only require an email address to support ad hoc debt creation" do
       @user.email = 'joe@slsdev.net'
-      assert_difference 'User.with_user_state(:pending).count' do
+      assert_difference 'User.with_user_state(:unregistered).count' do
         @user.save
         assert !@user.new_record?, "#{@user.errors.full_messages.to_sentence}"
       end
     end
-    
-    should "require email" do
-      @user.email = nil
-      assert_no_difference 'User.count' do
-        @user.save
-        assert @user.errors.on(:email)
-      end
-    end
-    
-  end
 
-  context "When a new user is prepared to be saved directly into the active user_state" do
+    should "not be able to authenticate after being persisted to the database" do
+      @user.email = 'joe@slsdev.net'
+      @user.save!
+      assert !User.authenticate(@user.email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+    end
+        
+  end
+  
+  context "When a user is :unregistered" do
     setup do
-      @user = User.new(create_user_attrs)
-      @user.user_state = 'active'
+      @user = User.new(:email => 'john@slsdev.net')
     end
     
-    should "be able to be saved directly to the database" do
-      assert_difference 'User.with_user_state(:active).count' do
-        assert_nothing_raised { @user.save! }
-      end
+    should "be able to transition to pending after saving name and password" do
+      @user.attributes = {:password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John'}
+      @user.register!
+      assert_equal 'pending', @user.user_state
+    end
+        
+    should_require(:email)
+
+    should "not be able to authenticate after being persisted to the database" do
+      @user.save!
+      assert !User.authenticate(@user.email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+    end
+
+  end
+  
+  context "When a user is :pending" do
+    setup do
+      @user = User.new(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
+      @user.user_state = 'pending'
     end
     
-    should "require password" do
-      @user.password = nil
-      assert_no_difference 'User.count' do
-        @user.save
-        assert @user.errors.on(:password)
-      end      
+    should "be able to transition to :active" do
+      @user.activate!
+      assert_equal 'active', @user.user_state
     end
     
-    should "require password_confirmation" do
-      @user.password_confirmation = nil
-      assert_no_difference 'User.count' do
-        @user.save
-        assert @user.errors.on(:password_confirmation)
-      end      
+    should_require(:email)
+    should_require(:password)
+    should_require(:password_confirmation)
+    should_require(:name)
+
+    should "not be able to authenticate after being persisted to the database" do
+      @user.save!
+      assert !User.authenticate(@user.email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
+
+  end
+  
+  context "When a user is :active" do
     
-    should "require email" do
-      @user.email = nil
-      assert_no_difference 'User.count' do
-        @user.save
-        assert @user.errors.on(:email)
-      end
+    setup do
+      @user = User.new(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
+      @user.user_state = 'active'      
     end
-    
-    should "require name" do
-      @user.name = nil
-      assert_no_difference 'User.count' do
-        @user.save
-        assert @user.errors.on(:name)
-      end
-      
+
+    should_require(:email)
+    should_require(:password)
+    should_require(:password_confirmation)
+    should_require(:name)
+
+    should "be able to authenticate after being persisted to the database" do
+      @user.save!
+      assert User.authenticate(@user.email, 'johnjohn'), "A :pending user should not be able to authenticate"
     end
     
   end
