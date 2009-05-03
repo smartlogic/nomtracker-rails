@@ -1,55 +1,113 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+# custom shoulda macro
+def should_require(att)
+  should "require #{att}" do
+    create_user(att => nil)
+    assert assigns(:user).errors.on(att)
+    assert_response :success
+    assert_template 'new'
+  end
+end
+
 class UsersControllerTest < ActionController::TestCase
 
-  # context "A pending account with the given email address does not already exist" do
-    def test_should_allow_signup
-      assert_difference 'User.count' do
+  context "A user is ready to submit a form to create an account for an email that doesn't yet exist" do
+    should_require :email
+    should_require :password
+    should_require :password_confirmation
+    should_require :name
+    
+    context "the user submits a valid form" do
+      setup do
+        UserMailer.stubs(:deliver_signup_notification).returns(true).then.raises(StandardError)
         create_user
-        assert_response :redirect
-        assert_equal 'active', User.find_by_email('quire@example.com').user_state
       end
-    end
-
-    def test_should_require_name_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:name => nil)
-        assert assigns(:user).errors.on(:name)
-        assert_response :success
+      
+      should "set the flash[:notice]" do
+        assert_not_nil flash[:notice]
       end
-    end
-
-    def test_should_require_password_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:password => nil)
-        assert assigns(:user).errors.on(:password)
-        assert_response :success
+      
+      should "redirect to the site root" do
+        assert_redirected_to root_path
       end
-    end
-
-    def test_should_require_password_confirmation_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:password_confirmation => nil)
-        assert assigns(:user).errors.on(:password_confirmation)
-        assert_response :success
+      
+      should "place the user into the :pending user_state" do
+        assert User.find_by_email('quire@example.com').pending?
       end
-    end
-
-    def test_should_require_email_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:email => nil)
-        assert assigns(:user).errors.on(:email)
-        assert_response :success
+      
+      should "assign the user an activation code" do
+        assert_not_nil assigns(:user).reload.activation_code
       end
+      
+      should "trigger a signup confirmation email to the user which includes the URL to follow to activate the account" do
+        assert_raises(StandardError) { UserMailer.deliver_signup_notification("blah") }
+      end
+      
     end
-  # end
+  end
   
-  context "A pending account with the given email address does exist and a user submits the registration form" do
+  context "A pending account exists" do
+    setup do
+      @u = User.new(user_attrs)
+      @u.user_state = 'pending'
+      @u.save!
+    end
+    
+    context "the user tries the activation URL with an invalid activation code" do
+      setup do
+        UserMailer.stubs(:deliver_activation).returns(true).then.raises(StandardError)
+        get :activate, {:activation_code => "something it would never be"}
+      end
+      
+      should "redirect to the root path" do
+        assert_redirected_to root_path
+      end
+      
+      should "set a flash[:error] message" do
+        assert_not_nil flash[:error]
+      end
+      
+      should "not activate the user" do
+        assert @u.reload.pending?
+      end
+      
+      should "not send an account activation email" do
+        assert_nothing_raised { UserMailer.deliver_activation("blah") }
+      end
+    end
+    
+    context "the user tries the activation URL with a valid activation code" do
+      setup do 
+        UserMailer.stubs(:deliver_activation).returns(true).then.raises(StandardError)
+        get :activate, {:activation_code => @u.activation_code}
+      end
+      
+      should "redirect to the login page" do
+        assert_redirected_to login_url
+      end
+      
+      should "set flash[:notice]" do
+        assert_not_nil flash[:notice]
+      end
+            
+      should "activate the user" do
+        assert @u.reload.active?
+      end
+      
+      should "trigger an account activation email to the user" do
+        assert_raises(StandardError) { UserMailer.deliver_activation("blah") }
+      end
+      
+    end
+  end
+  
+  context "An unregistered account with the given email address does exist and a user submits the registration form" do
     setup do
       @user = User.create!(:email => 'quire@example.com')
       @original_user_count = User.count
+      @original_unregistered_user_count = User.with_user_state(:unregistered).count
       @original_pending_user_count = User.with_user_state(:pending).count
-      @original_active_user_count = User.with_user_state(:active).count
       create_user
     end
     
@@ -61,17 +119,33 @@ class UsersControllerTest < ActionController::TestCase
       assert_equal @original_user_count, User.count
     end
     
-    should "activate the existing user" do
-      assert_equal 'active', @user.reload.user_state
+    should "make the existing user pending" do
+      assert @user.reload.pending?
     end
     
-    should "decrease pending users by 1" do
-      assert_equal @original_pending_user_count - 1, User.with_user_state(:pending).count
+    should "decrease unregistered users by 1" do
+      assert_equal @original_unregistered_user_count - 1, User.with_user_state(:unregistered).count
     end
     
-    should "increase active users by 1" do
-      assert_equal @original_active_user_count + 1, User.with_user_state(:active).count      
+    should "increase pending users by 1" do
+      assert_equal @original_pending_user_count + 1, User.with_user_state(:pending).count
     end
+        
+  end
+  
+  context "A pending user already shares the same email address" do
+    setup do
+      u = User.new(user_attrs)
+      u.user_state = 'pending'
+      u.save!
+      create_user
+    end
+    
+    should "respond with a 200 telling the user to select a different email address" do
+      assert_response :success
+      assert_template 'new'
+      assert assigns(:user).errors.on(:email)
+    end    
   end
   
   context "An active user already shares the same email address" do
