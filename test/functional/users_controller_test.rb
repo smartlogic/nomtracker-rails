@@ -1,34 +1,54 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+def should_require(att)
+  should "require #{att}" do
+    create_user(att => nil)
+    assert assigns(:user).errors.on(att)
+    assert_response :success
+    assert_template 'new'
+  end
+end
+
 class UsersControllerTest < ActionController::TestCase
 
-  # context "A pending account with the given email address does not already exist" do
-    def test_should_allow_signup
-      assert_difference 'User.count' do
-        create_user
-        assert_redirected_to root_path
-        assert_not_nil flash[:notice]
-        assert User.find_by_email('quire@example.com').pending?
-      end
-    end
-
-    [:name, :password, :password_confirmation, :email].each do |attr|
-      src = <<-RUBY
-        def test_should_require_#{attr}_on_signup
-          create_user(:#{attr} => nil)
-          assert assigns(:user).errors.on(:#{attr})
-          assert_response :success
-          assert_template 'new'
-        end
-      RUBY
-      class_eval src, __FILE__, __LINE__
+  context "A user is ready to submit a form to create an account for an email that doesn't yet exist" do
+    setup do
+      
     end
     
-    def test_should_sign_up_user_with_activation_code
-      create_user
-      assigns(:user).reload
-      assert_not_nil assigns(:user).activation_code
+    should_require :email
+    should_require :password
+    should_require :password_confirmation
+    should_require :name
+    
+    context "the user submits a valid form" do
+      setup do
+        #UserMailer.any_instance.stubs(:deliver_signup_notification).returns
+        create_user
+      end
+      
+      should "set the flash[:notice]" do
+        assert_not_nil flash[:notice]
+      end
+      
+      should "redirect to the site root" do
+        assert_redirected_to root_path
+      end
+      
+      should "place the user into the :pending user_state" do
+        assert User.find_by_email('quire@example.com').pending?
+      end
+      
+      should "assign the user an activation code" do
+        assert_not_nil assigns(:user).reload.activation_code
+      end
+      
+      should "trigger a signup confirmation email to the user which includes the URL to follow to activate the account"
+      
     end
+  end
+
+  # context "A pending account with the given email address does not already exist" do
     
     def test_should_activate_user
       john = User.new(:name => 'John', :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn')

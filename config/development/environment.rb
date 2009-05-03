@@ -16,5 +16,8 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
+SITE_URL = "nomtracker.localhost"
+
 require 'sanitize_email'
 ActionMailer::Base.local_environments = %w(development)
+ActionMailer::Base.sanitized_recipients = "jtrupiano@gmail.com"
