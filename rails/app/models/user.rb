@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
     return nil if email.blank? || password.blank?
     u = find_by_email(email.downcase) # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+    u && u.authenticated?(password) && u.active? ? u : nil
   end
 
   def email=(value)
