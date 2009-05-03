@@ -1,6 +1,9 @@
 %h1
   Log In
 
+- if @error
+  %p.error= h(@error)
+  
 - form_tag session_path do
   %p
     = label_tag 'email'

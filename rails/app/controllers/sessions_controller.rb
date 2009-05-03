@@ -9,17 +9,13 @@ class SessionsController < ApplicationController
     logout_keeping_session!
     user = User.authenticate(params[:email], params[:password])
     if user
-      # Protects against session fixation attacks, causes request forgery
-      # protection if user resubmits an earlier form using back
-      # button. Uncomment if you understand the tradeoffs.
-      # reset_session
-      self.current_user = user
+      self.current_user = user # logs them in 
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else
-      note_failed_signin
+      @error       = "Couldn't log you in as '#{params[:email]}'"
       @email       = params[:email]
       @remember_me = params[:remember_me]
       render :action => 'new'
@@ -32,10 +28,4 @@ class SessionsController < ApplicationController
     redirect_back_or_default('/')
   end
 
-protected
-  # Track failed login attempts
-  def note_failed_signin
-    flash[:error] = "Couldn't log you in as '#{params[:email]}'"
-    logger.warn "Failed login for '#{params[:email]}' from #{request.remote_ip} at #{Time.now.utc}"
-  end
 end
