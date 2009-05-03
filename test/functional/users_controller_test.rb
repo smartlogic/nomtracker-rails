@@ -6,50 +6,66 @@ class UsersControllerTest < ActionController::TestCase
     def test_should_allow_signup
       assert_difference 'User.count' do
         create_user
-        assert_response :redirect
-        assert_equal 'active', User.find_by_email('quire@example.com').user_state
+        assert_redirected_to root_path
+        assert_not_nil flash[:notice]
+        assert User.find_by_email('quire@example.com').pending?
       end
     end
 
-    def test_should_require_name_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:name => nil)
-        assert assigns(:user).errors.on(:name)
-        assert_response :success
-      end
+    [:name, :password, :password_confirmation, :email].each do |attr|
+      src = <<-RUBY
+        def test_should_require_#{attr}_on_signup
+          create_user(:#{attr} => nil)
+          assert assigns(:user).errors.on(:#{attr})
+          assert_response :success
+          assert_template 'new'
+        end
+      RUBY
+      class_eval src, __FILE__, __LINE__
+    end
+    
+    def test_should_sign_up_user_with_activation_code
+      create_user
+      assigns(:user).reload
+      assert_not_nil assigns(:user).activation_code
+    end
+    
+    def test_should_activate_user
+      john = User.new(:name => 'John', :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn')
+      john.user_state = 'pending'
+      john.save!
+      
+      assert_not_nil john.reload.activation_code
+      assert_nil User.authenticate('aaron', 'test')
+      
+      get :activate, :activation_code => john.activation_code
+      assert_redirected_to login_url
+      assert_not_nil flash[:notice]
+      assert_equal john, User.authenticate('john@slsdev.net', 'johnjohn')
     end
 
-    def test_should_require_password_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:password => nil)
-        assert assigns(:user).errors.on(:password)
-        assert_response :success
-      end
+    def test_should_not_activate_user_without_key
+      get :activate
+      assert_nil flash[:notice]
+    rescue ActionController::RoutingError
+      # in the event your routes deny this, we'll just bow out gracefully.
     end
 
-    def test_should_require_password_confirmation_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:password_confirmation => nil)
-        assert assigns(:user).errors.on(:password_confirmation)
-        assert_response :success
-      end
+    def test_should_not_activate_user_with_blank_key
+      get :activate, :activation_code => ''
+      assert_nil flash[:notice]
+    rescue ActionController::RoutingError
+      # well played, sir
     end
-
-    def test_should_require_email_on_signup
-      assert_no_difference 'User.count' do
-        create_user(:email => nil)
-        assert assigns(:user).errors.on(:email)
-        assert_response :success
-      end
-    end
+    
   # end
   
-  context "A pending account with the given email address does exist and a user submits the registration form" do
+  context "An unregistered account with the given email address does exist and a user submits the registration form" do
     setup do
       @user = User.create!(:email => 'quire@example.com')
       @original_user_count = User.count
+      @original_unregistered_user_count = User.with_user_state(:unregistered).count
       @original_pending_user_count = User.with_user_state(:pending).count
-      @original_active_user_count = User.with_user_state(:active).count
       create_user
     end
     
@@ -61,17 +77,33 @@ class UsersControllerTest < ActionController::TestCase
       assert_equal @original_user_count, User.count
     end
     
-    should "activate the existing user" do
-      assert_equal 'active', @user.reload.user_state
+    should "make the existing user pending" do
+      assert @user.reload.pending?
     end
     
-    should "decrease pending users by 1" do
-      assert_equal @original_pending_user_count - 1, User.with_user_state(:pending).count
+    should "decrease unregistered users by 1" do
+      assert_equal @original_unregistered_user_count - 1, User.with_user_state(:unregistered).count
     end
     
-    should "increase active users by 1" do
-      assert_equal @original_active_user_count + 1, User.with_user_state(:active).count      
+    should "increase pending users by 1" do
+      assert_equal @original_pending_user_count + 1, User.with_user_state(:pending).count
     end
+        
+  end
+  
+  context "A pending user already shares the same email address" do
+    setup do
+      u = User.new(user_attrs)
+      u.user_state = 'pending'
+      u.save!
+      create_user
+    end
+    
+    should "respond with a 200 telling the user to select a different email address" do
+      assert_response :success
+      assert_template 'new'
+      assert assigns(:user).errors.on(:email)
+    end    
   end
   
   context "An active user already shares the same email address" do
