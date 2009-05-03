@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     end
 
     if @user && @user.save && @user.errors.empty?
+      UserMailer.deliver_signup_notification(@user)
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
       redirect_to root_path
     else
@@ -31,6 +32,7 @@ class UsersController < ApplicationController
     case
     when (!params[:activation_code].blank?) && user && user.pending?
       user.activate!
+      UserMailer.deliver_activation(user)
       flash[:notice] = "Signup complete! Please sign in to continue."
       redirect_to login_url
     when params[:activation_code].blank?
