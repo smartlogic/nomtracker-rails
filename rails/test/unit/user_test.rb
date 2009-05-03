@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+# custom shoulda macro
 def should_require(field)
   should "require #{field}" do
     @user.send(field.to_s + '=', nil)

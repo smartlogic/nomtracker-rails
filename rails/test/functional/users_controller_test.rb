@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+# custom shoulda macro
 def should_require(att)
   should "require #{att}" do
     create_user(att => nil)
@@ -12,10 +13,6 @@ end
 class UsersControllerTest < ActionController::TestCase
 
   context "A user is ready to submit a form to create an account for an email that doesn't yet exist" do
-    setup do
-      
-    end
-    
     should_require :email
     should_require :password
     should_require :password_confirmation
@@ -23,7 +20,7 @@ class UsersControllerTest < ActionController::TestCase
     
     context "the user submits a valid form" do
       setup do
-        #UserMailer.any_instance.stubs(:deliver_signup_notification).returns
+        UserMailer.stubs(:deliver_signup_notification).returns(true).then.raises(StandardError)
         create_user
       end
       
@@ -43,42 +40,67 @@ class UsersControllerTest < ActionController::TestCase
         assert_not_nil assigns(:user).reload.activation_code
       end
       
-      should "trigger a signup confirmation email to the user which includes the URL to follow to activate the account"
+      should "trigger a signup confirmation email to the user which includes the URL to follow to activate the account" do
+        assert_raises(StandardError) { UserMailer.deliver_signup_notification("blah") }
+      end
       
     end
   end
-
-  # context "A pending account with the given email address does not already exist" do
-    
-    def test_should_activate_user
-      john = User.new(:name => 'John', :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn')
-      john.user_state = 'pending'
-      john.save!
-      
-      assert_not_nil john.reload.activation_code
-      assert_nil User.authenticate('aaron', 'test')
-      
-      get :activate, :activation_code => john.activation_code
-      assert_redirected_to login_url
-      assert_not_nil flash[:notice]
-      assert_equal john, User.authenticate('john@slsdev.net', 'johnjohn')
-    end
-
-    def test_should_not_activate_user_without_key
-      get :activate
-      assert_nil flash[:notice]
-    rescue ActionController::RoutingError
-      # in the event your routes deny this, we'll just bow out gracefully.
-    end
-
-    def test_should_not_activate_user_with_blank_key
-      get :activate, :activation_code => ''
-      assert_nil flash[:notice]
-    rescue ActionController::RoutingError
-      # well played, sir
+  
+  context "A pending account exists" do
+    setup do
+      @u = User.new(user_attrs)
+      @u.user_state = 'pending'
+      @u.save!
     end
     
-  # end
+    context "the user tries the activation URL with an invalid activation code" do
+      setup do
+        UserMailer.stubs(:deliver_activation).returns(true).then.raises(StandardError)
+        get :activate, {:activation_code => "something it would never be"}
+      end
+      
+      should "redirect to the root path" do
+        assert_redirected_to root_path
+      end
+      
+      should "set a flash[:error] message" do
+        assert_not_nil flash[:error]
+      end
+      
+      should "not activate the user" do
+        assert @u.reload.pending?
+      end
+      
+      should "not send an account activation email" do
+        assert_nothing_raised { UserMailer.deliver_activation("blah") }
+      end
+    end
+    
+    context "the user tries the activation URL with a valid activation code" do
+      setup do 
+        UserMailer.stubs(:deliver_activation).returns(true).then.raises(StandardError)
+        get :activate, {:activation_code => @u.activation_code}
+      end
+      
+      should "redirect to the login page" do
+        assert_redirected_to login_url
+      end
+      
+      should "set flash[:notice]" do
+        assert_not_nil flash[:notice]
+      end
+            
+      should "activate the user" do
+        assert @u.reload.active?
+      end
+      
+      should "trigger an account activation email to the user" do
+        assert_raises(StandardError) { UserMailer.deliver_activation("blah") }
+      end
+      
+    end
+  end
   
   context "An unregistered account with the given email address does exist and a user submits the registration form" do
     setup do
