@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>My Account | Nomtracker</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="breadcrumb">
+    	<a href="default.htm">Nomtracker</a>
+        My Account
+    </div>
+    
+    <div id="account_links">
+    	yflicker@gmail.com |
+		<a href="transactions.htm" accesskey="t">My Transactions</a> |
+    	<a href="#" accesskey="l">Logout</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+function showhide(elid) {
+	elt = document.getElementById(elid);
+	showorhide = arguments.length > 1 ? arguments[1] : 0;
+	switch (showorhide) {
+		case 0:		// toggle
+			elt.style.display = elt.style.display == '' ? 'none' : '';
+			break;
+		case 1:		// show
+			elt.style.display = '';
+			break;
+		case 2:		// hide
+			elt.style.display = 'none';
+	}
+}
+</script>
+<div style="position:absolute;top:0px;left:0px;">
+	<a href="#" onclick="showhide('emailadded');">toggle email added msg</a><br />
+	<a href="#" onclick="showhide('emailnotverified');">toggle email not yet verified msg</a><br />
+	<a href="#" onclick="showhide('emailsnotverified');">toggle emails not yet verified msg</a><br />
+	<a href="#" onclick="showhide('emailverificationresent');">toggle email verification email resent msg</a><br />
+</div>
+
+<div id="main">
+	<div id="emailadded" class="informational" style="display:none;">We added new@email.com to your account and sent you a verification email.  The verification email contains a link you'll need to click before you can view transactions associated with that email address.  Note that you need to verify the email address within 24 hours or we'll remove it from your account.</div>
+	<div id="emailnotverified" class="warning" style="display:none;">Note that you still haven't verified the yair@smartlogicsolutions.com email address.  You must verify the email address by clicking the link in the verification email we sent to you.  You cannot view transactions associated with this email address until it is verified.</div>
+	<div id="emailsnotverified" class="warning" style="display:none;">Note that you still haven't verified some email addresses.  You must verify each email address by clicking the link in the verification emails we sent to you.  You cannot view transactions associated with an email address until it is verified.</div>
+	<div id="emailverificationresent" class="informational" style="display:none;">We resent the verification email to yair@smartlogicsolutions.com.  Go click the link in the email and then we can show you transactions associated with that email address.  You have until 3:04pm (24 hours from the time user added the email address to account) to verify the account.</div>
+	<form method="post" action="" onsubmit="return false;">
+		<h1>Email Addresses</h1>
+		<img src="check.gif" alt="verified" title="This email address has been verified" /> <input type="text" name="email[]" value="yflicker@gmail.com" readonly="readonly" />
+			<a href="#" onclick="javascript:alert('This is a rails app so the confirmation message must read \'Are you sure?\'');"><img src="redex.gif" alt="remove email address" title="Click here to remove this email address from your account" /></a><br />
+		<img src="warning.gif" alt="not verified" title="This email address has not yet been verified!" /> <input type="text" name="email[]" value="yair@smartlogicsolutions.com" readonly="readonly" />
+			<a href="#" onclick="javascript:alert('This is a rails app so the confirmation message must read \'Are you sure?\'');"><img src="redex.gif" alt="remove email address" title="Click here to remove this email address from your account" /></a> or <a href="#" onclick="showhide('emailverificationresent');">resend verification email</a><br />
+		<div id="new_email_address" style="display:none;">
+			<input type="text" name="email[]" value="" id="new_email_address_input" />
+			<input type="button" value="Add" onclick="showhide('emailadded', 1);document.getElementById('new_email_address').style.display = 'none';document.getElementById('new_email_address_field').style.display = '';" />
+		</div>
+		<div id="new_email_address_field" style="display:none;">
+			<img src="warning.gif" alt="not verified" title="This email address has not yet been verified!" /> <input type="text" name="email[]" value="new@email.com" readonly="readonly" />
+			<a href="#" onclick="javascript:alert('This is a rails app so the confirmation message must read \'Are you sure?\'');"><img src="redex.gif" alt="remove email address" title="Click here to remove this email address from your account" /></a> or <a href="#" onclick="showhide('emailverificationresent');">resend verification email</a><br />
+		</div>
+		<a href="#" onclick="document.getElementById('new_email_address').style.display = '';this.style.display = 'none';document.getElementById('new_email_address_input').focus()">Add Another</a>
+		
+		<h1>Preferences</h1>
+		<input type="checkbox" name="send_emails_on_new_transactions" id="send_emails_on_new_transactions" checked="checked" />
+		<label for="send_emails_on_new_transactions">Send me an email when a new debt/credit is assigned to me</label><br />
+		<input type="checkbox" name="send_emails_on_new_transactions" id="send_emails_on_new_transactions" checked="checked" />
+		<label for="send_emails_on_new_transactions">Automatically accept all credits/debts from people with whom I've previously had a transaction</label><br />
+		<input type="checkbox" name="enable_rss" id="enable_rss" onchange="document.getElementById('rssurl').style.display = this.checked ? '' : 'none'" />
+		<label for="enable_rss">Enable my RSS feed for debts/credits assigned to me</label><br />
+		<input type="text" name="rssurl" id="rssurl" style="display:none;width:98%;" onfocus="this.select()" value="http://nomtracker.com/rss/1634/asdf23rawfraw4fa34fa34ga3g4ha3g5hag5mah4gjhagjha4jg5hj4agh" />
+	</form>
+</div>
+
+<div id="footer">
+	&copy; 2009 All Rights Reserved.
+    <a href="http://www.smartlogicsolutions.com/">SmartLogic Solutions</a>
+	<a href="about.htm">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">TOS</a>
+</div>
+
+</body>
+</html>

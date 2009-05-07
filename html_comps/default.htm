@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Nomtracker | Manage little debts and credits</title>
+	<link rel="stylesheet" href="style.css" />
+	<style type="text/css">
+	/* not happy with this CSS...I know there's some better method out there */
+	#signup_form_container_container {
+		visibility: hidden;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width:100%;
+		height:100%;
+		z-index: 1000;
+		background-color:#eee;
+		opacity: 0.9;
+		filter:alpha(opacity=90);
+		-moz-opacity: 0.9;
+	}
+	
+	#signup_form_container_container div#signup_form_container {
+		width:16em;
+		margin: auto;
+		margin-top: 7.5em;
+		background-color: white;
+		border:.25em solid black;
+		padding:0em 2em 2em 2em;
+	}
+	</style>
+</head>
+
+<body>
+
+<script type="text/javascript">
+function displayLogInForm() {
+	document.getElementById('sign_up_in_links').style.display	= 'none';
+	document.getElementById('sign_in_form').style.display		= '';
+	document.getElementById('sign_in_form_username').focus();
+	document.getElementById('sign_in_form_username').select();
+}
+function hideLogInForm() {
+	document.getElementById('sign_up_in_links').style.display	= '';
+	document.getElementById('sign_in_form').style.display		= 'none';
+}
+
+function displaySignUpForm() {
+	signup_form = document.getElementById("signup_form_container_container");
+	if (signup_form.style.visibility == 'visible') {
+		signup_form.style.visibility = 'hidden';
+	} else {
+		signup_form.style.visibility = 'visible';
+		document.getElementById('signup_email_address').focus();
+	}
+}
+
+// capture the esc key and hide the signup form
+if (document.layers) { document.captureEvents(Event.KEYPRESS); }
+document.onkeypress = getKey;
+function getKey(keyStroke) {
+	var keyCode = (document.layers) ? keyStroke.which : keyStroke.keyCode;
+	if (keyCode == 27) {
+		document.getElementById("signup_form_container_container").style.visibility = 'hidden';
+		hideLogInForm();
+	}
+}
+</script>
+
+<!-- convenience links while we develop the app -->
+<div style="position:absolute;left:0px;top:0px;">
+	Links to user pages:<br />
+	<a href="transactions.htm">View a user's transactions</a><br />
+	<a href="account.htm">View a user's account page</a><br />
+</div>
+
+<!-- this div only appears if the user isn't logged in -->
+<div id="signup_form_container_container">
+	<div id="signup_form_container">
+		<h1 style="text-align:center;">Sign Up</h1>
+		<form>
+			<div><label for="signup_email_address">Email address:</label></div>
+			<input type="text" name="email_address" id="signup_email_address" />
+			<div><label for="signup_password">Password:</label></div>
+			<input type="password" name="password" id="signup_password" />
+			<div style="text-align:right;"><a href="#" onclick="displaySignUpForm()">cancel</a> or <input type="submit" value="Sign Up" style="vertical-align:middle;" /></div>
+		</form>
+	</div>
+</div>
+
+<div id="header">
+	<div id="breadcrumb">
+    	Nomtracker
+    </div>
+    
+    <div id="account_links">
+		<div id="sign_up_in_links" style="float:right;">
+			<a href="#" onclick="displaySignUpForm()">Sign Up</a> |
+			<a href="#" onclick="displayLogInForm()" accesskey="l">Log In</a>
+		</div>
+		<div id="sign_in_form" style="float:right;display:none;">
+			<form method="post" action="" onsubmit="return false">
+				<input type="text" name="username" id="sign_in_form_username" value="email address" />
+				<input type="password" name="password" />&nbsp;<input type="submit" value="Log In" /><br />
+				<div style="float:left;">
+					<input type="checkbox" name="rememberme" id="sign_in_form_rememberme" checked="checked" />
+					<label for="sign_in_form_rememberme">Remember me</label>
+				</div>
+				<div style="float:right;">or <a href="#" onclick="hideLogInForm()">cancel</a></div>
+			</form>
+		</div>
+    </div>
+</div>
+
+<div id="main">
+	<h1>What is nomtracker?</h1>
+	<p>Nomtracker is a simple tool that allows you to keep track of money you owe to people and money owed to you by others.</p>
+	<p>If you regularly hang out with the same group of people and find it a hassle to keep track of who owes whom money, then nomtracker is the tool for you.</p>
+	<p><a href="about.htm">Read more about how nomtracker came about</a>.</p>
+
+	<h1>How do I get started?</h1>
+	<p><a href="#" onclick="displaySignUpForm()">Sign Up</a> for an account and then start creating <span class="credit">credits</span> and <span class="debt">debts</span>.</p>
+	<p>When you create a credit or debt the other person will receive an email stating as much.  Then both of you can login to nomtracker to track your respective credits and debts.</p>
+	
+	<h1>Screenshots</h1>
+	<img src="check.gif" width="80" height="60" />
+	<img src="redex.gif" width="80" height="60" />
+	<img src="warning.gif" width="80" height="60" />
+	
+	<div class="special_sign_up_link"><a href="#" onclick="displaySignUpForm()">Sign Up!</a></div>
+</div>
+
+<div id="footer">
+	&copy; 2009 All Rights Reserved.
+    <a href="http://www.smartlogicsolutions.com/">SmartLogic Solutions</a>
+	<a href="about.htm">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">TOS</a>
+</div>
+
+<!-- google analytics to be added here -->
+
+</body>
+</html>

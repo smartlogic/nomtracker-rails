@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>My Transactions | Nomtracker</title>
+	<link rel="stylesheet" href="style.css" />
+	<style type="text/css">
+	/* not happy with this CSS...I know there's some better method out there */
+	#nag_form_container_container {
+		visibility: hidden;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width:100%;
+		height:100%;
+		z-index: 1000;
+		background-color:#eee;
+		opacity: 0.9;
+		filter:alpha(opacity=90);
+		-moz-opacity: 0.9;
+	}
+	
+	#nag_form_container_container div#nag_form_container {
+		width:26em;
+		margin: auto;
+		margin-top: 7.5em;
+		background-color: white;
+		border:.25em solid black;
+		padding:0em 2em 2em 2em;
+	}
+	</style>
+</head>
+
+<body>
+
+<script style="text/javascript">
+var numberOfTransactions = 0;
+function openNewTransactionForm() {
+	numberOfTransactions++;
+	document.getElementById('open_transaction_form_link').style.display = 'none';
+	document.getElementById('add_new_transaction').style.display = '';
+	document.getElementById('other_person').focus();
+	document.getElementById('other_person').select();
+}
+function closeNewTransactionForm() {
+	// hide the msgs
+	showhide('successfultransaction', 2);
+	showhide('successfultransactions', 2);
+	// hide the row
+	if (numberOfTransactions == 2) {
+		removeYetAnotherTransaction();
+	} else {
+		numberOfTransactions--;
+		document.getElementById('open_transaction_form_link').style.display = '';
+		document.getElementById('add_new_transaction').style.display = 'none';
+	}
+}
+function addAnotherTransaction() {
+	numberOfTransactions++;
+	document.getElementById('yet_another_transaction').style.display = '';
+	document.getElementById('other_person1').focus();
+	document.getElementById('other_person1').select();
+	document.getElementById('post_transaction_form_link').innerHTML = 'Save these transactions';
+}
+function removeYetAnotherTransaction() {
+	// remove the row
+	numberOfTransactions--;
+	switch (numberOfTransactions) {
+		case 0:
+			// hide everything and go back to the default page state
+		case 1: // yes, I know this will always be the case.  just prototyping the "logic" i suppose
+			document.getElementById('post_transaction_form_link').innerHTML = 'Save this transaction';
+		default:
+			// remove entry numberOfTransactions
+			document.getElementById('yet_another_transaction').style.display = 'none';
+			// focus/select the (numberOfTransactions - 1)th description field
+			document.getElementById('description').focus();
+			document.getElementById('description').select();
+	}
+}
+function showhide(elid) {
+	elt = document.getElementById(elid);
+	showorhide = arguments.length > 1 ? arguments[1] : 0;
+	switch (showorhide) {
+		case 0:		// toggle
+			elt.style.display = elt.style.display == '' ? 'none' : '';
+			break;
+		case 1:		// show
+			elt.style.display = '';
+			break;
+		case 2:		// hide
+			elt.style.display = 'none';
+	}
+}
+
+// related to the nag form
+function displayNagForm() {
+	signup_form = document.getElementById("nag_form_container_container");
+	if (signup_form.style.visibility == 'visible') {
+		signup_form.style.visibility = 'hidden';
+	} else {
+		signup_form.style.visibility = 'visible';
+		document.getElementById('nag_personal_message').focus();
+	}
+}
+// capture the esc key and hide the signup form
+if (document.layers) { document.captureEvents(Event.KEYPRESS); }
+document.onkeypress = getKey;
+function getKey(keyStroke) {
+	var keyCode = (document.layers) ? keyStroke.which : keyStroke.keyCode;
+	if (keyCode == 27) {
+		document.getElementById("nag_form_container_container").style.visibility = 'hidden';
+	}
+}
+</script>
+
+<!-- this is the nag form -->
+<div id="nag_form_container_container">
+	<div id="nag_form_container">
+		<h1 style="text-align:center;">Nag email@address.com</h1>
+		<form>
+			<div><label for="nag_personal_message">Enter a personal message:</label></div>
+			<textarea name="personal_message" id="nag_personal_message" style="width:100%;" rows="8">Hey email@address.com:
+
+yflicker@gmail.com spotted you $5.67 for drinks at the bar on 5/6.  Pay him back.
+
+Thanks.</textarea>
+			<div style="text-align:right;">
+				<a href="#" onclick="displayNagForm()">cancel</a> or
+				<input type="button" value="Send Nag-mail" style="vertical-align:middle;" onclick="displayNagForm();showhide('nagmsg', 1);" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="header">
+	<div id="breadcrumb">
+    	<a href="default.htm">Nomtracker</a>
+		My Transactions
+	</div>
+	
+	<div id="account_links">
+		yflicker@gmail.com |
+		<a href="account.htm" accesskey="a">My Account</a> |
+		<a href="#" accesskey="l">Logout</a>
+	</div>
+</div>
+
+<div style="position:absolute;top:0px;left:0px;">
+	generic messages:<br />
+	<a href="#" onclick="showhide('error');showhide('warning');showhide('informational');showhide('success');">toggle all flash msgs</a><br />
+	<a href="#" onclick="showhide('error');">toggle error flash msg</a><br />
+	<a href="#" onclick="showhide('warning');">toggle warning flash msg</a><br />
+	<a href="#" onclick="showhide('informational');">toggle informational flash msg</a><br />
+	<a href="#" onclick="showhide('success');">toggle success flash msg</a><br />
+	<br />
+	specific to this page:<br />
+	<a href="#" onclick="showhide('successfulcreate');">toggle successful account creation msg</a><br />
+	<a href="#" onclick="showhide('successfullogin');">toggle successful login message</a><br />
+	<a href="#" onclick="showhide('successfultransaction');">toggle successful creation of x-ion msg</a><br />
+	<a href="#" onclick="showhide('successfultransactions');">toggle successful creation of x-ion<strong>s</strong> msg</a><br />
+	<a href="#" onclick="showhide('nagmsg');">toggle nag msg successfully sent</a><br />
+</div>
+
+<div id="main">
+	<!-- NOTE to devs: you do NOT need to assign an ID to these divs - all you need is to assign classes to the divs.  I needed to assign id's to the divs to get the javascript directly above here to work. -->
+	<div class="error" id="error" style="display:none;">This is an error.  Guidelines for use: form data were submitted but not stored to the DB due to error in input.  Other fatal error.  In Western civilizations, RED generally signals that you must stop and pay attention and fix something (red lights are red).</div>
+	<div class="warning" id="warning" style="display:none;">This is a warning.  Guidelines for use: user entered funny form data that were stored to the DB but caused the application to raise an eyebrow.  This is not a happy message nor is it a fatal message.  In Western civilizations, YELLOW generally signals that one should take note of something and proceed with caution (caution tape is yellow, and yellow lights are yellow too).</div>
+	<div class="informational" id="informational" style="display:none;">This is an informational message, which is a non-urgent message that may (or may not) contain important information.  Can definitely be triggered by form input - used over a "success" message if the user has to perform some follow up action after submitting a form.  Or perhaps the user is browsing the site and we want to let you know that your buddy signed on, or the game is starting soon, etc.  The user doesn't necessarily have to be wary of anything - or be cautious. As opposed to all other messages. (blue lights would be blue, if they existed).</div>
+	<div class="success" id="success" style="display:none;">This is a message denoting success!  Guidelines for use: user submitted a form and all data were verified to be in the appropriate format, all business rules were satisfied, and the data were successfully stored (in the case of creating a record) or verified (in the case of logging in) in the database.  In Western civilizations, green denotes that you should move forward - you did something right!  Proceed with pleasure! (green lights are green - keep on driving)</div>
+	<div class="success" id="successfulcreate" style="display:none;">Thanks for registering, yflicker@gmail.com!  Start creating <span class="debt">debts</span> and <span class="credit">credits</span> using the form below.  Don't forget to click the activation link in the email we just sent you.</div>
+	<div class="success" id="successfullogin" style="display:none;">You are logged in as yflicker@gmail.com. [This message is somewhat useless, plz fade out after 3s]</div>
+	<div class="success" id="successfultransaction" style="display:none;">Your transaction was successfully created.  We sent an email notification to bob@gmail.com.  (if not on auto-approval then:) Note that (strip out everything before @, e.g. "bob") will need to approve the transaction before it posts to your account.</div>
+	<div class="success" id="successfultransactions" style="display:none;">Your transactions were successfully created.  We sent email notifications to the other parties.  (if one or more recipients are not on auto-approval then:) Note that one or more of the recipients will need to approve the transactions before they post to your account.</div>
+	<div class="success" id="nagmsg" style="display:none;">We sent a nag-mail to email@address.com.  Good luck getting your money back.</div>
+	<!-- Enough of the flash messages already... -->
+	
+	<p id="welcome_message">Welcome to nomtracker.  Your <em>nomworth</em> is <span class="credit">$4.35</span>.  You're rich!</p>
+	
+	<h1 style="margin-top:0px;">Add new credits and debts</h1>
+	<div><a href="#" onclick="openNewTransactionForm()" id="open_transaction_form_link"><img src="plus.gif" alt="plus symbol" /> Add a new debt or credit</a></div>
+	<div id="add_new_transaction" style="display:none;">
+		<form method="post" action="" onsubmit="return false">
+			<input type="text" name="other_person" id="other_person" value="other person's email" style="width:10em;" />
+			<input type="radio" name="transaction_type" id="type_credit" /><label for="type_credit" class="credit">borrowed</label>
+			<input type="radio" name="transaction_type" id="type_debt" /><label for="type_debt" class="debt">lent me</label>
+			<input type="text" name="amount" value="$X.YZ" style="width:3em;" /> on
+			<input type="text" name="date" value="5/2 at 6pm" style="width:6em;" /> for
+			<input type="text" name="description" value="drinks at the bar" id="description" style="width:10.8em;" />
+			<a href="#" onclick="closeNewTransactionForm()"><img src="redex.gif" alt="remove this" title="Remove this transaction" /></a><br />
+			<div id="yet_another_transaction" style="display:none;">
+				<input type="text" name="other_person" id="other_person1" value="other person's email" style="width:10em;" />
+				<input type="radio" name="transaction_type" id="type_credit1" /><label for="type_credit1" class="credit">borrowed</label>
+				<input type="radio" name="transaction_type" id="type_debt1" /><label for="type_debt1" class="debt">lent me</label>
+				<input type="text" name="amount" value="$X.YZ" style="width:3em;" /> on
+				<input type="text" name="date" value="5/2 at 6pm" style="width:6em;" /> for
+				<input type="text" name="description" value="drinks at the bar" style="width:10.8em;" />
+				<a href="#" onclick="closeNewTransactionForm()"><img src="redex.gif" alt="remove this" title="Remove this transaction" /></a>
+			</div>
+			<a href="#" style="float:left;" onclick="addAnotherTransaction()"><img src="plus.gif" alt="plus symbol" /> Add another</a>
+			<a href="#" id="post_transaction_form_link" style="float:right;" onclick="numberOfTransactions == 1 ? (showhide('successfultransaction', 1) + showhide('successfultransactions', 2)) : (showhide('successfultransactions', 1) + showhide('successfultransaction', 2))">Save this transaction</a>
+		</form>
+	</div>
+	
+	<h1 id="pending">Pending</h1>
+    <p>You have 2 pending transactions - credits/debts created by other users.  You need to accept and/or reject them.</p>
+	<table>
+		<tr>
+			<th>Date</th>
+			<th>Creditor</th>
+			<th>Debtor</th>
+			<th>Amt</th>
+			<th>Description</th>
+			<th>Actions</th>
+		</tr>
+		<tr>
+			<td>Thu 4/30, 7pm</td>
+			<td><em>you</em></td>
+			<td>gjastrab@gmail.com</td>
+			<td class="credit">$8.50</td>
+			<td>a description that will run long causing this line to break</td>
+			<td class="utility_links"><a href="#">accept</a> or <a href="#">reject</a></td>
+		</tr>
+		<tr>
+			<td>Fri 5/1, 10pm</td>
+			<td>jtrupiano@gmail.com</td>
+			<td><em>you</em></td>
+			<td class="debt">$5.00</td>
+			<td>Beers at bar</td>
+			<td class="utility_links"><a href="#">accept</a> or <a href="#">reject</a></td>
+		</tr>
+	</table>
+	
+    <h1 id="credits">Credits</h1>
+    <p>$ others owe to you.</p>
+	<table>
+		<tr>
+			<th>Date</th>
+			<th>Creditor</th>
+			<th>Amt</th>
+			<th>Description</th>
+			<th>Actions</th>
+		</tr>
+		<tr>
+			<td>Thu 4/30, 7pm</td>
+			<td>gjastrab@gmail.com</td>
+			<td class="credit">$8.50</td>
+			<td>Dinner @ CC Carry Out</td>
+			<td class="utility_links"><a href="#">mark as settled</a> or <a href="#" onclick="displayNagForm()">nag this person</a></td>
+		</tr>
+		<tr>
+			<td>Fri 5/1, 10pm</td>
+			<td>jtrupiano@gmail.com</td>
+			<td class="credit">$5.00</td>
+			<td>Beers at bar</td>
+			<td class="utility_links"><a href="#">mark as settled</a> or <a href="#" onclick="displayNagForm()">nag this person</a></td>
+		</tr>
+	</table>
+	<div class="paginator">
+		Pages: <span class="this_page">1</span>
+		<a href="#">2</a>
+		<a href="#">3</a>
+		...
+		<a href="#">25</a>
+		<span class="more_text">(showing 2 of 49 credits)</span>
+	</div>
+
+    <h1 id="debts">Debts</h1>
+    <p>$ you owe</p>
+	<table>
+		<tr>
+			<th>Date</th>
+			<th>Debtor</th>
+			<th>Amt</th>
+			<th>Description</th>
+			<th>Actions</th>
+		</tr>
+		<tr>
+			<td>Thu 4/30, 7pm</td>
+			<td>gjastrab@gmail.com</td>
+			<td class="debt">$8.50</td>
+			<td>Dinner @ CC Carry Out</td>
+			<td class="utility_links"><a href="#">tell this person you paid the debt</a></td>
+		</tr>
+		<tr>
+			<td>Fri 5/1, 10pm</td>
+			<td>jtrupiano@gmail.com</td>
+			<td class="debt">$5.00</td>
+			<td>Beers at bar</td>
+			<td class="utility_links"><a href="#">tell this person you paid the debt</a></td>
+		</tr>
+	</table>
+	<div class="paginator">
+		Pages: <a href="#">1</a>
+		...
+		<a href="#">7</a>
+		<span class="this_page">8</span>
+		<a href="#">9</a>
+		...
+		<a href="#">25</a>
+		<span class="more_text">(showing 2 of 49 debts)</span>
+	</div>
+</div>
+
+<div id="footer">
+	&copy; 2009 All Rights Reserved.
+    <a href="http://www.smartlogicsolutions.com/">SmartLogic Solutions</a>
+	<a href="about.htm">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">TOS</a>
+</div>
+
+</body>
+</html>
