@@ -118,7 +118,9 @@ img {
 	/* Tables */
 	table {
 		font-size: 75%;
-		margin-left: 2em;
+		margin-left: auto;
+		margin-right: auto;
+		width: 95%;
 		border-spacing: 0px;
 		border-top: solid 2px black;
 		border-bottom: solid 1px black;
@@ -129,7 +131,7 @@ img {
 	}
 	
 	table tr th {
-		border-bottom: solid 1px #CCCCCC;
+		border-bottom: solid 1px #000000;
 		text-align: left;
 		padding: .5em;
 		background-color:#FFFFEE;
@@ -146,6 +148,7 @@ img {
 		border-left: solid 1px #CCCCCC;
 		background-color: #5757FF;
 		color: #999999;
+		width: 15%;
 	}
 	
 	table tr td.utility_links a {
