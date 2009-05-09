@@ -1,4 +1,4 @@
-.nom-icon-button {
+/*.nom-icon-button {
   margin: 0em 0;
 }
 .nom-text {
@@ -17,4 +17,277 @@
 }
 #flash {
   color: green;
+}
+*/
+
+@charset "UTF-8";
+
+/** FYI, I used icons from here: http://www.icojoy.com/lj/free/34al3/preview_full.jpg */
+
+/** May want to switch this all over to "knob buttons toolbar icons by itweek" - also FOSS */
+
+/************* HEADER - stuff at the top of the page ************/
+div#header {
+	font-size: 115%;
+}
+
+	/* Breadcrumb - top left */
+	div#breadcrumb { float: left; }
+	
+	div#breadcrumb a {
+		background: transparent url(breadcrumb.gif) no-repeat center right;
+		padding-right: 18px; /*adjust bullet image padding*/
+	}
+
+	/* Account Links - top right */
+	div#account_links {
+		float:right;
+	}
+	
+/************* MAIN - the actual content ************/
+body {
+	background-color: white;
+	color:	black;
+	font-family: Arial,Verdana,sans-serif;
+	padding: 1em;
+	width:	50em;
+	margin: auto;
+}
+
+div#main {
+	clear: both;
+	padding-top: 0.5em;
+}
+
+img {
+	border: 0px;
+	vertical-align: middle;
+}
+
+	/* Flash Messages */
+	.informational, .success, .warning, .error {
+		border: 1px solid;
+		margin: 10px 0px;
+		padding: .6em .5em .6em 40px;
+		background-repeat: no-repeat;
+		background-position: 10px center;
+	}
+	
+	.error {
+		color: #D8000C;
+		background-color: #FFBABA;
+		background-image: url('redex.gif');
+	}
+	
+	.warning {
+		color: #9F6000;
+		background-color: #FEEFB3;
+		background-image: url('warning.gif');
+	}
+	
+	.informational {
+		color: #00529B;
+		background-color: #BDE5F8;
+		background-image: url('info.png');
+	}
+	
+	.success {
+		color: #4F8A10;
+		background-color: #DFF2BF;
+		background-image:url('check.gif');
+	}
+	
+	/* Links */
+	a, a:visited {
+		color: #3baef7;
+		text-decoration: none;
+	}
+	
+	a:hover {
+		text-decoration: underline;
+	}
+
+	/* Headings */
+	h1 {
+		font-size: 140%;
+		margin-top: 1.5em;
+		padding: .1em 1em .1em .25em;
+		background-color: black;
+		color: white;
+		border: solid 1px #999999;
+	}
+	
+	#debts, .debt {
+		background-color: #FF4848;
+		color: white;
+		font-weight: bold;
+	}
+	
+	h1#debts {
+		border: solid 1px #FF0000;
+	}
+	
+	#credits, .credit {
+		background-color: #1FCB4A;
+		color: white;
+		font-weight: bold;
+	}
+	
+	h1#credits {
+		border: solid 1px #00652B;
+	}
+	
+	/* Tables */
+	table {
+		font-size: 75%;
+		margin-left: auto;
+		margin-right: auto;
+		width: 95%;
+		border-spacing: 0px;
+		border-top: solid 2px black;
+		border-bottom: solid 1px black;
+	}
+	
+	table, td, th {
+		vertical-align: middle;
+	}
+	
+	table tr th {
+		border-bottom: solid 1px #000000;
+		text-align: left;
+		padding: .5em;
+		background-color:#FFFFEE;
+		text-transform: uppercase;
+	}
+	
+	table tr td {
+		border-bottom: solid 1px #CCCCCC;
+		margin: 0px;
+		padding: .5em;
+	}
+	
+	table tr td.utility_links {
+		border-left: solid 1px #CCCCCC;
+		background-color: #5757FF;
+		color: #999999;
+		width: 15%;
+	}
+	
+	table tr td.utility_links a {
+		color: white;
+	}
+	
+	/* The paginator */
+	.paginator {
+		background: transparent url(breadcrumb.gif) no-repeat center left;
+		padding-left: 16px;
+		margin-left: 2.5em;
+		margin-top: 5px;
+		font-size: 75%;
+	}
+	
+	.paginator a, .paginator a:visited {
+		padding: 2px 4px;
+		border: solid 1px #CCCCCC;
+	}
+	
+	.paginator a:hover {
+		background-color: #3baef7;
+		color: white;
+		text-decoration: none;
+	}
+	
+	.paginator a:active {
+		background-color: #0033FF;
+		color: white;
+	}
+	
+	.paginator .this_page {
+		font-weight: bold;
+		padding: 2px;
+	}
+	
+	.paginator .more_text {
+		font-style: italic;
+		font-size: 90%;
+	}
+	
+	/* FORMS */
+	form {
+		padding 0px;
+		margin 0px;
+	}
+	
+	input[type=text], input[type=password] {
+		border: 1px solid #CCC;
+		font-size: 1em;
+		padding: 4px 6px 4px 6px;
+		vertical-align: middle;
+		width: 15em;
+		margin-bottom: 5px;
+	}
+	
+	input[readonly=readonly] {
+		color: #969696;
+	}
+	
+	input[type=button], input[type=submit] {
+		border: 1px solid black;
+		color: black;
+		font-size: 1em;
+		padding: 3px 6px;
+		vertical-align: top;
+	}
+	
+	input[type=checkbox] {
+		width: 2em;
+		height: 2em;
+	}
+	
+		/* Specific to the Sign In form that appears in the top right */
+		#sign_in_form form input[type=text], #sign_in_form form input[type=password] {
+			width: 7em;
+		}
+		
+		/* Sign up link that appears on the main page only */
+		.special_sign_up_link {
+			text-align: center;
+		}
+		
+		.special_sign_up_link a, .special_sign_up_link a:visited {
+			font-weight: bold;
+			font-size: 125%;
+			display: inline;
+			background-color: white;
+			border: solid 2px #3baef7;
+			text-align: center;
+			padding: .2em .5em;
+			margin: 1em 0em 0em 0em;
+		}
+		
+		.special_sign_up_link a:hover {
+			background-color: #3baef7;
+			color: white;
+			text-decoration: none;
+		}
+	
+	/* misc. */
+	#welcome_message {
+		padding: .5em;
+		border: solid 2px black;
+		text-align: center;
+		font-size: 150%;
+		font-weight: bold;
+	}
+	
+/************* FOOTER - everything at the bottom of the page ************/
+div#footer {
+	padding-top: 3em;
+	font-size: 65%;
+}
+
+div#footer a {
+	background: transparent url(breadcrumb.gif) no-repeat center left;
+	padding-left: 12px;
+	padding-right: 5px;
 }
