@@ -1,0 +1,26 @@
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
+    %title= yield(:title) || 'nomtracker'
+    = javascript_include_tag :defaults
+    = javascript_include_tag 'transactions'
+    = stylesheet_link_tag 'nomtracker'
+  %body
+    #header
+      #breadcrumb
+        = link_to "Nomtracker", root_path
+        My Transactions
+      #account_links
+        yflicker@gmail.com |
+        = link_to "My Account", "account.htm", :accesskey => "a"
+        |
+        = link_to "Logout", logout_path, :accesskey => "l"
+    
+    = yield
+    #footer
+      &copy; 2009 All Rights Reserved.
+      = link_to 'SmartLogic Solutions', 'http://www.smartlogicsolutions.com/'
+      = link_to 'About', '#', :onclick => 'Where?'
+      = link_to 'Privacy', '#', :onclick => 'Where?'
+      = link_to 'TOS', '#', :onclick => 'Where?'
+    

@@ -15,7 +15,7 @@ class StartControllerTest < ActionController::TestCase
   
   context "An authenticated user accesses the root of the site" do
     setup do
-      log_in adam
+      log_in nick
       get(:index)
     end
     

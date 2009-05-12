@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require 'json'
 
 class TransactionsControllerTest < ActionController::TestCase
   context "an authenticated user" do
@@ -8,43 +9,15 @@ class TransactionsControllerTest < ActionController::TestCase
 
     should "create transaction" do
       assert_difference('Transaction.count') do
-        post :create, :transaction => {
-          :creditor => adam,
-          :debtor => nick,
-          :amount => 1
-        }
+        post :create, valid_single_transaction_attrs
         assert_response :success
-      end
-    end
-
-    should "create transaction from emails" do
-      assert_difference('Transaction.count') do
-        post :create, :transaction => {
-          :creditor_email => adam.email,
-          :debtor_email => nick.email,
-          :amount => 1
-        }
-        assert_response :success
-      end
-    end
-
-    should "not be able to create a transaction for someone else" do
-      assert_difference('Transaction.count', 0) do
-        post :create, :transaction => {
-          :creditor_email => nick.email,
-          :debtor_email => michael.email,
-          :amount => 1
-        }
       end
     end
 
     should "not be able to create a transaction from and to yourself" do
       assert_difference('Transaction.count', 0) do
-        post :create, :transaction => {
-          :creditor_email => adam.email,
-          :debtor_email => adam.email,
-          :amount => 1
-        }
+        post :create, valid_single_transaction_attrs(:email => adam.email)
+        assert_response :success
       end
     end
 
@@ -59,8 +32,40 @@ class TransactionsControllerTest < ActionController::TestCase
       end
       assert_response :ok
     end
-  end
+    
+    context "creates a valid credit" do
+      setup do
+        post :create, valid_single_transaction_attrs
+      end
+      
+      should "render JSON as a 200" do
+        assert_response :success
+        assert_equal "application/json", @response.content_type
+      end
 
+      should "include updated updated html for pending transactions" do
+        json = JSON.parse(@response.body)
+        assert_not_nil json['update']['pending']
+        assert_not_nil json['messages']['success']
+      end
+    end
+    
+    context "creates an invalid credit" do
+      setup do
+        post :create, valid_single_transaction_attrs(:email => adam.email)
+      end
+    
+      should "render JSON as a 422" do
+        assert_response 422
+        assert_equal "application/json", @response.content_type
+      end
+    
+      should "include error message" do
+        json = JSON.parse(@response.body)
+        assert_not_nil json['messages']['error']
+      end
+    end
+  end
 
   context "an unauthenticated user" do
     should "be redirected to login" do
@@ -68,4 +73,15 @@ class TransactionsControllerTest < ActionController::TestCase
       assert_redirected_to login_path
     end
   end
+  
+  private
+    def valid_single_transaction_attrs(options={})
+      {:transaction_type => 'credit', :email => nick.email,
+        :transaction => {
+          :amount => 1,
+          :when => 'yesterday',
+          :description => 'Bought Nick a bike'
+        }
+      }.merge(options)
+    end
 end
