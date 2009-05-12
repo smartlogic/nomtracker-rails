@@ -1,9 +1,20 @@
-- remote_form_for Transaction.new do |f|
-  = f.text_field :debtor_email, :class => 'nom-text name'
-  owes 
-  = f.text_field :creditor_email, :class => 'nom-text name'
-  $
-  = f.text_field :amount, :class => 'nom-text quantity'
-  %span.buttons
-    = f.submit "Continue"
-    = link_to_function("continue #{ image_tag('icons/arrow_right.png') }", nil)
+- remote_form_for Transaction.new, :success => 'finishCreateTransaction(response)', :failure => 'alert(response.responseText.evalJSON().messages.error)' do |f|
+  = text_field_tag 'email', nil, :style => 'width:10em'
+  
+  = radio_button_tag 'transaction_type', 'credit'
+  = label_tag 'transaction_type_credit', 'borrowed', :class => 'credit'
+  
+  = radio_button_tag 'transaction_type', 'debit'
+  = label_tag 'transaction_type_debit', 'lent me', :class => 'debt'
+  
+  = f.text_field :amount, :style => 'width: 3em;'
+  on
+  = f.text_field :when, :style => 'width: 6em;'
+  for
+  = f.text_field :description, :style => 'width:10.8em;'
+
+  / <a href="#" onclick="closeNewTransactionForm()"><img src="redex.gif" alt="remove this" title="Remove this transaction" /></a><br />
+  / <a href="#" style="float:left;" onclick="addAnotherTransaction()"><img src="plus.gif" alt="plus symbol" /> Add another</a>
+  / <a href="#" id="post_transaction_form_link" style="float:right;" onclick="numberOfTransactions == 1 ? (showhide('successfultransaction', 1) + showhide('successfultransactions', 2)) : (showhide('successfultransactions', 1) + showhide('successfultransaction', 2))">Save this transaction</a>
+  
+  = f.submit "Continue"

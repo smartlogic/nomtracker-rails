@@ -76,3 +76,15 @@ function getKey(keyStroke) {
 		document.getElementById("nag_form_container_container").style.visibility = 'hidden';
 	}
 }
+
+function finishCreateTransaction(response) {
+  var json = response.responseText.evalJSON();
+  if (json.update && json.update.pending) {
+    $('pending_report').update("hahah"); //json.update.pending);
+    $('new_transaction').reset();
+  }
+}
+
+function setPageError(msg) {
+  alert('Display the message: ' + msg);
+}

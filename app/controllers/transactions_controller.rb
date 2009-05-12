@@ -1,20 +1,28 @@
 class TransactionsController < ApplicationController
   before_filter :custom_login_required
+  
+  include ActionView::Helpers
+  
   def create
     @transaction = Transaction.new(params[:transaction])
-    @transaction.valid?
-    unless @transaction.creditor == current_user or @transaction.debtor == current_user
-      @transaction.errors.add("You", "must be the creditor or debtor of this transaction")
+    if params[:transaction_type] == "debt"
+      @transaction.creditor = User.find_by_email(params[:email])
+      @transaction.debtor   = current_user
+    else
+      @transaction.creditor = current_user
+      @transaction.debtor   = User.find_by_email(params[:email])
     end
-    render :update do |page|
-      if @transaction.errors.empty? and @transaction.save
-        page.replace_html 'report',
-          :partial => '/start/report', 
-          :locals => { :user => current_user } 
-        page.replace_html 'debt-form', :partial => '/start/add_debt' 
-      else
-        page.replace_html 'flash', @transaction.errors.full_messages.join("<br/>")
-      end
+    
+    if @transaction.save
+      pending_content = render_to_string(:partial => '/start/pending_report', :user => current_user)
+      render :json => {
+        :update => {:pending => pending_content},
+        :messages => {:success => "You made it!"}
+      }
+    else
+      render :status => 422, :json => {
+        :messages => {:error => "#{escape_javascript(@transaction.errors.full_messages.join('<br/>'))}"}
+      }
     end
   end
 
