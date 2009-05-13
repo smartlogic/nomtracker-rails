@@ -14,9 +14,16 @@ class TransactionsController < ApplicationController
     end
     
     if @transaction.save
-      pending_content = render_to_string(:partial => '/start/pending_report', :user => current_user)
+      if params[:transaction_type] == "debt"
+        content = render_to_string(:partial => '/start/debt_report', :locals => {:user => current_user})
+        update = {:debts => content}
+      else
+        content = render_to_string(:partial => '/start/credit_report', :locals => {:user => current_user})
+        update = {:credits => content}
+      end
+      # pending_content = render_to_string(:partial => '/start/pending_report', :user => current_user)
       render :json => {
-        :update => {:pending => pending_content},
+        :update => update,
         :messages => {:success => "Transaction Successfully Added"}
       }
     else

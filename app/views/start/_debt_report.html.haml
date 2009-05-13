@@ -1,15 +1,16 @@
-%table 
-  %tr 
-    %th Date
-    %th Debtor
-    %th Amt
-    %th Description
-    %th Actions
-
-  - user.debts.each do |trn|
+#debt_report
+  %table 
     %tr 
-      %td= time_ago_in_words(trn.created_at) + " ago"
-      %td= trn.creditor.email
-      %td.debt= number_to_currency trn.amount
-      %td Description goes here
-      %td.utility_links= link_to "tell this person you paid the debt", "#", :onclick => 'alert("Not implemented");'
+      %th Date
+      %th Debtor
+      %th Amt
+      %th Description
+      %th Actions
+
+    - user.debts.each do |trn|
+      %tr 
+        %td= time_ago_in_words(trn.created_at) + " ago"
+        %td= trn.creditor.email
+        %td.debt= number_to_currency trn.amount
+        %td Description goes here
+        %td.utility_links= link_to "tell this person you paid the debt", "#", :onclick => 'alert("Not implemented");'
