@@ -17,7 +17,7 @@ class TransactionsController < ApplicationController
       pending_content = render_to_string(:partial => '/start/pending_report', :user => current_user)
       render :json => {
         :update => {:pending => pending_content},
-        :messages => {:success => "You made it!"}
+        :messages => {:success => "Transaction Successfully Added"}
       }
     else
       render :status => 422, :json => {
