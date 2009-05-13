@@ -1,35 +1,23 @@
-!!!
+.main
+  %p#welcome_message 
+    Welcome to nomtracker.  Your <em>nomworth</em> is <span class="credit">$4.35</span>.  You're rich!
 
-%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
-  %head
-    %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
-    %title
-      Starts:
-      = controller.action_name
-    = javascript_include_tag :defaults
-    = javascript_include_tag 'transactions'
-    = stylesheet_link_tag 'nomtracker'
+  %h1 Add new credits and debts
+  %div
+    #new_transaction_flash
+    = link_to("#{image_tag('plus.gif', :alt => 'plus symbol')} Add a new debt or credit", "#", :onclick => 'openNewTransactionForm()', :id => 'open_transaction_form_link')
+  #add_new_transaction{:style => "display: none"}
+    = render :partial => 'add_debt'
 
-  %body
-    .main
-      %p#welcome_message 
-        Welcome to nomtracker.  Your <em>nomworth</em> is <span class="credit">$4.35</span>.  You're rich!
+  %h1#pending Pending
+  = render :partial => 'pending_report', :locals => {:user => current_user}
+			
+  %hr.space
 
-      %h1 Add new credits and debts
-      %div
-        = link_to("#{image_tag('plus.gif', :alt => 'plus symbol')} Add a new debt or credit", "#", :onclick => 'openNewTransactionForm()', :id => 'open_transaction_form_link')
-      #add_new_transaction{:style => "display: none"}
-        = render :partial => 'add_debt'
-
-      %h1#pending Pending
-      = render :partial => 'pending_report', :locals => {:user => current_user}
-    			
-      %hr.space
-
-      %h1#credits Credits
-      %p $ others owe to you
-      = render :partial => 'credit_report', :locals => {:user => current_user}
-      
-      %h1#debts Debts
-      %p $ you owe
-      = render :partial => 'debt_report', :locals => {:user => current_user}
+  %h1#credits Credits
+  %p $ others owe to you
+  = render :partial => 'credit_report', :locals => {:user => current_user}
+  
+  %h1#debts Debts
+  %p $ you owe
+  = render :partial => 'debt_report', :locals => {:user => current_user}

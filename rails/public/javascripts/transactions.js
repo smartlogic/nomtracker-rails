@@ -80,9 +80,17 @@ function getKey(keyStroke) {
 function finishCreateTransaction(response) {
   var json = response.responseText.evalJSON();
   if (json.update && json.update.pending) {
-    $('pending_report').update("hahah"); //json.update.pending);
+    $('pending_report').update(json.update.pending);
     $('new_transaction').reset();
+    $('new_transaction_flash').className = "success";
+    $('new_transaction_flash').update(json.messages.success);
   }
+}
+
+function failCreateTransaction(response) {
+  var json = response.responseText.evalJSON();
+  $('new_transaction_flash').className = 'error';
+  $('new_transaction_flash').update(json.messages.error);
 }
 
 function setPageError(msg) {

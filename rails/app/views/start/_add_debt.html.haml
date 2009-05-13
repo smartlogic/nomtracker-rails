@@ -1,4 +1,4 @@
-- remote_form_for Transaction.new, :success => 'finishCreateTransaction(response)', :failure => 'alert(response.responseText.evalJSON().messages.error)' do |f|
+- remote_form_for Transaction.new, {:success => 'finishCreateTransaction(request)', :failure => 'failCreateTransaction(request)'} do |f|
   = text_field_tag 'email', nil, :style => 'width:10em'
   
   = radio_button_tag 'transaction_type', 'credit'
