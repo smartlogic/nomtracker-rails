@@ -1,19 +1,20 @@
-%table 
-  %tr 
-  %th Date
-  %th Creditor
-  %th Amt
-  %th Description
-  %th Actions
-
-  - user.credits.each do |trn|
+#credit_report
+  %table 
     %tr 
-      %td= time_ago_in_words(trn.created_at) + " ago"
-      %td= trn.debtor.email
-      %td.credit= number_to_currency trn.amount
-      %td Description goes here
-      %td.utility_links
-        = link_to "mark as settled", "#", :onclick => 'alert("Not implemented");'
-        or
-        = link_to "nag this person", "#", :onclick => 'alert("Not implemented");'
+    %th Date
+    %th Creditor
+    %th Amt
+    %th Description
+    %th Actions
+
+    - user.credits.each do |trn|
+      %tr 
+        %td= time_ago_in_words(trn.created_at) + " ago"
+        %td= trn.debtor.email
+        %td.credit= number_to_currency trn.amount
+        %td Description goes here
+        %td.utility_links
+          = link_to "mark as settled", "#", :onclick => 'alert("Not implemented");'
+          or
+          = link_to "nag this person", "#", :onclick => 'alert("Not implemented");'
       
