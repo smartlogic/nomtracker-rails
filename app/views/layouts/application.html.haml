@@ -11,8 +11,8 @@
         = link_to "Nomtracker", root_path
         My Transactions
       #account_links
-        yflicker@gmail.com |
-        = link_to "My Account", "account.htm", :accesskey => "a"
+        = h(current_user.email) |
+        = link_to "My Account", '#', :onclick => 'alert("Where?");', :accesskey => "a"
         |
         = link_to "Logout", logout_path, :accesskey => "l"
     
@@ -20,7 +20,7 @@
     #footer
       &copy; 2009 All Rights Reserved.
       = link_to 'SmartLogic Solutions', 'http://www.smartlogicsolutions.com/'
-      = link_to 'About', '#', :onclick => 'Where?'
-      = link_to 'Privacy', '#', :onclick => 'Where?'
-      = link_to 'TOS', '#', :onclick => 'Where?'
+      = link_to 'About', '#', :onclick => 'alert("Where?");'
+      = link_to 'Privacy', '#', :onclick => 'alert("Where?");'
+      = link_to 'TOS', '#', :onclick => 'alert("Where?");'
     
