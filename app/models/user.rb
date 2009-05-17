@@ -100,13 +100,6 @@ class User < ActiveRecord::Base
   
   def nomworth
     credits.sum(:amount) - debts.sum(:amount)
-    # transactions.inject(0) {|total, t| 
-    #   if t.creditor_id == id
-    #     total + t.amount
-    #   else
-    #     total - t.amount
-    #   end
-    # }
   end
   
   private
