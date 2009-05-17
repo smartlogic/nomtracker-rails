@@ -6,9 +6,6 @@ class Transaction < ActiveRecord::Base
   validates_length_of :when,        :maximum => 50,  :allow_blank => true
   validates_length_of :description, :maximum => 255, :allow_blank => true
   
-  # only temporary until we actually add states to transactions
-  named_scope :pending, :conditions => "1 = 0"
-
   def creditor_email=(email)
     self.creditor = User.find_by_email(email)
     if self.creditor.nil?

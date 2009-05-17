@@ -1,33 +1,35 @@
 #pending_report
-  %p You have 2 pending transactions - credits/debts created by other users.  You need to accept and/or reject them.
-  %table
-    %tr
-      %th Date
-      %th Creditor
-      %th Debtor
-      %th Amt
-      %th Description
-      %th Actions
+  - if user.pending_transactions.size > 0
+    %p You have 2 pending transactions - credits/debts created by other users.  You need to accept and/or reject them.
+    %table#tbl_pending_transactions
+      %tr
+        %th Date
+        %th Creditor
+        %th Debtor
+        %th Amt
+        %th Description
+        %th Actions
 
-    %tr
-      %td Thu 4/30, 7pm
-      %td <em>you</em>
-      %td gjastrab@gmail.com
-      %td.credit $8.50
-      %td a description that will run long causing this line to break
-      %td.utility_links
-        = link_to "accept", "#", :onclick => 'alert("Not implemented");'
-        or
-        = link_to "reject", "#", :onclick => 'alert("Not implemented");'
+      %tr
+        %td Thu 4/30, 7pm
+        %td <em>you</em>
+        %td gjastrab@gmail.com
+        %td.credit $8.50
+        %td a description that will run long causing this line to break
+        %td.utility_links
+          = link_to "accept", "#", :onclick => 'alert("Not implemented");'
+          or
+          = link_to "reject", "#", :onclick => 'alert("Not implemented");'
   
-    %tr
-      %td Fri 5/1, 10pm
-      %td jtrupiano@gmail.com
-      %td <em>you</em>
-      %td.debt $5.00
-      %td Beers at bar
-      %td.utility_links
-        = link_to "accept", "#", :onclick => 'alert("Not implemented");'
-        or
-        = link_to "reject", "#", :onclick => 'alert("Not implemented");'
-  
+      %tr
+        %td Fri 5/1, 10pm
+        %td jtrupiano@gmail.com
+        %td <em>you</em>
+        %td.debt $5.00
+        %td Beers at bar
+        %td.utility_links
+          = link_to "accept", "#", :onclick => 'alert("Not implemented");'
+          or
+          = link_to "reject", "#", :onclick => 'alert("Not implemented");'
+  - else
+    %p#no_pending_transactions You do not currently have any pending transactions.

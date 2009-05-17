@@ -94,6 +94,10 @@ class User < ActiveRecord::Base
     )
   end
   
+  def pending_transactions
+    []
+  end
+  
   private
     def make_activation_code
       self.activation_code = self.class.make_token
