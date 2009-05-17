@@ -24,7 +24,7 @@ def should_not_render(css_selector)
   end
 end
 
-# Used such that the named_scope chain will return a count of 0 to allow us to test "empty" messages
+# Used such that the named_scope chain will return a count of 0 to allow us to test "empty" messages in views
 def mock_empty_named_scope(model, named_scope)
   # For any instance of model, stub the named_scope and have it return an object that responds to :count with a value of 0
   model.any_instance.stubs(named_scope).returns(mock(:count => 0))

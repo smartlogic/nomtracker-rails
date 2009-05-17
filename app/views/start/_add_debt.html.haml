@@ -4,8 +4,8 @@
   = radio_button_tag 'transaction_type', 'credit'
   = label_tag 'transaction_type_credit', 'borrowed', :class => 'credit'
   
-  = radio_button_tag 'transaction_type', 'debit'
-  = label_tag 'transaction_type_debit', 'lent me', :class => 'debt'
+  = radio_button_tag 'transaction_type', 'debt'
+  = label_tag 'transaction_type_debt', 'lent me', :class => 'debt'
   
   = f.text_field :amount, :style => 'width: 3em;'
   on

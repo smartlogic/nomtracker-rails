@@ -99,6 +99,17 @@ class UserTest < ActiveSupport::TestCase
     end
     
   end
+
+  ######## NOMWORTH #########
+
+  # This will need to change when we add the functionality to resolve debts
+  def test_nomworth_is_the_sum_of_transaction_amounts_for_a_user
+    nick.stubs(:credits).returns(mock(:sum => 110.0))
+    nick.stubs(:debts).returns(mock(:sum => 50.0))
+    assert_equal 60.0, nick.nomworth
+  end
+  
+  ######## NOMWORTH ##########
   
   def test_should_reset_password
     adam.update_attributes(:password => 'new password', :password_confirmation => 'new password')

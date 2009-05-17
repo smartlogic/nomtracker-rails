@@ -1,6 +1,6 @@
 .main
   %p#welcome_message 
-    Welcome to nomtracker.  Your <em>nomworth</em> is <span class="credit">$4.35</span>.  You're rich!
+    = "Welcome to nomtracker.  #{nomworth(current_user)}"
 
   %h1 Add new credits and debts
   %div
