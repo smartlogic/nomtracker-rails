@@ -5,12 +5,9 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :amount, :creditor_id, :debtor_id
   validates_length_of :when,        :maximum => 50,  :allow_blank => true
   validates_length_of :description, :maximum => 255, :allow_blank => true
-
-  def validate
-    if creditor == debtor
-      errors.add "Creditor", "and Debtor must be different"
-    end
-  end
+  
+  # only temporary until we actually add states to transactions
+  named_scope :pending, :conditions => "1 = 0"
 
   def creditor_email=(email)
     self.creditor = User.find_by_email(email)
@@ -35,4 +32,12 @@ class Transaction < ActiveRecord::Base
     return "" if debtor.nil?
     debtor.email
   end
+  
+  private
+    def validate
+      if creditor == debtor
+        errors.add "Creditor", "and Debtor must be different"
+      end
+    end
+    
 end

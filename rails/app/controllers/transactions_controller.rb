@@ -6,11 +6,11 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(params[:transaction])
     if params[:transaction_type] == "debt"
-      @transaction.creditor = User.find_by_email(params[:email])
-      @transaction.debtor   = current_user
+      @transaction.creditor_email = params[:email]
+      @transaction.debtor         = current_user
     else
-      @transaction.creditor = current_user
-      @transaction.debtor   = User.find_by_email(params[:email])
+      @transaction.creditor       = current_user
+      @transaction.debtor_email   = params[:email]
     end
     
     if @transaction.save
