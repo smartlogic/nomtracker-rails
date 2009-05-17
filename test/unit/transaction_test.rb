@@ -1,31 +1,16 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-def should_respond_to(att)
-  should "respond to #{att}" do
-    assert @transaction.respond_to?(att)
-  end
-end
-
-def should_require(att)
-  should "require #{att}" do
-    @transaction.send("#{att}=", nil)
-    assert !@transaction.valid?
-    assert @transaction.errors.on(att)
-  end
-end
-
 class TransactionTest < ActiveSupport::TestCase
+  
+  should_validate_presence_of :amount, :debtor_id, :creditor_id
+  should_ensure_length_in_range :when, 0..50
+  should_ensure_length_in_range :description, 0..255
+  
   context "A transaction object" do
     setup do 
       @transaction = Transaction.new(:amount => 10.50, :debtor => adam, :creditor => nick, :when => "Friday at 10PM", :description => "Beers at the Depot")
     end
-    
-    should_require :amount
-    should_require :debtor_id
-    should_require :creditor_id
-    should_respond_to :when
-    should_respond_to :description
-    
+        
     should "not allow debtor and creditor to be the same" do
       @transaction.debtor = @transaction.creditor
       assert !@transaction.valid?
@@ -41,7 +26,21 @@ class TransactionTest < ActiveSupport::TestCase
     assert_equal nick, t.debtor
     assert_equal adam.email, t.creditor_email
     assert_equal nick.email, t.debtor_email
-
+  end
+  
+  context "When assigning a nonexistent user to debtor_email" do
+    setup do
+      @user_count = User.count
+      @transaction = Transaction.new(:creditor => adam, :debtor_email => "someone@slsdev.net")
+    end
+    
+    should "create a new user" do
+      assert_equal @user_count + 1, User.count
+    end
+    
+    should "assign the newly created user as the debtor" do
+      assert_equal User.find_by_email('someone@slsdev.net'), @transaction.debtor
+    end
   end
     
 end
