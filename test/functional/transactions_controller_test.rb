@@ -29,6 +29,20 @@ def should_not_create_a_user
   end  
 end
 
+def should_update_nomworth
+  should "include updated nomworth" do
+    json = JSON.parse(@response.body)
+    assert_not_nil json['update']['nomworth']
+  end
+end
+
+def should_not_update_nomworth
+  should "not include updated nomworth" do
+    json = JSON.parse(@response.body)
+    assert json['update'].nil? || json['update']['nomworth'].nil?
+  end
+end
+
 class TransactionsControllerTest < ActionController::TestCase
   context "an authenticated user" do
     setup do
@@ -55,6 +69,8 @@ class TransactionsControllerTest < ActionController::TestCase
         assert_not_nil json['update']['credits']
         assert_not_nil json['messages']['success']
       end
+      
+      should_update_nomworth
     end
     
     context "creates a valid debt between existing users" do
@@ -74,7 +90,9 @@ class TransactionsControllerTest < ActionController::TestCase
         json = JSON.parse(@response.body)
         assert_not_nil json['update']['debts']
         assert_not_nil json['messages']['success']
-      end    
+      end
+      
+      should_update_nomworth
     end
     
     context "creates a valid credit to a nonexistent user" do
@@ -84,6 +102,7 @@ class TransactionsControllerTest < ActionController::TestCase
       
       should_create_a_transaction
       should_create_a_user("someone@slsdev.net")
+      should_update_nomworth
     end
     
     context "creates a valid debt to a nonexistent user" do
@@ -92,7 +111,8 @@ class TransactionsControllerTest < ActionController::TestCase
       end
       
       should_create_a_transaction
-      should_create_a_user("someone@slsdev.net")    
+      should_create_a_user("someone@slsdev.net")
+      should_update_nomworth
     end
     
     context "creates an invalid credit" do
@@ -112,6 +132,8 @@ class TransactionsControllerTest < ActionController::TestCase
         json = JSON.parse(@response.body)
         assert_not_nil json['messages']['error']
       end
+      
+      should_not_update_nomworth
     end
   end
 

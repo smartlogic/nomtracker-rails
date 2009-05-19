@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem 
+  include GlobalUpdates
 
   helper :all # include all helpers, all the time
 
@@ -11,9 +12,11 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
   
-  def custom_login_required
-    return true if authorized?
-    redirect_to login_path
-    return false
-  end
+  private
+    def custom_login_required
+      return true if authorized?
+      redirect_to login_path
+      return false
+    end
+    
 end
