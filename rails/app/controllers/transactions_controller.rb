@@ -21,6 +21,7 @@ class TransactionsController < ApplicationController
         content = render_to_string(:partial => '/start/credit_report', :locals => {:user => current_user})
         update = {:credits => content}
       end
+      update.merge!(global_updates)
       # pending_content = render_to_string(:partial => '/start/pending_report', :user => current_user)
       render :json => {
         :update => update,

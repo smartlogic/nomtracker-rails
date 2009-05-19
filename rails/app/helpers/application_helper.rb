@@ -5,6 +5,6 @@ module ApplicationHelper
     amt = user.nomworth
     klass = amt >= 0 ? "credit" : "debt"
     message = amt >= 0 ? "You're rich!" : "You're a deadbeat!"
-    %Q(Your <em>nomworth</em> is <span class="#{klass}">#{number_to_currency(amt.abs)}</span>. #{message})
+    %Q(Your <em>nomworth</em> is <span id="nomworth" class="#{klass}">#{number_to_currency(amt.abs)}</span>. #{message})
   end
 end
