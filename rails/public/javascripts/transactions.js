@@ -59,24 +59,24 @@ function openNewTransactionForm() {
 // }
 
 // related to the nag form
-function displayNagForm() {
-	signup_form = document.getElementById("nag_form_container_container");
-	if (signup_form.style.visibility == 'visible') {
-		signup_form.style.visibility = 'hidden';
-	} else {
-		signup_form.style.visibility = 'visible';
-		document.getElementById('nag_personal_message').focus();
-	}
-}
-// capture the esc key and hide the signup form
-if (document.layers) { document.captureEvents(Event.KEYPRESS); }
-document.onkeypress = getKey;
-function getKey(keyStroke) {
-	var keyCode = (document.layers) ? keyStroke.which : keyStroke.keyCode;
-	if (keyCode == 27) {
-		document.getElementById("nag_form_container_container").style.visibility = 'hidden';
-	}
-}
+// function displayNagForm() {
+//  signup_form = document.getElementById("nag_form_container_container");
+//  if (signup_form.style.visibility == 'visible') {
+//    signup_form.style.visibility = 'hidden';
+//  } else {
+//    signup_form.style.visibility = 'visible';
+//    document.getElementById('nag_personal_message').focus();
+//  }
+// }
+// // capture the esc key and hide the signup form
+// if (document.layers) { document.captureEvents(Event.KEYPRESS); }
+// document.onkeypress = getKey;
+// function getKey(keyStroke) {
+//  var keyCode = (document.layers) ? keyStroke.which : keyStroke.keyCode;
+//  if (keyCode == 27) {
+//    document.getElementById("nag_form_container_container").style.visibility = 'hidden';
+//  }
+// }
 
 /***** Above this line comes from Yair's design.  Should eventually all be eliminated. *****/
 
