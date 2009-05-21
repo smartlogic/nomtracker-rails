@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup   '/signup',                    :controller => 'users', :action => 'new'
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
 
-  map.resources :users, :only => [:new, :create]
+  map.resources :users, :only => [:new, :create], :collection => [:find]
 
   map.resource :session
 

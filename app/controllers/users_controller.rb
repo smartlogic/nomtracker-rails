@@ -4,7 +4,14 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
- 
+
+  def find
+    email_arg = params[:email]
+    @users = current_user.network.select {|email| email =~ Regexp.new("#{email_arg}")}
+    ret = @users.empty? ? "" : "<ul><li>" + @users.join("</li><li>") + "</li></ul>"
+    render :text => ret
+  end
+  
   def create
     logout_keeping_session!
     # does the user exist?

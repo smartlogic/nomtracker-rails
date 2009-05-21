@@ -85,7 +85,7 @@ class UserTest < ActiveSupport::TestCase
     
     setup do
       @user = User.new(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
-      @user.user_state = 'active'      
+      @user.user_state = 'active'
     end
 
     should_require(:email)
@@ -98,6 +98,24 @@ class UserTest < ActiveSupport::TestCase
       assert User.authenticate(@user.email, 'johnjohn'), "A :pending user should not be able to authenticate"
     end
     
+  end
+  
+  context "A user nick has made transactions with users adam and michael but not john, so his network" do
+    setup do
+      @john = User.create_and_activate(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
+    end
+    
+    should "include adam" do
+      assert nick.network.include?(adam.email)
+    end
+
+    should "include michael" do
+      assert nick.network.include?(michael.email)
+    end
+    
+    should "not include john" do
+      assert !nick.network.include?(@john.email)
+    end
   end
 
   ######## NOMWORTH #########

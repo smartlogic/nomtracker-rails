@@ -15,12 +15,10 @@ class User < ActiveRecord::Base
 
   has_many :credits, 
     :class_name => 'Transaction',
-    :foreign_key => 'creditor_id',
-    :order => 'created_at DESC'
+    :foreign_key => 'creditor_id'
   has_many :debts,
     :class_name => 'Transaction', 
-    :foreign_key => 'debtor_id', 
-    :order => 'created_at DESC'
+    :foreign_key => 'debtor_id'
   
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
@@ -96,6 +94,14 @@ class User < ActiveRecord::Base
   
   def pending_transactions
     []
+  end
+  
+  # Those users that you have past transactions with
+  def network
+    arr = 
+      self.credits.find(:all, :select => "DISTINCT users.email", :joins => "INNER JOIN users ON users.id = transactions.debtor_id", :conditions => ["users.id != ?", id]).map(&:email) + 
+      self.debts.find(:all, :select => "DISTINCT users.email", :joins => "INNER JOIN users ON users.id = transactions.creditor_id", :conditions => ["users.id != ?", id]).map(&:email)
+    arr.uniq
   end
   
   def nomworth
