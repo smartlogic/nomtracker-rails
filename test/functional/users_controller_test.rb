@@ -173,7 +173,7 @@ class UsersControllerTest < ActionController::TestCase
     # end
     
     should "return adam@slsdev.net" do
-      assert assigns(:email).include?("adam@slsdev.net")
+      assert assigns(:users).include?("adam@slsdev.net")
     end
   end
 
