@@ -168,12 +168,15 @@ class UsersControllerTest < ActionController::TestCase
     end
     
     should_respond_with :success
-    # should "render json" do
-    #   assert_equal "application/json", @response.content_type      
-    # end
+    should "render json" do
+      assert_equal "application/json", @response.content_type      
+    end
     
     should "return adam@slsdev.net" do
       assert assigns(:users).include?("adam@slsdev.net")
+      json = JSON.parse(@response.body)
+      assert_equal 1, json['emails'].size
+      assert_equal "adam@slsdev.net", json['emails'].first
     end
   end
 

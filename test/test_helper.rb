@@ -4,6 +4,7 @@ require 'test_help'
 require 'story_helper'
 require 'shoulda'
 require 'mocha'
+require 'json'
 
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
