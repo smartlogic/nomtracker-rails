@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'json'
 
 def should_create_a_transaction
   should "create a transaction" do

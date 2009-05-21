@@ -21,4 +21,5 @@
   = f.submit "Continue"
 
 - javascript_tag do
-  new Ajax.Autocompleter('email', 'autocomplete_choices', '/users/find', { paramName: 'email', })
+  new Ajax.JsonAutocompleter('email', 'autocomplete_choices', '/users/find', { paramName: 'email', });
+  

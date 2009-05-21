@@ -8,8 +8,9 @@ class UsersController < ApplicationController
   def find
     email_arg = params[:email]
     @users = current_user.network.select {|email| email =~ Regexp.new("#{email_arg}")}
-    ret = @users.empty? ? "" : "<ul><li>" + @users.join("</li><li>") + "</li></ul>"
-    render :text => ret
+    render :json => {:emails => @users}
+    # ret = @users.empty? ? "" : "<ul><li>" + @users.join("</li><li>") + "</li></ul>"
+    # render :text => ret
   end
   
   def create

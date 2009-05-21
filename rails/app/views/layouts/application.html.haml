@@ -3,6 +3,7 @@
     %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
     %title= yield(:title) || 'nomtracker'
     = javascript_include_tag :defaults
+    = javascript_include_tag "json_autocompleter"
     = javascript_include_tag 'transactions'
     = stylesheet_link_tag 'nomtracker'
   %body
