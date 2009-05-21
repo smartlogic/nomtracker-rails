@@ -160,6 +160,22 @@ class UsersControllerTest < ActionController::TestCase
       assert assigns(:user).errors.on(:email)
     end
   end
+  
+  context "An active user enters 'ad' into the autocomplete" do
+    setup do
+      log_in(nick)
+      xhr(:post, :find, {:email => 'ad', :format => "js"})
+    end
+    
+    should_respond_with :success
+    # should "render json" do
+    #   assert_equal "application/json", @response.content_type      
+    # end
+    
+    should "return adam@slsdev.net" do
+      assert assigns(:email).include?("adam@slsdev.net")
+    end
+  end
 
   protected
     def create_user(options = {})

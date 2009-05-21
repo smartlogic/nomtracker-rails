@@ -1,5 +1,6 @@
 - remote_form_for Transaction.new, {:success => 'finishCreateTransaction(request)', :failure => 'failCreateTransaction(request)'} do |f|
   = text_field_tag 'email', nil, :style => 'width:10em'
+  #autocomplete_choices.autocomplete
   
   = radio_button_tag 'transaction_type', 'credit'
   = label_tag 'transaction_type_credit', 'borrowed', :class => 'credit'
@@ -18,3 +19,6 @@
   / <a href="#" id="post_transaction_form_link" style="float:right;" onclick="numberOfTransactions == 1 ? (showhide('successfultransaction', 1) + showhide('successfultransactions', 2)) : (showhide('successfultransactions', 1) + showhide('successfultransaction', 2))">Save this transaction</a>
   
   = f.submit "Continue"
+
+- javascript_tag do
+  new Ajax.Autocompleter('email', 'autocomplete_choices', '/users/find', { paramName: 'email', })

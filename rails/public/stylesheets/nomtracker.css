@@ -1,24 +1,3 @@
-/*.nom-icon-button {
-  margin: 0em 0;
-}
-.nom-text {
-  margin: 0.5em 0;
-  border: 1px solid #bbb;
-  font-size: 1.5em;
-}
-.nom-text:focus {
-  border: 1px solid #666;
-}
-.name {
-  width: 10em;
-}
-.quantity {
-  width: 6em;
-}
-#flash {
-  color: green;
-}
-*/
 
 @charset "UTF-8";
 
@@ -290,4 +269,28 @@ div#footer a {
 	background: transparent url(/images/breadcrumb.gif) no-repeat center left;
 	padding-left: 12px;
 	padding-right: 5px;
+}
+
+/*********** Transaction Autocomplete Form *************/
+div.autocomplete {
+  position:absolute;
+  width:250px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul li.selected { background-color: #ffb;}
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+  cursor:pointer;
 }
