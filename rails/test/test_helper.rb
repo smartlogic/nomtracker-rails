@@ -5,6 +5,7 @@ require 'story_helper'
 require 'shoulda'
 require 'mocha'
 require 'json'
+require File.join(File.dirname(__FILE__), 'shoulda_ext')
 
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -40,6 +41,9 @@ class Test::Unit::TestCase
 
   # Commonly accessed db objects
   include StoryAccessors::Methods
+  
+  extend  Shoulda::Nomtracker::Macros
+  include Shoulda::Nomtracker::Helpers
 end
 
 class ActionController::TestCase

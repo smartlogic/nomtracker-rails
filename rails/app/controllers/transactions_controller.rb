@@ -3,6 +3,10 @@ class TransactionsController < ApplicationController
   
   include ActionView::Helpers
   
+  def index
+    
+  end
+  
   def create
     @transaction = Transaction.new(params[:transaction])
     if params[:transaction_type] == "debt"
@@ -14,15 +18,8 @@ class TransactionsController < ApplicationController
     end
     
     if @transaction.save
-      if params[:transaction_type] == "debt"
-        content = render_to_string(:partial => '/start/debt_report', :locals => {:user => current_user})
-        update = {:debts => content}
-      else
-        content = render_to_string(:partial => '/start/credit_report', :locals => {:user => current_user})
-        update = {:credits => content}
-      end
+      update = {:balances => render_to_string(:partial => 'start/balances', :locals => {:user => current_user})}
       update.merge!(global_updates)
-      # pending_content = render_to_string(:partial => '/start/pending_report', :user => current_user)
       render :json => {
         :update => update,
         :messages => {:success => "Transaction Successfully Added"}

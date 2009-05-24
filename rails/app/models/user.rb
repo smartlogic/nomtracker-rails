@@ -104,6 +104,25 @@ class User < ActiveRecord::Base
     arr.uniq
   end
   
+  def network_as_users
+    arr =
+      self.credits.find(:all, :include => :debtor).map(&:debtor) +
+      self.debts.find(:all, :include => :creditor).map(&:creditor)
+    arr.uniq
+  end
+  
+  def balance_with(user)
+    self.credits.to_user(user).sum(:amount) - self.debts.from_user(user).sum(:amount)
+  end
+  
+  # returns array of Balance objects for each non-zero balance this user has
+  def balances
+    # Very inefficient at this point for a large network...
+    self.network_as_users.map { |user| 
+      {:balance => self.balance_with(user), :user => user}
+    }.select {|balance| balance[:balance].to_f != 0.0}
+  end
+  
   def nomworth
     credits.sum(:amount) - debts.sum(:amount)
   end

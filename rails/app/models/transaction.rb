@@ -6,6 +6,14 @@ class Transaction < ActiveRecord::Base
   validates_length_of :when,        :maximum => 50,  :allow_blank => true
   validates_length_of :description, :maximum => 255, :allow_blank => true
   
+  named_scope :to_user, lambda { |user|
+    { :conditions => {:debtor_id => user.id} }
+  }
+  
+  named_scope :from_user, lambda { |user|
+    { :conditions => {:creditor_id => user.id} }
+  }
+  
   def creditor_email=(email)
     self.creditor = User.find_by_email(email)
     if self.creditor.nil?

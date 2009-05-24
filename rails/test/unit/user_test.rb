@@ -102,7 +102,7 @@ class UserTest < ActiveSupport::TestCase
   
   context "A user nick has made transactions with users adam and michael but not john, so his network" do
     setup do
-      @john = User.create_and_activate(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
+      @john = create_john
     end
     
     should "include adam" do
@@ -115,6 +115,55 @@ class UserTest < ActiveSupport::TestCase
     
     should "not include john" do
       assert !nick.network.include?(@john.email)
+    end
+  end
+  
+  context "When a user nick has made transactions of +10, -40, and +50 with john" do
+    setup do
+      @john = create_john
+      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 10)
+      Transaction.create!(:creditor => @john, :debtor => nick, :amount => 40)
+      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 50)
+    end
+    
+    should "have a balance of $20 for nick" do
+      assert_equal(20.0, nick.balance_with(@john))
+    end
+    
+    should "have a balance of -$20 for john" do
+      assert_equal(-20.0, @john.balance_with(nick))
+    end
+    
+    should "include john in nick's list of balances" do
+      assert !nick.balances.detect {|balance| balance[:user] == @john && balance[:balance] == 20.0}.nil?
+    end
+    
+    should "include nick in john's list of balances" do
+      assert !@john.balances.detect {|balance| balance[:user] == nick && balance[:balance] == -20.0}.nil?
+    end
+  end
+  
+  context "When a user nick has made transactions of -10 and 10 with john" do
+    setup do
+      @john = create_john
+      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 10)
+      Transaction.create!(:creditor => @john, :debtor => nick, :amount => 10)
+    end
+    
+    should "have a balance of $0 for nick" do
+      assert_equal 0.0, nick.balance_with(@john)
+    end
+    
+    should "have a balance of $0 for john" do
+      assert_equal 0.0, @john.balance_with(nick)
+    end
+    
+    should "not include john in nick's list of balances" do
+      assert nick.balances.detect {|balance| balance[:user] == @john}.nil?
+    end
+    
+    should "not include nick in john's list of balances" do
+      assert @john.balances.detect {|balance| balance[:user] == nick}.nil?
     end
   end
 
@@ -182,13 +231,4 @@ class UserTest < ActiveSupport::TestCase
     assert adam.remember_token_expires_at.between?(before, after)
   end
 
-protected
-  def create_user(options = {})
-    record = User.create_and_activate(create_user_attrs.merge(options))
-    record
-  end
-  
-  def create_user_attrs
-    { :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }
-  end
 end

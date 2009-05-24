@@ -1,3 +1,9 @@
+- content_for :head do
+  = javascript_include_tag 'dashboard'
+
+- content_for :breadcrumb do
+  My Dashboard
+
 .main
   %p#welcome_message 
     = "Welcome to nomtracker.  #{nomworth(current_user)}"
@@ -5,19 +11,12 @@
   %h1 Add new credits and debts
   %div
     #new_transaction_flash
-    = link_to("#{image_tag('plus.gif', :alt => 'plus symbol')} Add a new debt or credit", "#", :onclick => 'openNewTransactionForm()', :id => 'open_transaction_form_link')
+    = link_to("#{image_tag('plus.gif', :alt => 'plus symbol')} Add a new debt or credit", "javascript:void(0)", :onclick => 'openNewTransactionForm()', :id => 'open_transaction_form_link')
   #add_new_transaction{:style => "display: none"}
     = render :partial => 'add_debt'
 
-  %h1#pending Pending
-  = render :partial => 'pending_report', :locals => {:user => current_user}
-			
-  %hr.space
-
-  %h1#credits Credits
-  %p $ others owe to you
-  = render :partial => 'credit_report', :locals => {:user => current_user}
-  
-  %h1#debts Debts
-  %p $ you owe
-  = render :partial => 'debt_report', :locals => {:user => current_user}
+  %h1#balances Balances
+  %div 
+    %p Your nonzero balances by individual
+    = render :partial => 'balances', :locals => {:user => current_user}
+    %p= link_to "View all Transactions", transactions_path
