@@ -1,0 +1,17 @@
+#balance_report
+  - if user.balances.size > 0
+    %table#tbl_balances
+      %tr 
+        %th User
+        %th Amt
+        %th Actions
+      - user.balances.each do |balance|
+        %tr 
+          %td= h(balance[:user].email)
+          - if balance[:balance] >= 0
+            %td.credit= number_to_currency(balance[:balance])
+          - else
+            %td.debt= number_to_currency(balance[:balance])
+          %td.utility_links= link_to "clear this debt", "#", :onclick => 'alert("Not implemented");'
+  - else
+    %p#no_balances You do not have any nonzero balances.
