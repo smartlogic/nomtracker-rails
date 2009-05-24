@@ -14,10 +14,6 @@
   for
   = f.text_field :description, :style => 'width:10.8em;'
 
-  / <a href="#" onclick="closeNewTransactionForm()"><img src="redex.gif" alt="remove this" title="Remove this transaction" /></a><br />
-  / <a href="#" style="float:left;" onclick="addAnotherTransaction()"><img src="plus.gif" alt="plus symbol" /> Add another</a>
-  / <a href="#" id="post_transaction_form_link" style="float:right;" onclick="numberOfTransactions == 1 ? (showhide('successfultransaction', 1) + showhide('successfultransactions', 2)) : (showhide('successfultransactions', 1) + showhide('successfultransaction', 2))">Save this transaction</a>
-  
   = f.submit "Continue"
 
 - javascript_tag do
