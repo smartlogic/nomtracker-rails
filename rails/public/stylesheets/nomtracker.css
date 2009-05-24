@@ -73,7 +73,7 @@ img {
 	.success {
 		color: #4F8A10;
 		background-color: #DFF2BF;
-		background-image:url('c/images/heck.gif');
+		background-image:url('/images/check.gif');
 	}
 	
 	/* Links */
