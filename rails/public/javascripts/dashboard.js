@@ -61,6 +61,24 @@ function updateGlobals(obj) {
   }
 }
 
-function setPageError(msg) {
-  alert('Display the message: ' + msg);
+var getTodaysDateForNewTransaction = function () {
+  var months = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+  return function() {
+    var today = new Date();
+    return months[today.getMonth()] + ' ' + today.getDate();
+  };
+}();
+
+function startNegateBalance(email, amount) {
+  openNewTransactionForm();
+  $('new_transaction').reset();
+  $('email').value = email;
+  if (amount >= 0.0) {
+    $('transaction_type_debt').checked = true;
+  } else {
+    $('transaction_type_credit').checked = true;
+  }
+  $('transaction_amount').value = amount.abs();
+  $('transaction_when').value = getTodaysDateForNewTransaction();
+  $('transaction_description').focus();
 }
