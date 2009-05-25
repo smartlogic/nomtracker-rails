@@ -13,12 +13,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message      
 
-  has_many :credits, 
-    :class_name => 'Transaction',
-    :foreign_key => 'creditor_id'
-  has_many :debts,
-    :class_name => 'Transaction', 
-    :foreign_key => 'debtor_id'
+  has_many :credits,      :class_name => 'Transaction', :foreign_key => 'creditor_id'
+  has_many :debts,        :class_name => 'Transaction', :foreign_key => 'debtor_id'
+  has_many :transactions, :class_name => 'NormalizedTransaction', :foreign_key => 'me'
   
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
@@ -84,13 +81,13 @@ class User < ActiveRecord::Base
   end
   
   
-  def transactions
-    Transaction.find(
-      :all,
-      :conditions => ['creditor_id = ? OR debtor_id = ?', id, id],
-      :order => 'created_at DESC'
-    )
-  end
+  # def transactions
+  #   Transaction.find(
+  #     :all,
+  #     :conditions => ['creditor_id = ? OR debtor_id = ?', id, id],
+  #     :order => 'created_at DESC'
+  #   )
+  # end
   
   def pending_transactions
     []
