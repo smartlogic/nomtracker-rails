@@ -13,6 +13,25 @@ end
 
 class UserTest < ActiveSupport::TestCase
 
+  should_have_many :transactions
+  
+  context "When a user john has debits of 5 and 10 and a credit of 8, john" do
+    setup do
+      @john = create_john
+      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 5.0)
+      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 10.0)
+      Transaction.create!(:creditor => @john, :debtor => nick, :amount => 8.0)
+    end
+    
+    should "have three transactions" do
+      assert_equal 3, @john.transactions.count
+    end
+    
+    should "have transactions that sum to -$7" do
+      assert_equal -7.0, @john.transactions.sum(:amount)
+    end
+  end
+  
   context "When a new User object has been instantiated" do
     setup do
       @user = User.new
