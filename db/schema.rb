@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090512015856) do
+ActiveRecord::Schema.define(:version => 20090525143354) do
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -43,5 +43,9 @@ ActiveRecord::Schema.define(:version => 20090512015856) do
     t.string   "user_state",                :limit => 30
     t.string   "activation_code",           :limit => 40
   end
+
+# Could not dump view "normalized_transactions" because of following NoMethodError
+#   You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.dump
 
 end
