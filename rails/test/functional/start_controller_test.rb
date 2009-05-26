@@ -54,5 +54,29 @@ class StartControllerTest < ActionController::TestCase
     should_render("#no_balances")
   end
   
+  context "When a user nick with 5 debts and 4 credits views his dasboard" do
+    setup do
+      log_in nick
+      get :index
+    end
+    
+    should_render('#tbl_recent_transactions')
+    should_not_render('#no_recent_transactions')
+    
+    should 'display 6 rows in #tbl_recent_transactions' do
+      assert_select '#tbl_recent_transactions tr', {:count => 6} # 1 extra for header
+    end
+  end
+  
+  context "When a user john with 0 debts and 0 credits views his dashboard" do
+    setup do
+      @john = create_john
+      log_in @john
+      get :index
+    end
+    
+    should_render('#no_recent_transactions')
+    should_not_render('#tbl_recent_transactions')
+  end
   
 end
