@@ -14,7 +14,7 @@
         - if txn.amount >= 0
           %td.credit= number_to_currency(txn.amount)
         - else
-          %td.debt= number_to_currency(txn.amount)
+          %td.debt= number_to_currency(-1 * txn.amount)
         %td= full_description(txn)
         %td.utility_links
 - else
