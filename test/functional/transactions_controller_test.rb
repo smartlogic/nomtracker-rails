@@ -62,6 +62,13 @@ def should_not_update_balances
   end
 end
 
+def should_update_transactions
+  should "return updated transactions table" do
+    json = JSON.parse(@response.body)
+    assert_not_nil json['update']['transactions']
+  end
+end
+
 # Used such that the named_scope chain will return a count of 0 to allow us to test "empty" messages in views
 def mock_empty_named_scope(model, named_scope)
   # For any instance of model, stub the named_scope and have it return an object that responds to :count with a value of 0
@@ -163,6 +170,7 @@ class TransactionsControllerTest < ActionController::TestCase
       end
       
       should_update_balances
+      should_update_transactions
       should_update_message(:success)
       should_update_nomworth
     end
@@ -181,6 +189,7 @@ class TransactionsControllerTest < ActionController::TestCase
       end
 
       should_update_balances
+      should_update_transactions
       should_update_message(:success)
       should_update_nomworth
     end
@@ -194,6 +203,7 @@ class TransactionsControllerTest < ActionController::TestCase
       should_create_a_user("someone@slsdev.net")
       should_update_nomworth
       should_update_balances
+      should_update_transactions
       should_update_message(:success)
     end
     
@@ -206,6 +216,7 @@ class TransactionsControllerTest < ActionController::TestCase
       should_create_a_user("someone@slsdev.net")
       should_update_nomworth
       should_update_balances
+      should_update_transactions
       should_update_message(:success)
     end
     

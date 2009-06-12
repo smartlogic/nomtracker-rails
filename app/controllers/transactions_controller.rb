@@ -18,7 +18,10 @@ class TransactionsController < ApplicationController
     end
     
     if @transaction.save
-      update = {:balances => render_to_string(:partial => 'start/balances', :locals => {:user => current_user})}
+      update = {
+        :balances     => render_to_string(:partial => 'start/balances', :locals => {:user => current_user}), 
+        :transactions => render_to_string(:partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)})
+      }
       update.merge!(global_updates)
       render :json => {
         :update => update,
