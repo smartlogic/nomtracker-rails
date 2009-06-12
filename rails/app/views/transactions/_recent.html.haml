@@ -1,21 +1,22 @@
-- if transactions.size > 0
-  %table#tbl_recent_transactions
-    %tr 
-      %th Date
-      %th{:style => "text-align: right;"} Transaction
-      %th Amount
-      %th Description
-      %th Actions
-    - transactions.each do |txn|
-      - transaction_type = txn.amount >= 0 ? "credit" : "debt"
+#recent_transactions_report
+  - if transactions.size > 0
+    %table#tbl_recent_transactions
       %tr 
-        %td= txn.created_at.strftime("%a %b %e, %l%p")
-        %td{:style => "text-align: right;"}= to_sentence(txn)
-        - if txn.amount >= 0
-          %td.credit= number_to_currency(txn.amount)
-        - else
-          %td.debt= number_to_currency(-1 * txn.amount)
-        %td= full_description(txn)
-        %td.utility_links
-- else
-  %p#no_recent_transactions You do not have any recent transactions.
+        %th Date
+        %th{:style => "text-align: right;"} Transaction
+        %th Amount
+        %th Description
+        %th Actions
+      - transactions.each do |txn|
+        - transaction_type = txn.amount >= 0 ? "credit" : "debt"
+        %tr 
+          %td= txn.created_at.strftime("%a %b %e, %l%p")
+          %td{:style => "text-align: right;"}= to_sentence(txn)
+          - if txn.amount >= 0
+            %td.credit= number_to_currency(txn.amount)
+          - else
+            %td.debt= number_to_currency(-1 * txn.amount)
+          %td= full_description(txn)
+          %td.utility_links
+  - else
+    %p#no_recent_transactions You do not have any recent transactions.

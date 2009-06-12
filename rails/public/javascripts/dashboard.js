@@ -32,6 +32,9 @@ function finishCreateTransaction(response) {
   if (json.update.balances) {
     $('balance_report').update(json.update.balances);
   }
+  if (json.update.transactions) {
+    $('recent_transactions_report').update(json.update.transactions);
+  }
   $('new_transaction').reset();
   $('new_transaction_flash').className = "success";
   $('new_transaction_flash').update(json.messages.success);
@@ -72,6 +75,8 @@ var getTodaysDateForNewTransaction = function () {
 function startNegateBalance(email, amount) {
   openNewTransactionForm();
   $('new_transaction').reset();
+  $('new_transaction_flash').className = 'informational';
+  $('new_transaction_flash').update("Please type in a description and press return to clear your balance with " + email);
   $('email').value = email;
   if (amount >= 0.0) {
     $('transaction_type_debt').checked = true;
