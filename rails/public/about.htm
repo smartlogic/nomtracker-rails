@@ -33,77 +33,18 @@
 
 <body>
 
-<script type="text/javascript">
-function displayLogInForm() {
-	document.getElementById('sign_up_in_links').style.display	= 'none';
-	document.getElementById('sign_in_form').style.display		= '';
-	document.getElementById('sign_in_form_username').focus();
-	document.getElementById('sign_in_form_username').select();
-}
-function hideLogInForm() {
-	document.getElementById('sign_up_in_links').style.display	= '';
-	document.getElementById('sign_in_form').style.display		= 'none';
-}
-
-function displaySignUpForm() {
-	signup_form = document.getElementById("signup_form_container_container");
-	if (signup_form.style.visibility == 'visible') {
-		signup_form.style.visibility = 'hidden';
-	} else {
-		signup_form.style.visibility = 'visible';
-		document.getElementById('signup_email_address').focus();
-	}
-}
-
-// capture the esc key and hide the signup form
-if (document.layers) { document.captureEvents(Event.KEYPRESS); }
-document.onkeypress = getKey;
-function getKey(keyStroke) {
-	var keyCode = (document.layers) ? keyStroke.which : keyStroke.keyCode;
-	if (keyCode == 27) {
-		document.getElementById("signup_form_container_container").style.visibility = 'hidden';
-		hideLogInForm();
-	}
-}
-</script>
-
-<!-- this div only appears if the user isn't logged in -->
-<div id="signup_form_container_container">
-	<div id="signup_form_container">
-		<h1 style="text-align:center;">Sign Up</h1>
-		<form>
-			<div><label for="signup_email_address">Email address:</label></div>
-			<input type="text" name="email_address" id="signup_email_address" />
-			<div><label for="signup_password">Password:</label></div>
-			<input type="password" name="password" id="signup_password" />
-			<div style="text-align:right;"><a href="#" onclick="displaySignUpForm()">cancel</a> or <input type="submit" value="Sign Up" style="vertical-align:middle;" /></div>
-		</form>
-	</div>
-</div>
-
 <div id="header">
 	<div id="breadcrumb">
 		<a href="/">Nomtracker</a>
 		About
 	</div>
     
-    <div id="account_links">
+  <div id="account_links">
 		<div id="sign_up_in_links" style="float:right;">
-			<a href="#" onclick="displaySignUpForm()">Sign Up</a> |
-			<a href="#" onclick="displayLogInForm()" accesskey="l">Log In</a>
+			<a href="/users/new">Sign Up</a> |
+			<a href="/login" accesskey="l">Log In</a>
 		</div>
-		<div id="sign_in_form" style="float:right;display:none;">
-			<form method="post" action="" onsubmit="return false">
-				<input type="text" name="username" id="sign_in_form_username" value="email address" />
-				<input type="password" name="password" />&nbsp;<input type="submit" value="Log In" /><br />
-				<div style="float:left;">
-					<input type="checkbox" name="rememberme" id="sign_in_form_rememberme" checked="checked" />
-					<label for="sign_in_form_rememberme">Remember me</label>
-				</div>
-				<div style="float:right;">or <a href="#" onclick="hideLogInForm()">cancel</a></div>
-			</form>
-		</div>
-    </div>
+  </div>
 </div>
 
 <div id="main">
@@ -141,7 +82,7 @@ function getKey(keyStroke) {
 	<h1>I have another question.</h1>
 	<p>@ us on twitter: <a href="http://twitter.com/nomtracker">@nomtracker</a></p>
 	
-	<div class="special_sign_up_link"><a href="#" onclick="displaySignUpForm()">Sign Up!</a></div>
+	<div class="special_sign_up_link"><a href="/users/new">Sign Up!</a></div>
 </div>
 
 <div id="footer">
