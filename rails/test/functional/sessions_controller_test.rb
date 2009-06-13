@@ -8,7 +8,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  context "When a user submits invalid credentials when signing up" do
+  context "When a user submits invalid credentials when loggin in" do
     setup do
       post :create, :email => adam.email, :password => 'notadam'
     end
@@ -26,11 +26,6 @@ class SessionsControllerTest < ActionController::TestCase
       assert assigns(:error)
       assert_select "p.error", {:text => assigns(:error)}
     end
-  end
-  def test_should_fail_login_and_not_redirect
-    post :create, :email => adam.email, :password => 'notadam'
-    assert_nil session[:user_id]
-    assert_response :success
   end
 
   def test_should_logout
