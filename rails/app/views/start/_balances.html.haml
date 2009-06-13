@@ -15,4 +15,4 @@
             %td.debt= number_to_currency(balance[:balance])
           %td.utility_links= link_to "resolve this #{transaction_type}", "#", :onclick => "startNegateBalance('#{escape_javascript(h(balance[:user].email))}', #{balance[:balance]});"
   - else
-    %p#no_balances You do not have any nonzero balances.
+    %p#no_balances.informational You do not have any nonzero balances.

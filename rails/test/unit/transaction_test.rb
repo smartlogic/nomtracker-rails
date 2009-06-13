@@ -15,6 +15,22 @@ class TransactionTest < ActiveSupport::TestCase
       @transaction.debtor = @transaction.creditor
       assert !@transaction.valid?
     end
+    
+    [0.1, 5, 1000].each do |val|
+      should "allow value #{val} for :amount" do
+        @transaction.amount = val
+        @transaction.valid?
+        assert !@transaction.errors.on(:amount)
+      end
+    end
+    
+    ["abc", 0.0, 0, -5].each do |val|
+      should "not allow value #{val} for :amount" do
+        @transaction.amount = val
+        @transaction.valid?
+        assert @transaction.errors.on(:amount)        
+      end
+    end
   end
 
   should "set creditor and debtor from email" do
