@@ -5,8 +5,7 @@
         %th Date
         %th{:style => "text-align: right;"} Transaction
         %th Amount
-        %th Description
-        %th Actions
+        %th{:width => '50%'} Description
       - transactions.each do |txn|
         - transaction_type = txn.amount >= 0 ? "credit" : "debt"
         %tr 
@@ -17,6 +16,5 @@
           - else
             %td.debt= number_to_currency(-1 * txn.amount)
           %td= full_description(txn)
-          %td.utility_links
   - else
     %p#no_recent_transactions You do not have any recent transactions.
