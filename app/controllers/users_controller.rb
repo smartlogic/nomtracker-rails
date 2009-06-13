@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     when (!params[:activation_code].blank?) && user && user.pending?
       user.activate!
       UserMailer.deliver_activation(user)
-      flash[:notice] = "Signup complete! Please sign in to continue."
+      flash[:notice] = "Signup complete! You can now start tracking your debts."
       session[:user_id] = user.id
       redirect_to root_url
     when params[:activation_code].blank?
