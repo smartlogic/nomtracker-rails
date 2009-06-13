@@ -6,7 +6,7 @@
 
 .main
   %p#welcome_message 
-    = "Welcome to nomtracker.  #{nomworth(current_user)}"
+    = "Welcome to nomtracker."
 
   %h1 Add new credits and debts
   %div
@@ -24,3 +24,9 @@
   %div
     = render :partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)}
     %p= link_to "View all Transactions", transactions_path
+    
+:javascript
+  Event.observe(window, 'load', function() {
+    updateNomworth(#{current_user.nomworth});
+  });
+  
