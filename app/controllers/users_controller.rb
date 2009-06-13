@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  layout nil
 
   def new
     @user = User.new
@@ -9,8 +8,6 @@ class UsersController < ApplicationController
     email_arg = params[:email]
     @users = current_user.network.select {|email| email =~ Regexp.new("#{email_arg}")}
     render :json => {:emails => @users}
-    # ret = @users.empty? ? "" : "<ul><li>" + @users.join("</li><li>") + "</li></ul>"
-    # render :text => ret
   end
   
   def create
