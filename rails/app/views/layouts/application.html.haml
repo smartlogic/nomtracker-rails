@@ -15,7 +15,7 @@
       #account_links
         - if logged_in?
           = h(current_user.email) |
-          = link_to "My Account", '#', :onclick => 'alert("Where?");', :accesskey => "a"
+          = link_to "My Account", account_url, :accesskey => "a"
           |
           = link_to "Logout", logout_path, :accesskey => "l"
         - else

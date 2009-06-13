@@ -1,0 +1,41 @@
+- content_for :head do
+  = javascript_include_tag "account"
+  
+- content_for :breadcrumb do
+  My Account
+
+%h1 Email Addresses
+#email_addresses
+
+%h1 Preferences
+#preferences
+  .informational Not implemented
+  = check_box_tag 'user', 'send_emails_on_new_transactions', {}, :disabled => true
+  = label 'user', 'send_emails_on_new_transactions', "Send me an email when a new debt/credit is assigned to me"
+  %br
+  = check_box_tag 'user', 'auto_accept_debts', {}, :disabled => true
+  = label 'user', 'auto_accept_debts', "Automatically accept all credits/debts from people with whom I've previously had a transaction"
+  %br 
+  = check_box_tag 'user', 'rss_enabled', {}, :disabled => true
+  = label 'user', 'rss_enabled', "Enable my RSS feed for debts/credits assigned to me"
+  = text_field_tag '', 'rssurl', :style => 'width: 98%;', :focus => "this.select();", :value => 'http://nomtracker.com/rss/1634/asdf23rawfraw4fa34fa34ga3g4ha3g5hag5mah4gjhagjha4jg5hj4agh', :disabled => true
+
+/   
+/   <img src="check.gif" alt="verified" title="This email address has been verified" /> <input type="text" name="email[]" value="yflicker@gmail.com" readonly="readonly" />
+/     <a href="#" onclick="javascript:alert('This is a rails app so the confirmation message must read \'Are you sure?\'');"><img src="redex.gif" alt="remove email address" title="Click here to remove this email address from your account" /></a><br />
+/   <img src="warning.gif" alt="not verified" title="This email address has not yet been verified!" /> <input type="text" name="email[]" value="yair@smartlogicsolutions.com" readonly="readonly" />
+/     <a href="#" onclick="javascript:alert('This is a rails app so the confirmation message must read \'Are you sure?\'');"><img src="redex.gif" alt="remove email address" title="Click here to remove this email address from your account" /></a> or <a href="#" onclick="showhide('emailverificationresent');">resend verification email</a><br />
+/   <div id="new_email_address" style="display:none;">
+/     <input type="text" name="email[]" value="" id="new_email_address_input" />
+/     <input type="button" value="Add" onclick="showhide('emailadded', 1);document.getElementById('new_email_address').style.display = 'none';document.getElementById('new_email_address_field').style.display = '';" />
+/   </div>
+/   <div id="new_email_address_field" style="display:none;">
+/     <img src="warning.gif" alt="not verified" title="This email address has not yet been verified!" /> <input type="text" name="email[]" value="new@email.com" readonly="readonly" />
+/     <a href="#" onclick="javascript:alert('This is a rails app so the confirmation message must read \'Are you sure?\'');"><img src="redex.gif" alt="remove email address" title="Click here to remove this email address from your account" /></a> or <a href="#" onclick="showhide('emailverificationresent');">resend verification email</a><br />
+/   </div>
+/   <a href="#" onclick="document.getElementById('new_email_address').style.display = '';this.style.display = 'none';document.getElementById('new_email_address_input').focus()">Add Another</a>
+/   
+
+:javascript
+  redrawEmails([{address: 'yflicker@slsdev.net', verified: true}, {address: 'jtrupiano@slsdev.net', verified: false}]);
+  

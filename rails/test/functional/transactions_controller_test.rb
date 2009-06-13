@@ -239,11 +239,13 @@ class TransactionsControllerTest < ActionController::TestCase
     end
   end
 
-  context "an unauthenticated user" do
-    should "be redirected to login" do
-      post :create
-      assert_redirected_to login_path
+  context "When an unauthenticated user tries to post to create" do
+    setup do
+      log_out
+      get :index
     end
+    
+    should_redirect_to_login
   end
   
   private
