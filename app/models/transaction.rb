@@ -5,6 +5,7 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :amount, :creditor_id, :debtor_id
   validates_length_of :when,        :maximum => 50,  :allow_blank => true
   validates_length_of :description, :maximum => 255, :allow_blank => true
+  validates_numericality_of :amount, :greater_than => 0.0
   
   named_scope :to_user, lambda { |user|
     { :conditions => {:debtor_id => user.id} }
@@ -41,7 +42,7 @@ class Transaction < ActiveRecord::Base
   private
     def validate
       if creditor == debtor
-        errors.add "Creditor", "and Debtor must be different"
+        errors.add :creditor, "and Debtor must be different"
       end
     end
     
