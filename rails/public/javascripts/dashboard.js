@@ -9,14 +9,6 @@ function updateGlobals(obj) {
   // Nomworth
   if (obj.nomworth !== undefined) {
     updateNomworth(obj.nomworth);
-    // var nomworth = $('nomworth');
-    // if (obj.nomworth >= 0) {
-    //   nomworth.className = "credit";
-    // } else {
-    //   nomworth.className = "debt";
-    //   obj.nomworth *= -1;
-    // }
-    // $('nomworth').update("$" + obj.nomworth.toFixed(2));
   }
 }
 

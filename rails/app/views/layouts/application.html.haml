@@ -5,7 +5,6 @@
     %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
     %title= yield(:title) || 'nomtracker'
     = javascript_include_tag :defaults
-    = javascript_include_tag "json_autocompleter"
     = stylesheet_link_tag 'nomtracker'
     = yield(:head)
   %body
@@ -14,10 +13,15 @@
         = link_to "Nomtracker", root_path
         = yield :breadcrumb
       #account_links
-        = h(current_user.email) |
-        = link_to "My Account", '#', :onclick => 'alert("Where?");', :accesskey => "a"
-        |
-        = link_to "Logout", logout_path, :accesskey => "l"
+        - if logged_in?
+          = h(current_user.email) |
+          = link_to "My Account", '#', :onclick => 'alert("Where?");', :accesskey => "a"
+          |
+          = link_to "Logout", logout_path, :accesskey => "l"
+        - else
+          = link_to "Sign Up", new_user_path
+          |
+          = link_to "Log In", login_path, :accesskey => "l"
     
     = yield
     #footer
