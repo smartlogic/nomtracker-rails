@@ -3,6 +3,12 @@ module Shoulda
   module Nomtracker
     module Macros
     
+      def should_redirect_to_login
+        should "be redirected to login" do
+          assert_redirected_to login_path
+        end
+      end
+      
       def should_render_logout_link
         should "display a logout link in the header" do
           assert_select "a", {:href => logout_url}
@@ -28,7 +34,7 @@ module Shoulda
           assert_not_nil json['messages'][type.to_s]  
         end
       end
-      
+            
     end
   
     module Helpers
