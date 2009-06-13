@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
     if @user && @user.save && @user.errors.empty?
       UserMailer.deliver_signup_notification(@user)
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code.  Please click the link in that email to confirm your account."
       redirect_to root_path
     else
       render :action => 'new'
@@ -39,7 +39,8 @@ class UsersController < ApplicationController
       user.activate!
       UserMailer.deliver_activation(user)
       flash[:notice] = "Signup complete! Please sign in to continue."
-      redirect_to login_url
+      session[:user_id] = user.id
+      redirect_to root_url
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
       redirect_back_or_default('/')

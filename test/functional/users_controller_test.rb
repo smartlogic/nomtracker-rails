@@ -83,8 +83,8 @@ class UsersControllerTest < ActionController::TestCase
         get :activate, {:activation_code => @u.activation_code}
       end
       
-      should "redirect to the login page" do
-        assert_redirected_to login_url
+      should "redirect to the dashboard" do
+        assert_redirected_to root_path
       end
       
       should "set flash[:notice]" do
@@ -97,6 +97,10 @@ class UsersControllerTest < ActionController::TestCase
       
       should "trigger an account activation email to the user" do
         assert_raises(StandardError) { UserMailer.deliver_activation("blah") }
+      end
+      
+      should "log the user in" do
+        assert_not_nil session[:user_id]
       end
       
     end
