@@ -6,7 +6,13 @@ set(:config_structure, :sls)
 require 'passenger-recipes/passenger'
 
 set :application, "psl"
+
+set :scm, 'git'
 set :repository, "git@git.slsdev.net:sls/nomtracker.git"
+ssh_options[:forward_agent] = true
+set :branch, "master"
+set :git_shallow_clone, 1
+
 set(:deploy_to, "/var/vhosts/nomtracker")
 set :user, "deploy"
 set :apache_group, "www-data"
