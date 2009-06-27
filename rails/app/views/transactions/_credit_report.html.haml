@@ -11,7 +11,7 @@
       - user.credits.each do |trn|
         %tr 
           %td= time_ago_in_words(trn.created_at) + " ago"
-          %td= trn.debtor.email
+          %td= trn.debtor.primary_email
           %td.credit= number_to_currency trn.amount
           %td Description goes here
           %td.utility_links
