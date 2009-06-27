@@ -12,3 +12,27 @@ function redrawEmails(emails) {
   }).join('<br />');
   $('email_addresses').update(html);
 }
+
+Event.observe(window, 'load', function() {
+  var link = $('add_another_email_link');
+  link.observe('click', function(evt) {
+    this.hide();
+    $('new_email_address').show();
+    $('email').focus();
+  }.bind(link));
+  
+  
+  $('add_email_button').observe('click', function() {
+    new Ajax.Request('/account/add_email', {method: 'post', parameters: {address: $F('email')}, 
+      onSuccess: function(response) {
+        var json = response.responseText.evalJSON();
+        redrawEmails(json['emails']);
+        alert(json['messages']['success']);
+      },
+      
+      onFailure: function(response) {
+        var json = response.responseText.evalJSON();
+      }
+    });
+  });
+});
