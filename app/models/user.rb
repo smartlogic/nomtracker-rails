@@ -90,9 +90,14 @@ class User < ActiveRecord::Base
   end
   
   def preprocess_email
-    proceed = @email_to_save.nil? || !Email.exists?(:address => @email_to_save)
-    errors.add(:email, "Email address is already taken") if !proceed
-    proceed
+    if @email_to_save.nil? && self.emails.size == 0
+      errors.add(:email, "is required")
+    elsif !@email_to_save.nil? && Email.exists?(:address => @email_to_save)
+      errors.add(:email, "is already taken")
+    else
+      return true
+    end
+    return false
   end
   
   def process_email

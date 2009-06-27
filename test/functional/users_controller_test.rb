@@ -106,35 +106,29 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
   
-  context "An unregistered account with the given email address does exist and a user submits the registration form" do
+  context "An unregistered account has already been created for quire@example.com" do
     setup do
       @user = User.create!(:email => 'quire@example.com')
-      @original_user_count = User.count
-      @original_unregistered_user_count = User.with_user_state(:unregistered).count
-      @original_pending_user_count = User.with_user_state(:pending).count
-      create_user
     end
     
-    should "redirect the user" do
-      assert_response :redirect
+    context "and user submits the registration form for quire@example.com" do
+      setup do
+        create_user
+      end
+    
+      should "redirect the user" do
+        assert_response :redirect
+      end
+    
+      should "make the existing user pending" do
+        assert @user.reload.pending?
+      end
+    
+      should_change 'User.count', :by => 0
+      should_change 'User.with_user_state(:unregistered).count', :by => -1
+      should_change 'User.with_user_state(:pending).count', :by => 1
     end
     
-    should "not create a new User when creating the account" do
-      assert_equal @original_user_count, User.count
-    end
-    
-    should "make the existing user pending" do
-      assert @user.reload.pending?
-    end
-    
-    should "decrease unregistered users by 1" do
-      assert_equal @original_unregistered_user_count - 1, User.with_user_state(:unregistered).count
-    end
-    
-    should "increase pending users by 1" do
-      assert_equal @original_pending_user_count + 1, User.with_user_state(:pending).count
-    end
-        
   end
   
   context "A pending user already shares the same email address" do

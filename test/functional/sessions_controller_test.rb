@@ -3,14 +3,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SessionsControllerTest < ActionController::TestCase
 
   def test_should_login_and_redirect
-    post :create, :email => adam.email, :password => 'adamadam'
+    post :create, :email => adam.primary_email, :password => 'adamadam'
     assert session[:user_id]
     assert_response :redirect
   end
 
   context "When a user submits invalid credentials when loggin in" do
     setup do
-      post :create, :email => adam.email, :password => 'notadam'
+      post :create, :email => adam.primary_email, :password => 'notadam'
     end
     
     should "not log the person in" do
@@ -37,13 +37,13 @@ class SessionsControllerTest < ActionController::TestCase
 
   def test_should_remember_me
     @request.cookies["auth_token"] = nil
-    post :create, :email => adam.email, :password => 'adamadam', :remember_me => "1"
+    post :create, :email => adam.primary_email, :password => 'adamadam', :remember_me => "1"
     assert_not_nil @response.cookies["auth_token"]
   end
 
   def test_should_not_remember_me
     @request.cookies["auth_token"] = nil
-    post :create, :email => adam.email, :password => 'adamadam', :remember_me => "0"
+    post :create, :email => adam.primary_email, :password => 'adamadam', :remember_me => "0"
     assert @response.cookies["auth_token"].blank?
   end
   
