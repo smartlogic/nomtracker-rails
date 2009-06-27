@@ -1,0 +1,5 @@
+production:
+  adapter: mysql
+  database: nomtracker
+  username: nomtracker
+  password: n0mTr@ck3r
