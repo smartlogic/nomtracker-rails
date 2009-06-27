@@ -2,9 +2,9 @@ module TransactionsHelper
   
   def to_sentence(txn)
     if txn.amount > 0
-      "<em>You</em> lent #{h txn.other_person.email}"
+      "<em>You</em> lent #{h txn.other_person.primary_email}"
     else
-      "#{h txn.other_person.email} lent <em>you</em>"
+      "#{h txn.other_person.primary_email} lent <em>you</em>"
     end
   end
   
