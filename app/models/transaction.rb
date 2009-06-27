@@ -31,12 +31,12 @@ class Transaction < ActiveRecord::Base
   
   def creditor_email
     return "" if creditor.nil?
-    creditor.email
+    creditor.primary_email
   end
   
   def debtor_email
     return "" if debtor.nil?
-    debtor.email
+    debtor.primary_email
   end
   
   private

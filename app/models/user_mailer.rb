@@ -7,18 +7,19 @@ class UserMailer < ActionMailer::Base
   
   end
   
-  def activation(user)
-    setup_email(user)
+  def activation(user, email)
+    setup_email(user, email)
     @subject    += 'Your account has been activated!'
     @body[:url]  = "http://#{SITE_URL}/"
   end
   
   protected
-    def setup_email(user)
-      @recipients  = "#{user.email}"
+    def setup_email(user, email=user.primary_email)
+      @recipients  = email
       @from        = "no-reply@nomtracker.com"
       @subject     = "[nomtracker] "
       @sent_on     = Time.now
-      @body[:user] = user
+      @body[:user]  = user
+      @body[:email] = email
     end
 end

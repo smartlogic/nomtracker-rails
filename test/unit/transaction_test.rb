@@ -35,13 +35,13 @@ class TransactionTest < ActiveSupport::TestCase
 
   should "set creditor and debtor from email" do
     t = Transaction.new(
-      :creditor_email => adam.email,
-      :debtor_email => nick.email
+      :creditor_email => adam.primary_email,
+      :debtor_email => nick.primary_email
     )
     assert_equal adam, t.creditor
     assert_equal nick, t.debtor
-    assert_equal adam.email, t.creditor_email
-    assert_equal nick.email, t.debtor_email
+    assert_equal adam.primary_email, t.creditor_email
+    assert_equal nick.primary_email, t.debtor_email
   end
   
   context "When assigning a nonexistent user to debtor_email" do
