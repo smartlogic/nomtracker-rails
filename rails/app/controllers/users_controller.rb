@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     # does the user exist?
     @user = User.find_by_email(params[:user][:email])
     if @user && @user.unregistered?
-      @user.attributes = params[:user]
+      @user.attributes = params[:user].reject{|field, value| field == 'email'}
       @user.user_state = 'pending'
     else
       @user = User.new(params[:user])
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     case
     when (!params[:activation_code].blank?) && user && user.pending?
       user.activate!
-      UserMailer.deliver_activation(user)
+      UserMailer.deliver_activation(user, user.primary_email)
       flash[:notice] = "Signup complete! You can now start tracking your debts."
       session[:user_id] = user.id
       redirect_to root_url

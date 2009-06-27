@@ -14,7 +14,10 @@
         = yield :breadcrumb
       #account_links
         - if logged_in?
-          = h(current_user.email) |
+          = h(current_user.name) 
+          |
+          = h(current_user.primary_email) 
+          |
           = link_to "My Account", account_url, :accesskey => "a"
           |
           = link_to "Logout", logout_path, :accesskey => "l"
