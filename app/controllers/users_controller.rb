@@ -37,7 +37,9 @@ class UsersController < ApplicationController
     case
     when (!params[:activation_code].blank?) && user && user.pending?
       user.activate!
+      Email.find_by_address(user.primary_email).update_attribute(:verified, true)
       UserMailer.deliver_activation(user, user.primary_email)
+      
       flash[:notice] = "Signup complete! You can now start tracking your debts."
       session[:user_id] = user.id
       redirect_to root_url

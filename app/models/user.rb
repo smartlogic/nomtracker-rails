@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   def self.create_and_activate(attrs={})
     u = User.new(attrs)
     u.user_state = 'active'
-    u.save
+    u.save && Email.find_by_address(u.primary_email).update_attribute(:verified, true)
     u
   end
     

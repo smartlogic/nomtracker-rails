@@ -95,6 +95,10 @@ class UsersControllerTest < ActionController::TestCase
         assert @u.reload.active?
       end
       
+      should "verify the user's primary email address" do
+        assert Email.find_by_address(@u.reload.primary_email).verified?
+      end
+      
       should "trigger an account activation email to the user" do
         assert_raises(StandardError) { UserMailer.deliver_activation("blah") }
       end
