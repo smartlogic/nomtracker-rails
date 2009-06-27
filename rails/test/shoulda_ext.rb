@@ -51,8 +51,8 @@ module Shoulda
         { :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }
       end
 
-      def john_attrs
-        { :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John' }
+      def john_attrs(attrs={})
+        { :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John' }.merge(attrs)
       end
     end
   end
