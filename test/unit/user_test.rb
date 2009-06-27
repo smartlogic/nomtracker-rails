@@ -14,6 +14,65 @@ end
 class UserTest < ActiveSupport::TestCase
 
   should_have_many :transactions
+  should_have_many :emails
+  
+  context "When assigning an email address that does not already exist in the database" do
+    setup do
+      @john = User.new(john_attrs)
+      @john.save!
+    end
+    
+    should_change 'Email.count', :by => 1
+    should_change 'User.count', :by => 1
+    
+    should "create a user john that can register and be activated" do
+      assert_nothing_raised { @john.register! && @john.activate! }
+    end
+  end
+  
+  context "When the email john@slsdev.net already exists in the database" do
+    setup do
+      create_john
+    end
+    
+    context "and we try to create a new user joseph with that same email address" do
+      setup do
+        @joseph = User.new(john_attrs(:name => 'Joseph'))
+        @joseph.save
+      end
+      
+      should_change 'Email.count', :by => 0
+      should_change 'User.count', :by => 0
+      
+      should "have an error on the user object" do
+        assert @joseph.errors.on(:email)
+      end
+    end
+    
+  end
+  
+  context "When the email address john@slsdev.net is not registered in the system and User#find_by_email is called" do
+    setup do
+      @user = User.find_by_email("john@slsdev.net")
+    end
+    
+    should "return nil" do
+      assert_nil @user
+    end
+  end
+  
+  context "When the email address john@slsdev.net is registered in the system and User#find_by_email is called" do
+    setup do
+      create_john
+      @user = User.find_by_email("john@slsdev.net")
+    end
+    
+    should "return john" do
+      assert_not_nil @user
+      assert @user.is_a?(User)
+      assert @user.emails.map(&:address).include?("john@slsdev.net")
+    end
+  end
   
   context "When a user john has debits of 5 and 10 and a credit of 8, john" do
     setup do
@@ -48,11 +107,11 @@ class UserTest < ActiveSupport::TestCase
         assert !@user.new_record?, "#{@user.errors.full_messages.to_sentence}"
       end
     end
-
+  
     should "not be able to authenticate after being persisted to the database" do
       @user.email = 'joe@slsdev.net'
       @user.save!
-      assert !User.authenticate(@user.email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
         
   end
@@ -68,13 +127,11 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 'pending', @user.user_state
     end
         
-    should_require(:email)
-
     should "not be able to authenticate after being persisted to the database" do
       @user.save!
-      assert !User.authenticate(@user.email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
-
+  
   end
   
   context "When a user is :pending" do
@@ -88,16 +145,15 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 'active', @user.user_state
     end
     
-    should_require(:email)
     should_require(:password)
     should_require(:password_confirmation)
     should_require(:name)
-
+  
     should "not be able to authenticate after being persisted to the database" do
       @user.save!
-      assert !User.authenticate(@user.email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
-
+  
   end
   
   context "When a user is :active" do
@@ -106,15 +162,14 @@ class UserTest < ActiveSupport::TestCase
       @user = User.new(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
       @user.user_state = 'active'
     end
-
-    should_require(:email)
+  
     should_require(:password)
     should_require(:password_confirmation)
     should_require(:name)
-
+  
     should "be able to authenticate after being persisted to the database" do
       @user.save!
-      assert User.authenticate(@user.email, 'johnjohn'), "A :pending user should not be able to authenticate"
+      assert User.authenticate(@user.primary_email, 'johnjohn'), "A :pending user should not be able to authenticate"
     end
     
   end
@@ -125,15 +180,15 @@ class UserTest < ActiveSupport::TestCase
     end
     
     should "include adam" do
-      assert nick.network.include?(adam.email)
+      assert nick.network.include?(adam.primary_email)
     end
-
+  
     should "include michael" do
-      assert nick.network.include?(michael.email)
+      assert nick.network.include?(michael.primary_email)
     end
     
     should "not include john" do
-      assert !nick.network.include?(@john.email)
+      assert !nick.network.include?(@john.primary_email)
     end
   end
   
@@ -185,9 +240,9 @@ class UserTest < ActiveSupport::TestCase
       assert @john.balances.detect {|balance| balance[:user] == nick}.nil?
     end
   end
-
+  
   ######## NOMWORTH #########
-
+  
   # This will need to change when we add the functionality to resolve debts
   def test_nomworth_is_the_sum_of_transaction_amounts_for_a_user
     nick.stubs(:credits).returns(mock(:sum => 110.0))
@@ -199,31 +254,31 @@ class UserTest < ActiveSupport::TestCase
   
   def test_should_reset_password
     adam.update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    assert_equal adam, User.authenticate(adam.email, 'new password')
+    assert_equal adam, User.authenticate(adam.primary_email, 'new password')
   end
-
+  
   def test_should_not_rehash_password
     adam.update_attributes(:email => 'adam2@slsdev.net')
     assert_equal adam, User.authenticate('adam2@slsdev.net', 'adamadam')
   end
-
+  
   def test_should_authenticate_user
-    assert_equal adam, User.authenticate(adam.email, 'adamadam')
+    assert_equal adam, User.authenticate(adam.primary_email, 'adamadam')
   end
-
+  
   def test_should_set_remember_token
     adam.remember_me
     assert_not_nil adam.remember_token
     assert_not_nil adam.remember_token_expires_at
   end
-
+  
   def test_should_unset_remember_token
     adam.remember_me
     assert_not_nil adam.remember_token
     adam.forget_me
     assert_nil adam.remember_token
   end
-
+  
   def test_should_remember_me_for_one_week
     before = 1.week.from_now.utc
     adam.remember_me_for 1.week
@@ -232,7 +287,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil adam.remember_token_expires_at
     assert adam.remember_token_expires_at.between?(before, after)
   end
-
+  
   def test_should_remember_me_until_one_week
     time = 1.week.from_now.utc
     adam.remember_me_until time
@@ -240,7 +295,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil adam.remember_token_expires_at
     assert_equal adam.remember_token_expires_at, time
   end
-
+  
   def test_should_remember_me_default_two_weeks
     before = 2.weeks.from_now.utc
     adam.remember_me
