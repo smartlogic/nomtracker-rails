@@ -8,7 +8,7 @@
 #email_addresses
 #new_email_address{:style => 'display: none;'}
   = text_field_tag 'email', ''
-  = submit_tag 'Add', :onclick => 'alert("not implemented");'
+  = submit_tag 'Add', :id => 'add_email_button'
 = link_to 'Add Another', 'javascript:void(0)', :id => 'add_another_email_link'
     
 
@@ -27,13 +27,7 @@
 
 :javascript
   Event.observe(window, 'load', function() {
-    var link = $('add_another_email_link');
-    link.observe('click', function(evt) {
-      this.hide();
-      $('new_email_address').show();
-      $('email').focus();
-    }.bind(link));
-    
+    // Only dynamic JS inline
     redrawEmails(#{@email_json});
   });
 

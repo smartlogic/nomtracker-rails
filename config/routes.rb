@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   
   map.account '/account', :controller => 'account', :action => 'index'
-  map.resource :account, :controller => 'account'
+  map.resource :account, :controller => 'account', :member => {'add_email' => :post, 'activate_email' => :get}
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
