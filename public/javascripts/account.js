@@ -32,6 +32,7 @@ Event.observe(window, 'load', function() {
       
       onFailure: function(response) {
         var json = response.responseText.evalJSON();
+        alert(json['messages']['error']);
       }
     });
   });

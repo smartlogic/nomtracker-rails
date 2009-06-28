@@ -1,5 +1,7 @@
 class AccountController < ApplicationController
   before_filter :custom_login_required
+
+  include ActionView::Helpers
   
   def index
     @email_json = prepare_json(current_user.emails).to_json
@@ -13,9 +15,9 @@ class AccountController < ApplicationController
         :messages => {:success => "The addition of the email address #{email.address} to your account is pending.  An email containing an activation link has been sent to #{email.address}."}
       }
     else
-      # render :status => 422, :json => {
-      #   :messages => {:error => escape_javascript(email.errors.full_messages.join('<br/>'))}
-      # }
+      render :status => 422, :json => {
+        :messages => {:error => escape_javascript(email.errors.full_messages.join('<br/>'))}
+      }
     end
   end
   
