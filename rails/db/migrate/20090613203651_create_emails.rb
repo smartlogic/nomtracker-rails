@@ -7,9 +7,7 @@ class CreateEmails < ActiveRecord::Migration
     end
     
     add_index :emails, :address, :unique => true
-    add_index :emails, :user_id
-    
-    remove_column :users, :email
+    add_index :emails, :user_id    
   end
 
   def self.down

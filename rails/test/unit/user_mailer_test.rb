@@ -26,6 +26,18 @@ class UserMailerTest < ActiveSupport::TestCase
     u = User.create_and_activate(:name => 'John', :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn')
     assert_nothing_raised { UserMailer.deliver_activation(u, 'john@slsdev.net') }
   end
+  
+  def test_email_activation
+    new_address = "nick2@slsdev.net"
+    email = nick.emails.create!(:address => new_address)
+    assert_nothing_raised { UserMailer.deliver_email_activation(email) }
+  end
+  
+  def test_email_activation_confirmation
+    new_address = "nick2@slsdev.net"
+    email = nick.emails.create!(:address => new_address)
+    assert_nothing_raised { UserMailer.deliver_email_activation_confirmation(email) }
+  end
 
   private
 

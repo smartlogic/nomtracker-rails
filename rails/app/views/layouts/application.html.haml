@@ -16,7 +16,7 @@
         - if logged_in?
           = h(current_user.name) 
           |
-          = h(current_user.primary_email) 
+          = h(current_user.primary_email.address) 
           |
           = link_to "My Account", account_url, :accesskey => "a"
           |

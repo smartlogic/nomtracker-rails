@@ -27,8 +27,9 @@ class AccountControllerTest < ActionController::TestCase
       should_render_template 'index'
     end
     
-    context "and adds an new email address that is available" do
+    context "and adds a new email address nick2@slsdev.net that is available" do
       setup do
+        ActionMailer::Base.deliveries = []
         xhr(:post, :add_email, {:address => 'nick2@slsdev.net'})
       end
       
@@ -37,8 +38,8 @@ class AccountControllerTest < ActionController::TestCase
 
       should_change 'Email.count', :by => 1
       should_change 'nick.emails.count', :by => 1
-      should "create a new unverified email address" do
-        assert !nick.emails(true).last.verified?
+      should "create a new pending email address" do
+        assert nick.emails(true).last.pending?
       end
       
       should "return success message" do
@@ -53,6 +54,12 @@ class AccountControllerTest < ActionController::TestCase
         assert json['emails'].any?{|hsh| hsh['address'] == 'nick2@slsdev.net'}
       end
       
+      should "send an activation email to nick2@slsdev.net" do
+        sent = ActionMailer::Base.deliveries
+        assert_equal 1, sent.size
+        assert_equal "nick2@slsdev.net", Array(sent.first.to).first
+      end
+      
     end
     
     context "and adds an invalid email address" do
@@ -65,7 +72,7 @@ class AccountControllerTest < ActionController::TestCase
     
     context "and adds an email address that already belongs to another verified user" do
       setup do
-        xhr(:post, :add_email, {:address => adam.primary_email})
+        xhr(:post, :add_email, {:address => adam.primary_email.address})
       end
       
       should_fail_to_add_email_address

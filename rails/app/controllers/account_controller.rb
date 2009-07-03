@@ -10,6 +10,7 @@ class AccountController < ApplicationController
   def add_email
     email = Email.new(:address => params[:address], :user => current_user)
     if email.save
+      UserMailer.deliver_email_activation(email)
       render :json => {
         :emails => prepare_json(current_user.emails(true)),
         :messages => {:success => "The addition of the email address #{email.address} to your account is pending.  An email containing an activation link has been sent to #{email.address}."}
@@ -21,13 +22,9 @@ class AccountController < ApplicationController
     end
   end
   
-  def activate_email
-    
-  end
-  
   private
     def prepare_json(email_array)
-      email_array.map{|email| {:address => email.address, :verified => email.verified}}
+      email_array.map{|email| {:address => email.address, :verified => email.active?}}
     end
   
 end

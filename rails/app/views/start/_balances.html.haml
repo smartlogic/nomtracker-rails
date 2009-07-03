@@ -8,11 +8,11 @@
       - user.balances.each do |balance|
         - transaction_type = balance[:balance] >= 0 ? "credit" : "debt"
         %tr 
-          %td= h(balance[:user].primary_email)
+          %td= h(balance[:user].primary_email.address)
           - if balance[:balance] >= 0
             %td.credit= number_to_currency(balance[:balance])
           - else
             %td.debt= number_to_currency(balance[:balance])
-          %td.utility_links= link_to "resolve this #{transaction_type}", "#", :onclick => "startNegateBalance('#{escape_javascript(h(balance[:user].primary_email))}', #{balance[:balance]});"
+          %td.utility_links= link_to "resolve this #{transaction_type}", "#", :onclick => "startNegateBalance('#{escape_javascript(h(balance[:user].primary_email.address))}', #{balance[:balance]});"
   - else
     %p#no_balances.informational You do not have any nonzero balances.

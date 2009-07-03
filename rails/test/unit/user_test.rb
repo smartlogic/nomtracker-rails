@@ -7,8 +7,14 @@ def should_require(field)
     assert_no_difference 'User.count' do
       @user.save
       assert @user.errors.on(field)
-    end      
+    end
   end
+end
+
+def should_not_allow_add_email_to_be_invoked
+  should "not allow #add_email to be invoked" do
+    assert_raise(NoMethodError) { !@user.add_email("john2@slsdev.net") }
+  end  
 end
 
 class UserTest < ActiveSupport::TestCase
@@ -18,8 +24,7 @@ class UserTest < ActiveSupport::TestCase
   
   context "When assigning an email address that does not already exist in the database" do
     setup do
-      @john = User.new(john_attrs)
-      @john.save!
+      @john = User.create!(john_attrs)
     end
     
     should_change 'Email.count', :by => 1
@@ -27,6 +32,14 @@ class UserTest < ActiveSupport::TestCase
     
     should "create a user john that can register and be activated" do
       assert_nothing_raised { @john.register! && @john.activate! }
+    end
+    
+    should "create a user john with 1 email address" do
+      assert_equal 1, @john.emails.size
+    end
+    
+    should "set john@slsdev.net as the primary_email" do
+      assert_equal "john@slsdev.net", @john.primary_email.address
     end
   end
   
@@ -111,7 +124,7 @@ class UserTest < ActiveSupport::TestCase
     should "not be able to authenticate after being persisted to the database" do
       @user.email = 'joe@slsdev.net'
       @user.save!
-      assert !User.authenticate(@user.primary_email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email.address, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
         
   end
@@ -129,8 +142,10 @@ class UserTest < ActiveSupport::TestCase
         
     should "not be able to authenticate after being persisted to the database" do
       @user.save!
-      assert !User.authenticate(@user.primary_email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email.address, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
+    
+    should_not_allow_add_email_to_be_invoked
   
   end
   
@@ -151,25 +166,37 @@ class UserTest < ActiveSupport::TestCase
   
     should "not be able to authenticate after being persisted to the database" do
       @user.save!
-      assert !User.authenticate(@user.primary_email, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email.address, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
     end
+
+    should_not_allow_add_email_to_be_invoked
   
   end
   
   context "When a user is :active" do
     
     setup do
-      @user = User.new(:email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John')
-      @user.user_state = 'active'
+      @user = create_john
     end
   
-    should_require(:password)
-    should_require(:password_confirmation)
     should_require(:name)
   
-    should "be able to authenticate after being persisted to the database" do
-      @user.save!
-      assert User.authenticate(@user.primary_email, 'johnjohn'), "A :pending user should not be able to authenticate"
+    should "be able to authenticate" do
+      assert User.authenticate(@user.primary_email.address, 'johnjohn'), "An :active user should be able to authenticate"
+    end
+
+    should "allow #add_email to be invoked" do
+      assert_nothing_raised { @user.add_email("john2@slsdev.net") }
+    end
+    
+    context "and has a pending email address" do
+      setup do
+        @user.emails.create!(:address => 'john2@slsdev.net')
+      end
+      
+      should "not allow authentication with the pending email address" do
+        assert_nil User.authenticate('john2@slsdev.net', 'johnjohn'), "A :pending email should not be acceptable when trying to authenticate"
+      end
     end
     
   end
@@ -180,15 +207,15 @@ class UserTest < ActiveSupport::TestCase
     end
     
     should "include adam" do
-      assert nick.network.include?(adam.primary_email)
+      assert nick.network.include?(adam.primary_email.address)
     end
   
     should "include michael" do
-      assert nick.network.include?(michael.primary_email)
+      assert nick.network.include?(michael.primary_email.address)
     end
     
     should "not include john" do
-      assert !nick.network.include?(@john.primary_email)
+      assert !nick.network.include?(@john.primary_email.address)
     end
   end
   
@@ -240,6 +267,29 @@ class UserTest < ActiveSupport::TestCase
       assert @john.balances.detect {|balance| balance[:user] == nick}.nil?
     end
   end
+    
+  context "When passing an email to User.create_and_activate" do
+    setup do
+      @john = User.create_and_activate(john_attrs)
+    end
+    
+    should_change 'Email.count', :by => 1
+    should_change 'Email.with_email_state(:active).count', :by => 1
+    should_change 'User.count', :by => 1
+    should_change 'User.with_user_state(:active).count', :by => 1
+    
+    should "create john with a single email address" do
+      u = User.find(@john.id)
+      assert_equal john_attrs[:name], u.name
+      assert_equal 1, u.emails.size
+      assert_equal john_attrs[:email], u.emails.first.address
+    end
+    
+    should "set the email as the primary_email address" do
+      u = User.find(@john.id)
+      assert_equal john_attrs[:email], u.primary_email.address
+    end
+  end
   
   ######## NOMWORTH #########
   
@@ -254,16 +304,16 @@ class UserTest < ActiveSupport::TestCase
   
   def test_should_reset_password
     adam.update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    assert_equal adam, User.authenticate(adam.primary_email, 'new password')
+    assert_equal adam, User.authenticate(adam.primary_email.address, 'new password')
   end
   
   def test_should_not_rehash_password
-    adam.update_attributes(:email => 'adam2@slsdev.net')
-    assert_equal adam, User.authenticate('adam2@slsdev.net', 'adamadam')
+    adam.update_attributes(:name => 'Adam 2')
+    assert_equal adam, User.authenticate('adam@slsdev.net', 'adamadam')
   end
   
   def test_should_authenticate_user
-    assert_equal adam, User.authenticate(adam.primary_email, 'adamadam')
+    assert_equal adam, User.authenticate(adam.primary_email.address, 'adamadam')
   end
   
   def test_should_set_remember_token

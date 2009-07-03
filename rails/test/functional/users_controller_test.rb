@@ -36,8 +36,8 @@ class UsersControllerTest < ActionController::TestCase
         assert User.find_by_email('quire@example.com').pending?
       end
       
-      should "assign the user an activation code" do
-        assert_not_nil assigns(:user).reload.activation_code
+      should "create an email for the user and set its activation code" do
+        assert_not_nil assigns(:user).reload.emails.first.activation_code
       end
       
       should "trigger a signup confirmation email to the user which includes the URL to follow to activate the account" do
@@ -80,7 +80,7 @@ class UsersControllerTest < ActionController::TestCase
     context "the user tries the activation URL with a valid activation code" do
       setup do 
         UserMailer.stubs(:deliver_activation).returns(true).then.raises(StandardError)
-        get :activate, {:activation_code => @u.activation_code}
+        get :activate, {:activation_code => @u.emails.first.activation_code}
       end
       
       should "redirect to the dashboard" do
@@ -96,7 +96,7 @@ class UsersControllerTest < ActionController::TestCase
       end
       
       should "verify the user's primary email address" do
-        assert Email.find_by_address(@u.reload.primary_email).verified?
+        assert @u.primary_email.reload.active?
       end
       
       should "trigger an account activation email to the user" do
@@ -107,6 +107,34 @@ class UsersControllerTest < ActionController::TestCase
         assert_not_nil session[:user_id]
       end
       
+    end
+  end
+  
+  context 'An active user already exists and tries the activation URL with a valid activation code for a new email' do
+    setup do
+      @new_email = nick.emails.create!(:address => 'nick2@slsdev.net')
+      UserMailer.stubs(:deliver_email_activation).returns(true).then.raises(StandardError)
+      get :activate, { :activation_code => @new_email.activation_code }
+    end
+    
+    should "redirect to the dashboard" do
+      assert_redirected_to root_path
+    end
+    
+    should "set flash[:notice]" do
+      assert_not_nil flash[:notice]
+    end
+          
+    should "activate the new email address" do
+      assert @new_email.reload.active?
+    end
+    
+    should "trigger an email activation email to the user" do
+      assert_raises(StandardError) { UserMailer.deliver_email_activation("blah") }
+    end
+    
+    should "log the user in" do
+      assert_not_nil session[:user_id]
     end
   end
   
