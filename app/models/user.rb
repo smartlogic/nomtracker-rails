@@ -28,13 +28,11 @@ class User < ActiveRecord::Base
       transition :pending => :active
     end
     
-    state :pending do
-      before_save :make_activation_code
-      def make_activation_code
-        self.activation_code = self.class.make_token
-      end
-      private :make_activation_code
+    state :unregistered do
 
+    end
+    
+    state :pending do
       validates_presence_of     :password,                   :if => :password_required?
       validates_presence_of     :password_confirmation,      :if => :password_required?
       validates_confirmation_of :password,                   :if => :password_required?
@@ -54,6 +52,10 @@ class User < ActiveRecord::Base
       validates_presence_of     :name
       validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
       validates_length_of       :name,     :maximum => 100
+      
+      def add_email(address)
+        self.emails.create!(:address => address)
+      end
     end
   end
   
@@ -66,7 +68,8 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
     return nil if email.blank? || password.blank?
     u = find_by_email(email.downcase) # need to get the salt
-    u && u.authenticated?(password) && u.active? ? u : nil
+    user_email = u.emails.find(:first, :conditions => {:address => email})
+    user_email && user_email.active? && u && u.authenticated?(password) && u.active? ? u : nil
   end
 
   ######### EMAIL SHORTCUTS ##########
@@ -75,20 +78,20 @@ class User < ActiveRecord::Base
     address = (address ? address.downcase : nil)
     User.find(:first, :include => :emails, :conditions => ['emails.address = ?', address])
   end
-
+  
+  def primary_email
+    self.emails.first
+  end
+  
   before_save :preprocess_email
   after_save :process_email
 
   # shortcut for creating an associated email address
   def email=(value)
+    raise 'Cannot directly assign an email when an email has already been added' if self.emails.size > 0
     @email_to_save = value
-    #self.emails << Email.new(:address => (value ? value.downcase : nil))
   end
-  
-  def primary_email
-    self.emails.first.address
-  end
-  
+
   def preprocess_email
     if @email_to_save.nil? && self.emails.size == 0
       errors.add(:email, "is required")
@@ -99,23 +102,24 @@ class User < ActiveRecord::Base
     end
     return false
   end
-  
+
   def process_email
     return if @email_to_save.nil?
-    Email.create(:user => self, :address => @email_to_save)
+    self.emails.create(:address => @email_to_save)
     @email_to_save = nil
   end
   private :preprocess_email, :process_email
+  
 
   ######### EMAIL SHORTCUTS ##########
   
   def self.create_and_activate(attrs={})
     u = User.new(attrs)
     u.user_state = 'active'
-    u.save && Email.find_by_address(u.primary_email).update_attribute(:verified, true)
+    u.save && Email.find_by_address(attrs[:email]).activate!
     u
   end
-    
+  
   def pending_transactions
     []
   end

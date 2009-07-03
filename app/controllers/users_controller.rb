@@ -33,15 +33,19 @@ class UsersController < ApplicationController
   
   def activate
     logout_keeping_session!
-    user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
+    email = Email.find_by_activation_code(params[:activation_code], :include => :user) unless params[:activation_code].blank?
     case
-    when (!params[:activation_code].blank?) && user && user.pending?
-      user.activate!
-      Email.find_by_address(user.primary_email).update_attribute(:verified, true)
-      UserMailer.deliver_activation(user, user.primary_email)
-      
-      flash[:notice] = "Signup complete! You can now start tracking your debts."
-      session[:user_id] = user.id
+    when (!params[:activation_code].blank?) && email && email.pending?
+      email.activate!
+      if email.user.pending?
+        UserMailer.deliver_activation(email.user, email.address)
+        email.user.activate! 
+        flash[:notice] = "Signup complete! You can now start tracking your debts."
+      else
+        UserMailer.deliver_email_activation_confirmation(email)
+        flash[:notice] = "#{email.address} has been added to your account!"
+      end
+      session[:user_id] = email.user.id
       redirect_to root_url
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."

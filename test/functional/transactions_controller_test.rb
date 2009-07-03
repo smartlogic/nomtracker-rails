@@ -222,7 +222,7 @@ class TransactionsControllerTest < ActionController::TestCase
     
     context "creates an invalid credit" do
       setup do
-        post :create, valid_credit_attrs(:email => adam.primary_email)
+        post :create, valid_credit_attrs(:email => adam.primary_email.address)
       end
       
       should_not_create_a_transaction
@@ -250,7 +250,7 @@ class TransactionsControllerTest < ActionController::TestCase
   
   private
     def valid_credit_attrs(options={})
-      {:transaction_type => 'credit', :email => nick.primary_email,
+      {:transaction_type => 'credit', :email => nick.primary_email.address,
         :transaction => {
           :amount => 1,
           :when => 'yesterday',
@@ -260,7 +260,7 @@ class TransactionsControllerTest < ActionController::TestCase
     end
     
     def valid_debt_attrs(options={})
-      {:transaction_type => 'debt', :email => nick.primary_email,
+      {:transaction_type => 'debt', :email => nick.primary_email.address,
         :transaction => {
           :amount => 1,
           :when => 'yesterday',

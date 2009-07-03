@@ -11,7 +11,7 @@
       - user.debts.each do |trn|
         %tr 
           %td= time_ago_in_words(trn.created_at) + " ago"
-          %td= trn.creditor.primary_email
+          %td= h(trn.creditor.primary_email.address)
           %td.debt= number_to_currency trn.amount
           %td Description goes here
           %td.utility_links= link_to "tell this person you paid the debt", "#", :onclick => 'alert("Not implemented");'
