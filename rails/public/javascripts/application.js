@@ -22,9 +22,6 @@ var Messaging = {
       if (json.info) {
         html += Messaging.info.evaluate({message: json.info});
       }
-      if (!html) {
-        html += "Why didn't I get set?";
-      }
     }
     return html;
   }
