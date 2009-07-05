@@ -29,4 +29,14 @@ class EmailTest < ActiveSupport::TestCase
       assert_not_nil @email.activation_code
     end
   end
+  
+  context "When creating an Email with an uppercase address" do
+    setup do
+      @email = Email.create!(:user => nick, :address => "NICK2@SLSDEV.NET")
+    end
+    
+    should "downcase the address before inserting into the database" do
+      assert_equal "nick2@slsdev.net", Email.find(@email.id).address
+    end
+  end
 end
