@@ -10,6 +10,8 @@ class Email < ActiveRecord::Base
   validates_uniqueness_of   :address
   validates_format_of       :address,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
+  before_save :downcase_email!
+  
   state_machine :email_state, :initial => :pending do
     
     event :activate do
@@ -27,6 +29,11 @@ class Email < ActiveRecord::Base
     state :active do
       
     end
-  end  
+  end
+  
+  private
+    def downcase_email!
+      self.address.downcase!
+    end
   
 end
