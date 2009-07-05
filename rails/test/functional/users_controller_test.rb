@@ -113,7 +113,7 @@ class UsersControllerTest < ActionController::TestCase
   context 'An active user already exists and tries the activation URL with a valid activation code for a new email' do
     setup do
       @new_email = nick.emails.create!(:address => 'nick2@slsdev.net')
-      UserMailer.stubs(:deliver_email_activation).returns(true).then.raises(StandardError)
+      UserMailer.stubs(:deliver_email_activation_confirmation).returns(true).then.raises(StandardError)
       get :activate, { :activation_code => @new_email.activation_code }
     end
     
@@ -130,7 +130,7 @@ class UsersControllerTest < ActionController::TestCase
     end
     
     should "trigger an email activation email to the user" do
-      assert_raises(StandardError) { UserMailer.deliver_email_activation("blah") }
+      assert_raises(StandardError) { UserMailer.deliver_email_activation_confirmation("blah") }
     end
     
     should "log the user in" do
