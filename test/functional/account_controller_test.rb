@@ -1,15 +1,39 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+def should_return_error_message
+  should "return an error message" do
+    json = JSON.parse(@response.body)
+    assert_not_nil json['messages']
+    assert_not_nil json['messages']['error']
+  end  
+end
+
 def should_fail_to_add_email_address
   should_respond_with 422
   should_respond_with_content_type 'application/json'
   
   should_change 'Email.count', :by => 0
-  should "return error message" do
-    json = JSON.parse(@response.body)
-    assert_not_nil json['messages']
-    assert_not_nil json['messages']['error']
+  should_return_error_message
+end
+
+def should_send_activation_email
+  should "send an activation email to nick2@slsdev.net" do
+    sent = ActionMailer::Base.deliveries
+    assert_equal 1, sent.size
+    assert_equal "nick2@slsdev.net", Array(sent.first.to).first
   end
+end
+
+def should_not_send_activation_email
+  should_respond_with 422
+  should_respond_with_content_type 'application/json'
+
+  should "not send an activation email" do
+    sent = ActionMailer::Base.deliveries
+    assert_equal 0, sent.size
+  end
+  
+  should_return_error_message
 end
 
 class AccountControllerTest < ActionController::TestCase
@@ -54,11 +78,7 @@ class AccountControllerTest < ActionController::TestCase
         assert json['emails'].any?{|hsh| hsh['address'] == 'nick2@slsdev.net'}
       end
       
-      should "send an activation email to nick2@slsdev.net" do
-        sent = ActionMailer::Base.deliveries
-        assert_equal 1, sent.size
-        assert_equal "nick2@slsdev.net", Array(sent.first.to).first
-      end
+      should_send_activation_email
       
     end
     
@@ -81,16 +101,16 @@ class AccountControllerTest < ActionController::TestCase
     context "and the user with email address john@slsdev.net is currently unregistered because a transaction has been created with it" do
       setup do
         # john does not exist yet
-        @transaction = Transaction.create!(:amount => 5.00, :creditor_email => 'john@slsdev.net', :debtor => adam)
+        @transaction = Transaction.create!(:amount => 5.00, :creditor_email => 'nick2@slsdev.net', :debtor => adam)
       end
       
       # in other words, existing users have created transaction for an email address that
       # she hasn't claimed yet.
-      context "and nick adds the email address john@slsdev.net to his account" do
+      context "and nick adds the email address nick2@slsdev.net to his account" do
         
         setup do
           ActionMailer::Base.deliveries = []
-          xhr(:post, :add_email, {:address => 'john@slsdev.net'})
+          xhr(:post, :add_email, {:address => 'nick2@slsdev.net'})
         end
 
         should_respond_with :success
@@ -118,15 +138,54 @@ class AccountControllerTest < ActionController::TestCase
         should "return updated email addresses" do
           json = JSON.parse(@response.body)
           assert_not_nil json['emails']
-          assert json['emails'].any?{|hsh| hsh['address'] == 'john@slsdev.net'}
+          assert json['emails'].any?{|hsh| hsh['address'] == 'nick2@slsdev.net'}
         end
 
-        should "send an activation email to nick2@slsdev.net" do
-          sent = ActionMailer::Base.deliveries
-          assert_equal 1, sent.size
-          assert_equal "john@slsdev.net", Array(sent.first.to).first
+        should_send_activation_email
+        
+      end
+    end
+    
+    context "and has an unverified email address nick2@slsdev.net" do
+      setup do
+        ActionMailer::Base.deliveries = []
+        @new_email = nick.emails.create!(:address => 'nick2@slsdev.net')
+      end
+      
+      context 'and requests to re-send his activation email' do
+        setup do
+          xhr(:get, :resend_activation, :email_id => @new_email.id)
         end
         
+        should_respond_with :success
+        should_respond_with_content_type 'application/json'
+        
+        should_send_activation_email
+      end
+      
+      context 'and requests to re-send an activation email for a verified email' do
+        setup do
+          xhr(:get, :resend_activation, :email_id => nick.primary_email.id)
+        end
+        
+        should_not_send_activation_email
+      end
+      
+      context 'and requests to re-send an activation email for an email that belongs to someone else' do
+        setup do
+          adams_new_email = adam.emails.create!(:address => 'adam2@slsdev.net')
+          xhr(:get, :resend_activation, :email_id => adams_new_email.id)
+        end
+        
+        should_not_send_activation_email
+      end
+      
+      context 'and requests to re-send an activation email for a nonexistent email address' do
+        setup do
+          xhr(:get, :resend_activation, :email_id => -1)
+        end
+        
+        should_not_send_activation_email        
       end
     end
   end

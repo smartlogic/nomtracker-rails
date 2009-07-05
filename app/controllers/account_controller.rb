@@ -31,9 +31,31 @@ class AccountController < ApplicationController
     end
   end
   
+  def resend_activation
+    begin
+      email = current_user.emails.find(params[:email_id])
+      if email.active?
+        error = 'This email has already been verified.  An activation request has not been re-sent.'
+      end
+    rescue ActiveRecord::RecordNotFound
+      error = 'This email address does not belong to you. Please try refreshing the page and retrying your request.'
+    end
+    
+    if error.nil?
+      UserMailer.deliver_email_activation(email)
+      render :json => {
+        :messages => {:success => "An activation email has been re-sent to #{email.address}."}
+      }
+    else
+      render :status => 422, :json => {
+        :messages => {:error => error}
+      }
+    end
+  end
+  
   private
     def prepare_json(email_array)
-      email_array.map{|email| {:address => email.address, :verified => email.active?}}
+      email_array.map{|email| {:address => email.address, :verified => email.active?, :id => email.id}}
     end
   
 end
