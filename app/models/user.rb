@@ -155,4 +155,9 @@ class User < ActiveRecord::Base
     credits.sum(:amount) - debts.sum(:amount)
   end
   
+  def transfer_transactions_to(user)
+    self.credits.update_all("creditor_id = #{user.id}")
+    self.debts.update_all("debtor_id = #{user.id}")
+  end
+  
 end

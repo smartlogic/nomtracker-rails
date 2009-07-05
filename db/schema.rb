@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090702213026) do
+ActiveRecord::Schema.define(:version => 20090705172123) do
 
   create_table "emails", :force => true do |t|
     t.string  "address"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(:version => 20090702213026) do
     t.string   "when"
     t.string   "description"
   end
+
+  add_index "transactions", ["creditor_id"], :name => "index_transactions_on_creditor_id"
+  add_index "transactions", ["debtor_id"], :name => "index_transactions_on_debtor_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                      :limit => 100, :default => ""

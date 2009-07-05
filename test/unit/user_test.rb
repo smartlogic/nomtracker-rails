@@ -291,6 +291,24 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  context "When a user john has 1 debt and 1 credit" do
+    setup do
+      @john = create_john
+      Transaction.create!(:creditor => @john, :debtor => nick, :amount => 5)
+      Transaction.create!(:debtor => @john, :creditor => nick, :amount => 10)
+    end
+    
+    context "and we want to transfer john's transactions to adam" do
+      setup do
+        @john.transfer_transactions_to(adam)
+      end
+      
+      should_change "adam.transactions.count", :by => 2
+      should_change "@john.transactions.count", :by => -2
+      should_change "Transaction.count", :by => 0
+    end
+  end
+  
   ######## NOMWORTH #########
   
   # This will need to change when we add the functionality to resolve debts

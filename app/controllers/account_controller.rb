@@ -8,7 +8,16 @@ class AccountController < ApplicationController
   end
   
   def add_email
-    email = Email.new(:address => params[:address], :user => current_user)
+    # first, try to find the email address
+    email = Email.find_by_address(params[:address])
+    if email && email.user.unregistered?
+      # we need to add this existing email address to the current user...
+      email.user.transfer_transactions_to(current_user)
+      email.user.destroy
+      email.user = current_user
+    else
+      email = Email.new(:address => params[:address], :user => current_user)
+    end
     if email.save
       UserMailer.deliver_email_activation(email)
       render :json => {
