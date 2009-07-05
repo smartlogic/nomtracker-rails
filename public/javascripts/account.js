@@ -14,17 +14,21 @@ function redrawEmails(emails) {
 }
 
 function resendActivationEmail(email_id) {
-  alert('sending activation email for ' + email_id);
   new Ajax.Request('/account/resend_activation', {parameters: 'email_id=' + email_id, 
     onSuccess: function(response) {
       var json = response.responseText.evalJSON();
-      alert(json['messages']['success'])
+      updateEmailMessaging(json.messages);
     },
     onFailure: function(response) {
       var json = response.responseText.evalJSON();
-      alert(json['messages']['error'])
+      updateEmailMessaging(json.messages);
     }
   });
+}
+
+function updateEmailMessaging(json) {
+  var div = $('email_addresses_messages');
+  div.update(Messaging.generate(json));
 }
 
 Event.observe(window, 'load', function() {
@@ -41,12 +45,12 @@ Event.observe(window, 'load', function() {
       onSuccess: function(response) {
         var json = response.responseText.evalJSON();
         redrawEmails(json['emails']);
-        alert(json['messages']['success']);
+        updateEmailMessaging(json.messages);
       },
       
       onFailure: function(response) {
         var json = response.responseText.evalJSON();
-        alert(json['messages']['error']);
+        updateEmailMessaging(json.messages);
       }
     });
   });
