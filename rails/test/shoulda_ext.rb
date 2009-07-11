@@ -28,10 +28,11 @@ module Shoulda
       end
       
       # Messaging Streams via JSON
-      def should_update_message(type)
-        should "return updated #{type} message stream" do
+      def should_flash(type)
+        should "return #{type} message" do
           json = JSON.parse(@response.body)
-          assert_not_nil json['messages'][type.to_s]  
+          assert_not_nil json['messages']
+          assert_not_nil json['messages'][type.to_s]
         end
       end
             

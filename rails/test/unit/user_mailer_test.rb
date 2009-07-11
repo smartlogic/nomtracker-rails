@@ -38,6 +38,11 @@ class UserMailerTest < ActiveSupport::TestCase
     email = nick.emails.create!(:address => new_address)
     assert_nothing_raised { UserMailer.deliver_email_activation_confirmation(email) }
   end
+  
+  def test_invitation
+    john = User.create!(john_attrs)
+    assert_nothing_raised { UserMailer.deliver_invitation(nick, john.primary_email) }
+  end
 
   private
 
