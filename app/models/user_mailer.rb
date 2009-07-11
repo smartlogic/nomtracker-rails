@@ -28,6 +28,14 @@ class UserMailer < ActionMailer::Base
     @body[:url]  = "http://#{SITE_URL}/"
   end
   
+  def invitation(from_user, email)
+    setup_email(email.user, email.address)
+    @subject += "#{from_user.primary_email.address} has invited you to join Nomtracker"
+    @body[:nomtracker_url] = "http://#{SITE_URL}/"
+    @body[:url]  = "http://#{SITE_URL}/signup?email=#{email.address}"
+    @body[:from_user] = from_user
+  end
+  
   protected
     def setup_email(user, email=user.primary_email.address)
       @recipients  = email

@@ -36,14 +36,6 @@ def should_not_send_activation_email
   should_return_error_message
 end
 
-def should_flash(type)
-  should "return #{type} message" do
-    json = JSON.parse(@response.body)
-    assert_not_nil json['messages']
-    assert_not_nil json['messages'][type.to_s]
-  end
-end
-
 def should_remove_nick2_at_slsdev_net
   should_respond_with :success
   should_respond_with_content_type 'application/json'

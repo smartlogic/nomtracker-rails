@@ -171,7 +171,7 @@ class TransactionsControllerTest < ActionController::TestCase
       
       should_update_balances
       should_update_transactions
-      should_update_message(:success)
+      should_flash(:success)
       should_update_nomworth
     end
     
@@ -190,7 +190,7 @@ class TransactionsControllerTest < ActionController::TestCase
 
       should_update_balances
       should_update_transactions
-      should_update_message(:success)
+      should_flash(:success)
       should_update_nomworth
     end
     
@@ -204,7 +204,7 @@ class TransactionsControllerTest < ActionController::TestCase
       should_update_nomworth
       should_update_balances
       should_update_transactions
-      should_update_message(:success)
+      should_flash(:success)
     end
     
     context "creates a valid debt to a nonexistent user" do
@@ -217,7 +217,7 @@ class TransactionsControllerTest < ActionController::TestCase
       should_update_nomworth
       should_update_balances
       should_update_transactions
-      should_update_message(:success)
+      should_flash(:success)
     end
     
     context "creates an invalid credit" do
@@ -234,7 +234,7 @@ class TransactionsControllerTest < ActionController::TestCase
       end
     
       should_not_update_balances
-      should_update_message(:error)
+      should_flash(:error)
       should_not_update_nomworth
     end
   end
