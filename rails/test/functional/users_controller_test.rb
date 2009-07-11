@@ -10,7 +10,34 @@ def should_require(att)
   end
 end
 
+def should_render_signup_form
+  should_respond_with :success
+  should_respond_with_content_type 'text/html'
+  should_render_template 'new'  
+end
+
 class UsersControllerTest < ActionController::TestCase
+
+  context 'A visitor requests the signup form' do
+    setup do
+      get :new
+    end
+    
+    should_render_signup_form
+  end
+  
+  context 'A visitor requests the signup form with an email address in the querystring' do
+    setup do
+      get :new, :email => 'john@slsdev.net'
+    end
+    
+    should_render_signup_form
+    should 'prefill the email input field' do
+      assert_select '#user_email', :count => 1 do |inputs|
+        assert_equal 'john@slsdev.net', inputs.first.attributes["value"]
+      end
+    end
+  end
 
   context "A user is ready to submit a form to create an account for an email that doesn't yet exist" do
     should_require :email
