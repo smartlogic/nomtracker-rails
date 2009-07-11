@@ -1,6 +1,6 @@
-var verifiedEmailTemplate = new Template("<img src='/images/check.gif' alt='verified' title='#{email} has been verified' /> <input type='text' name='email' value='#{email}' readonly='readonly' /> <a href='javascript:void(0)' onclick='alert(\"Not implemented\");'><img src='/images/redex.gif' alt='remove #{email}' title='Click here to remove this email address from your account' /></a>");
+var verifiedEmailTemplate = new Template("<img src='/images/check.gif' alt='verified' title='#{email} has been verified' /> <input type='text' name='email' value='#{email}' readonly='readonly' /> <a href='javascript:void(0)' onclick='removeEmail(#{id});'><img src='/images/redex.gif' alt='remove #{email}' title='Click here to remove this email address from your account' /></a>");
 
-var unverifiedEmailTemplate = new Template("<img src='/images/warning.gif' alt='unverified' title='#{email} has not been verified' /> <input type='text' name='email' value='#{email}' readonly='readonly' /> <a href='javascript:void(0)' onclick='alert(\"Not implemented\");'><img src='/images/redex.gif' alt='remove #{email}' title='Click here to remove this email address from your account' /></a> or <a href='javascript:void(0)' onclick='resendActivationEmail(#{id});'>resend activation email</a>");
+var unverifiedEmailTemplate = new Template("<img src='/images/warning.gif' alt='unverified' title='#{email} has not been verified' /> <input type='text' name='email' value='#{email}' readonly='readonly' /> <a href='javascript:void(0)' onclick='removeEmail(#{id});'><img src='/images/redex.gif' alt='remove #{email}' title='Click here to remove this email address from your account' /></a> or <a href='javascript:void(0)' onclick='resendActivationEmail(#{id});'>resend activation email</a>");
 
 function redrawEmails(emails) {
   var html = $A(emails).map(function(email) {
@@ -18,6 +18,23 @@ function resendActivationEmail(email_id) {
     onSuccess: function(response) {
       var json = response.responseText.evalJSON();
       updateEmailMessaging(json.messages);
+    },
+    onFailure: function(response) {
+      var json = response.responseText.evalJSON();
+      updateEmailMessaging(json.messages);
+    }
+  });
+}
+
+function removeEmail(email_id) {
+  if (!confirm("All debts and credits associated with this email address will remain on your account.  Do you still wish to remove this email address?")) {
+    return false;
+  }
+  new Ajax.Request('/account/remove_email', {parameters: 'email_id=' + email_id,
+    onSuccess: function(response) {
+      var json = response.responseText.evalJSON();
+      updateEmailMessaging(json.messages);
+      redrawEmails(json['emails']);
     },
     onFailure: function(response) {
       var json = response.responseText.evalJSON();
