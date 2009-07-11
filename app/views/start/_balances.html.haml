@@ -8,7 +8,7 @@
       - user.balances.each do |balance|
         - transaction_type = balance[:balance] >= 0 ? "credit" : "debt"
         %tr 
-          %td= h(balance[:user].primary_email.address)
+          %td= display_user(balance[:user])
           - if balance[:balance] >= 0
             %td.credit= number_to_currency(balance[:balance])
           - else
