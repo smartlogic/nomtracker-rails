@@ -18,6 +18,7 @@
 
   %h1#balances Balances
   %div 
+    #balances_messages
     %p Your nonzero balances by individual
     = render :partial => 'balances', :locals => {:user => current_user}
     

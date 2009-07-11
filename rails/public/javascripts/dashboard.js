@@ -52,3 +52,24 @@ function startNegateBalance(email, amount) {
   $('transaction_when').value = getTodaysDateForNewTransaction();
   $('transaction_description').focus();
 }
+
+function updateBalancesMessaging(json) {
+  var div = $('balances_messages');
+  div.update(Messaging.generate(json));
+}
+
+function sendInvitation(email_id, address) {
+  if (!confirm("Press ok to send an invitation to " + address + " to join Nomtracker.")) {
+    return false;
+  }
+  new Ajax.Request('/start/send_invite', {parameters: 'email_id=' + email_id, method: 'post', 
+    onSuccess: function(response) {
+      var json = response.responseText.evalJSON();
+      updateBalancesMessaging(json['messages']);
+    },
+    onFailure: function(response) {
+      var json = response.responseText.evalJSON();
+      updateBalancesMessaging(json['messages']);
+    }
+  });
+}

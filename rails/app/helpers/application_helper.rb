@@ -6,7 +6,7 @@ module ApplicationHelper
     if !user.active?
       alt = "#{user.primary_email.address} has not yet established an account"
       ret += link_to(image_tag('warning.gif', :alt => alt), 'javascript:void(0)', 
-        :onclick => 'alert("Bring up form to allow them to send an email to this person imploring them to join Nomtracker: server side is implemented, but client side is unimplemented");', :title => 'Send an email asking this person to join Nomtracker')
+        :onclick => "sendInvitation(#{user.primary_email.id}, '#{escape_javascript(user.primary_email.address)}');", :title => "Send a Nomtracker invitation to #{h user.primary_email.address}")
     end
     ret
   end
