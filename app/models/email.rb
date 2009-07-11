@@ -12,6 +12,8 @@ class Email < ActiveRecord::Base
   
   before_save :downcase_email!
   
+  named_scope :active, :conditions => {:email_state => 'active'}
+  
   state_machine :email_state, :initial => :pending do
     
     event :activate do

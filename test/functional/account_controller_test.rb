@@ -36,6 +36,27 @@ def should_not_send_activation_email
   should_return_error_message
 end
 
+def should_flash(type)
+  should "return #{type} message" do
+    json = JSON.parse(@response.body)
+    assert_not_nil json['messages']
+    assert_not_nil json['messages'][type.to_s]
+  end
+end
+
+def should_remove_nick2_at_slsdev_net
+  should_respond_with :success
+  should_respond_with_content_type 'application/json'
+
+  should "return updated email addresses" do
+    json = JSON.parse(@response.body)
+    assert_not_nil json['emails']
+    assert json['emails'].any?{|hsh| hsh['address'] != 'nick2@slsdev.net'}
+  end
+
+  should_change 'nick.emails.count', :by => -1
+end
+
 class AccountControllerTest < ActionController::TestCase
   context "When nick is logged in" do
     setup do
@@ -66,12 +87,8 @@ class AccountControllerTest < ActionController::TestCase
         assert nick.emails(true).last.pending?
       end
       
-      should "return success message" do
-        json = JSON.parse(@response.body)
-        assert_not_nil json['messages']
-        assert_not_nil json['messages']['success']
-      end
-      
+      should_flash :success
+
       should "return updated email addresses" do
         json = JSON.parse(@response.body)
         assert_not_nil json['emails']
@@ -129,11 +146,7 @@ class AccountControllerTest < ActionController::TestCase
           assert nick.emails(true).last.pending?
         end
 
-        should "return success message" do
-          json = JSON.parse(@response.body)
-          assert_not_nil json['messages']
-          assert_not_nil json['messages']['success']
-        end
+        should_flash(:success)
 
         should "return updated email addresses" do
           json = JSON.parse(@response.body)
@@ -186,6 +199,59 @@ class AccountControllerTest < ActionController::TestCase
         end
         
         should_not_send_activation_email        
+      end
+    end
+  
+    context "and has 1 verified and 1 unverified email address" do
+      setup do
+        @new_email = nick.emails.create!(:address => 'nick2@slsdev.net')
+      end
+    
+      context "and he removes the unverified email address" do
+        setup do
+          xhr(:post, :remove_email, {:email_id => @new_email.id})
+        end
+    
+        should_remove_nick2_at_slsdev_net
+      end
+    
+      context "and he removes the verified email address" do
+        setup do
+          xhr(:post, :remove_email, {:email_id => nick.primary_email.id})
+        end
+      
+        should_respond_with 422
+        should_respond_with_content_type 'application/json'
+      
+        should_flash :error
+        should_change 'nick.emails.count', :by => 0
+      end
+    
+      context "and he removes an email address that doesn't belong to him" do
+        setup do
+          xhr(:post, :remove_email, {:email_id => adam.primary_email.id})
+        end
+      
+        should_respond_with 422
+        should_respond_with_content_type 'application/json'
+      
+        should_flash :error
+        should_change 'Email.count', :by => 0
+      end
+    end
+  
+    context "and has 2 verified email addresses" do
+      setup do
+        @new_email = nick.emails.create!(:address => 'nick2@slsdev.net')
+        @new_email.activate!
+      end
+    
+      context "and he removes one of the email addresses" do
+        setup do
+          xhr(:post, :remove_email, {:email_id => @new_email.id})
+        end
+    
+        should_remove_nick2_at_slsdev_net
       end
     end
   end
