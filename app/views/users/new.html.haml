@@ -10,7 +10,7 @@
   %p
     = label_tag 'user[email]', "Email"
     %br
-    = text_field_tag 'user[email]', nil, :id => 'user_email'
+    = text_field_tag 'user[email]', @preset_email, :id => 'user_email'
   %p
     = f.label 'password'
     %br
