@@ -21,8 +21,15 @@ ActiveRecord::Schema.define(:version => 20090705172123) do
   add_index "emails", ["address"], :name => "index_emails_on_address", :unique => true
   add_index "emails", ["user_id"], :name => "index_emails_on_user_id"
 
-# Could not dump table "normalized_transactions" because of following StandardError
-#   Unknown type 'null' for column 'id'
+  create_table "normalized_transactions", :force => true do |t|
+    t.integer  "me"
+    t.integer  "you"
+    t.decimal  "amount",      :precision => 9, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "when"
+    t.string   "description"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

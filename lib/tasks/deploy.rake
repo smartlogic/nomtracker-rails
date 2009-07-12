@@ -1,4 +1,10 @@
 
+desc 'Lazy load net/ssh'
+task :net_ssh do
+  gem 'net-ssh', '~> 2.0.11'
+  require 'net/ssh'  
+end
+
 desc 'Full production deployment'
 task :deploy => ['deploy:package', 'deploy:apply']
 
@@ -21,9 +27,7 @@ scp nomtracker.tar.gz deploy@production.slsdev.net:/var/vhosts/nomtracker/releas
   end
   
   desc "Tarball has been uploaded, now we want to actually perform the server dance"
-  task :apply do
-    gem 'net-ssh', '~> 2.0.11'
-    require 'net/ssh'
+  task :apply => :net_ssh do
   
     remote_path = "/var/vhosts/nomtracker"
   
@@ -49,4 +53,48 @@ mkdir -p /var/vhosts/nomtracker/current/tmp && touch /var/vhosts/nomtracker/curr
     end
   end
 
+end
+
+task :sync => ['sync:db', 'sync:content']
+
+namespace :sync do
+  task :db => :net_ssh do
+    # check local cache
+      # check remote cache
+        # generate dump
+    remote = <<-REMOTE
+      mkdir -p /var/vhosts/nomtracker/snapshots && \
+      mysqldump -u nomtracker --password=n0mTr@ck3r nomtracker | gzip - > /var/vhosts/nomtracker/snapshots/db.sql.gz
+    REMOTE
+    
+    Net::SSH.start('production.slsdev.net', 'deploy') do |ssh|
+      output = ssh.exec!(remote)
+      puts "Remote command completed"
+      puts "========================"
+      puts output
+    end
+    
+    # download
+    # restore
+    local = <<-LOCAL
+      mkdir -p tmp && \
+      scp deploy@production.slsdev.net:/var/vhosts/nomtracker/snapshots/db.sql.gz tmp/db.sql.gz && \
+      gunzip tmp/db.sql.gz && \
+      rake db:drop db:create && \
+      mysql -u root nomtracker < tmp/db.sql && \
+      rake db:migrate
+    LOCAL
+    
+    output = system(local)
+    puts "Local command completed"
+    puts "======================="
+    puts output
+
+    raise "Non-zero exit status: #{$?.exitstatus}: #{$?.inspect}" if $?.exitstatus != 0
+    
+  end
+  
+  task :content do 
+    
+  end
 end
