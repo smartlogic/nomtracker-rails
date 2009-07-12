@@ -4,6 +4,16 @@ class AddForeignKeysToTransactions < ActiveRecord::Migration
     add_foreign_key :transactions, :debtor_id, :users, :id
     add_index :transactions, :creditor_id
     add_index :transactions, :debtor_id
+    
+    sql = <<-SQL
+      CREATE SQL SECURITY INVOKER VIEW normalized_transactions AS 
+        (SELECT `id`, `creditor_id` AS `me`, `debtor_id` AS `you`, `amount`, `created_at`, `updated_at`, `when`, `description` FROM `transactions`) 
+        UNION 
+        (SELECT `id`, `debtor_id` AS `me`, `creditor_id` AS `you`, `amount` * -1 AS `amount`, `created_at`, `updated_at`, `when`, `description` FROM transactions)
+    SQL
+    
+    ActiveRecord::Base.connection.execute("DROP VIEW normalized_transactions")
+    ActiveRecord::Base.connection.execute(sql)
   end
 
   def self.down
