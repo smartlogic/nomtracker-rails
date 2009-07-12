@@ -309,6 +309,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  context "When a user nick has 2 emails on his account" do
+    setup do
+      nick.emails.create!(:address => 'nick2@slsdev.net')
+    end
+    
+    context "and we #destroy his account" do
+      setup do
+        nick.destroy
+      end
+      
+      should_change 'User.count', :by => -1
+      should_change 'Email.count', :by => -2
+    end
+  end
+  
   ######## NOMWORTH #########
   
   # This will need to change when we add the functionality to resolve debts

@@ -21,16 +21,6 @@ ActiveRecord::Schema.define(:version => 20090705172123) do
   add_index "emails", ["address"], :name => "index_emails_on_address", :unique => true
   add_index "emails", ["user_id"], :name => "index_emails_on_user_id"
 
-  create_table "normalized_transactions", :force => true do |t|
-    t.integer  "me"
-    t.integer  "you"
-    t.decimal  "amount",      :precision => 9, :scale => 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "when"
-    t.string   "description"
-  end
-
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -64,5 +54,9 @@ ActiveRecord::Schema.define(:version => 20090705172123) do
     t.datetime "remember_token_expires_at"
     t.string   "user_state",                :limit => 30
   end
+
+# Could not dump view "normalized_transactions" because of following NoMethodError
+#   You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.dump
 
 end
