@@ -107,9 +107,9 @@ class AccountControllerTest < ActionController::TestCase
       should_fail_to_add_email_address
     end
     
-    context "and the user with email address john@slsdev.net is currently unregistered because a transaction has been created with it" do
+    context "and the user with email address nick2@slsdev.net is currently unregistered because a transaction has been created with it" do
       setup do
-        # john does not exist yet
+        # nick2@slsdev.net does not exist yet
         @transaction = Transaction.create!(:amount => 5.00, :creditor_email => 'nick2@slsdev.net', :debtor => adam)
       end
       
@@ -129,6 +129,7 @@ class AccountControllerTest < ActionController::TestCase
         should_change 'Email.count', :by => 0
         should_change 'nick.emails.count', :by => 1
         should_change 'Transaction.count', :by => 0
+        should_change 'nick.transactions.count', :by => 1
         
         should "delete the user created to support the transaction in the first place" do
           assert_raise(ActiveRecord::RecordNotFound) { User.find(@transaction.creditor.id) }
