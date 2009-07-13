@@ -11,15 +11,17 @@ class AccountController < ApplicationController
   def add_email
     # first, try to find the email address
     email = Email.find_by_address(params[:address])
+    user_to_destroy = nil
     if email && email.user.unregistered?
       # we need to add this existing email address to the current user...
       email.user.transfer_transactions_to(current_user)
-      email.user.destroy
+      user_to_destroy = email.user
       email.user = current_user
     else
       email = Email.new(:address => params[:address], :user => current_user)
     end
     if email.save
+      user_to_destroy.destroy unless user_to_destroy.nil?
       UserMailer.deliver_email_activation(email)
       render :json => {
         :emails => prepare_json(current_user.emails(true)),
