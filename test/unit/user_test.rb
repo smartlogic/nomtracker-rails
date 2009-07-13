@@ -324,6 +324,16 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  context "When authenticating using an email that doesn't exist in the database" do
+    setup do
+      @return = User.authenticate('jtrupiano@slsdev.net', 'john')
+    end
+    
+    should "return nil" do
+      assert_nil @return
+    end
+  end
+  
   ######## NOMWORTH #########
   
   # This will need to change when we add the functionality to resolve debts
