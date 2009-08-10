@@ -1,5 +1,14 @@
 class UsersController < ApplicationController
 
+  def index
+    @users = User.find(:all)
+    respond_to do |format|
+      format.html #
+      format.xml { render :xml => @users}
+    end
+  end
+
+
   def new
     @user = User.new
     @preset_email = params[:email]
@@ -10,7 +19,7 @@ class UsersController < ApplicationController
     @users = current_user.network.select {|email| email =~ Regexp.new("#{email_arg}")}
     render :json => {:emails => @users}
   end
-  
+
   def create
     logout_keeping_session!
     # does the user exist?
@@ -31,7 +40,7 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def activate
     logout_keeping_session!
     email = Email.find_by_activation_code(params[:activation_code], :include => :user) unless params[:activation_code].blank?
@@ -40,7 +49,7 @@ class UsersController < ApplicationController
       email.activate!
       if email.user.pending?
         UserMailer.deliver_activation(email.user, email.address)
-        email.user.activate! 
+        email.user.activate!
         flash[:notice] = "Signup complete! You can now start tracking your debts."
       else
         UserMailer.deliver_email_activation_confirmation(email)
@@ -51,10 +60,20 @@ class UsersController < ApplicationController
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
       redirect_back_or_default('/')
-    else 
+    else
       flash[:error]  = "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
       redirect_back_or_default('/')
     end
   end
-  
+
+  def authenticate_user
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      render :status => 200, :xml => user.to_xml
+    else
+      render :status => 422, :xml => {:response => "No"}.to_xml
+    end
+  end
+
+
 end
