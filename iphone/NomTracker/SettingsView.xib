@@ -39,7 +39,7 @@
 					<object class="IBUIImageView" id="713981116">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{0, 30}, {320, 409.949}}</string>
+						<string key="NSFrame">{{0, 44}, {320, 432.949}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -47,13 +47,13 @@
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">login_background.png</string>
+							<string key="NSResourceName">sign_out2.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="520796601">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{69, 353.949}, {182, 46}}</string>
+						<string key="NSFrame">{{69, 289}, {182, 46}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -88,7 +88,7 @@
 					<object class="IBUILabel" id="61308667">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{39, 166.949}, {117, 21}}</string>
+						<string key="NSFrame">{{39, 155}, {117, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -105,7 +105,7 @@
 					<object class="IBUILabel" id="141762913">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{39, 188.949}, {229, 21}}</string>
+						<string key="NSFrame">{{39, 184}, {229, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -119,7 +119,7 @@
 					<object class="IBUILabel" id="654974437">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{39, 246.949}, {242, 21}}</string>
+						<string key="NSFrame">{{39, 227}, {242, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -211,12 +211,12 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="61308667"/>
+							<reference ref="654974437"/>
+							<reference ref="520796601"/>
+							<reference ref="141762913"/>
 							<reference ref="1041565832"/>
 							<reference ref="713981116"/>
-							<reference ref="520796601"/>
-							<reference ref="61308667"/>
-							<reference ref="141762913"/>
-							<reference ref="654974437"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -291,7 +291,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>SettingsViewController</string>
 					<string>UIResponder</string>
-					<string>{{303, 107}, {320, 480}}</string>
+					<string>{{762, 298}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -330,42 +330,42 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/NSObject+ObjectiveResource.h</string>
+						<string key="minorKey">Classes/lib/NSObject+ObjectiveResource.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/lib/Core/NSObject+PropertySupport.h</string>
+						<string key="minorKey">Classes/lib/objective_support/Core/NSObject+PropertySupport.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/lib/Serialization/JSON/NSObject+JSONSerializableSupport.h</string>
+						<string key="minorKey">Classes/lib/objective_support/Serialization/JSON/NSObject+JSONSerializableSupport.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/lib/Serialization/NSObject+Serialize.h</string>
+						<string key="minorKey">Classes/lib/objective_support/Serialization/NSObject+Serialize.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/lib/Serialization/XML/NSObject+XMLSerializableSupport.h</string>
+						<string key="minorKey">Classes/lib/objective_support/Serialization/XML/NSObject+XMLSerializableSupport.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/lib/json-framework/NSObject+SBJSON.h</string>
+						<string key="minorKey">Classes/lib/objective_support/json-framework/NSObject+SBJSON.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

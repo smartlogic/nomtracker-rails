@@ -84,6 +84,7 @@
 		5FAD5DD1102B6478000B5D28 /* sign_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5DD0102B6478000B5D28 /* sign_in.png */; };
 		5FAD5EB7102B767F000B5D28 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5EB5102B767F000B5D28 /* checked.png */; };
 		5FAD5EB8102B767F000B5D28 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5EB6102B767F000B5D28 /* unchecked.png */; };
+		5FB670681030C7F5007E804E /* sign_out2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB670671030C7F5007E804E /* sign_out2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,6 +222,7 @@
 		5FAD5DD0102B6478000B5D28 /* sign_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in.png; sourceTree = "<group>"; };
 		5FAD5EB5102B767F000B5D28 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		5FAD5EB6102B767F000B5D28 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
+		5FB670671030C7F5007E804E /* sign_out2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_out2.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -334,6 +336,7 @@
 		5F14E9A6102CF8DA00495EA1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5FB670671030C7F5007E804E /* sign_out2.png */,
 				5F90A10C103097CE00EB8FC2 /* clock.png */,
 				5F90A0CA10308FAC00EB8FC2 /* borrowed_lit.png */,
 				5F90A0CB10308FAC00EB8FC2 /* borrowed_unlit.png */,
@@ -561,6 +564,7 @@
 				5F90A0CC10308FAC00EB8FC2 /* borrowed_lit.png in Resources */,
 				5F90A0CD10308FAC00EB8FC2 /* borrowed_unlit.png in Resources */,
 				5F90A10D103097CE00EB8FC2 /* clock.png in Resources */,
+				5FB670681030C7F5007E804E /* sign_out2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
