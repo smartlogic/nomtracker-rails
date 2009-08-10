@@ -2,19 +2,22 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "start"
 
   map.start '/start',   :controller => 'start',    :action => 'index'
+  map.balances '/balances', :controller => 'start', :action => 'balances'
+  map.emails "/emails", :controller => "start", :action => "emails"
+  map.transactions_with_user "/transactions_with_user/:id", :controller => "start", :action => "transactions_with_user"
   map.resources :transactions
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login  '/login',  :controller => 'sessions', :action => 'new'
-  
+
   map.register '/register',                  :controller => 'users', :action => 'create'
   map.signup   '/signup',                    :controller => 'users', :action => 'new'
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
 
-  map.resources :users, :only => [:new, :create], :collection => [:find]
+  map.resources :users, :only => [:new, :create, :index], :collection => [:find, :authenticate_user]
 
   map.resource :session
-  
+
   map.account '/account', :controller => 'account', :action => 'index'
   map.resource :account, :controller => 'account', :member => {'add_email' => :post, 'activate_email' => :get, :remove_email => :post}
 
