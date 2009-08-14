@@ -1,6 +1,12 @@
+# require 'file_column'
+
 class Transaction < ActiveRecord::Base
+  include FileColumnHelper
+
   belongs_to :creditor, :class_name => 'User'
   belongs_to :debtor,   :class_name => 'User'
+
+  file_column :image, :magick => { :geometry => "250x250" }
 
   validates_presence_of :amount, :creditor_id, :debtor_id
   validates_length_of :when,        :maximum => 50,  :allow_blank => true
