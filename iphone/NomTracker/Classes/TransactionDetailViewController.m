@@ -11,71 +11,6 @@
 
 @implementation TransactionDetailViewController
 @synthesize dateLabel, transactionLabel, forLabel, transaction, otherUserName;
-/*
-- (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-    }
-    return self;
-}
-*/
-
-/*
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-*/
-
-
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  NSString *thisDate;
-  if (transaction.when != nil) {
-    thisDate = transaction.when;
-  } else {
-    thisDate = transaction.createdAt;
-  }
-  [dateLabel setText:[NSString stringWithFormat:@"On %@", thisDate]];
-  
-  NSString *transactionText;
-  if ([transaction.creditorEmail isEqualToString:[ObjectiveResourceConfig getUser]]) {
-    transactionText = @"borrowed";
-  } else {
-    transactionText = @"lent you";
-  }
-  [transactionLabel setText:[NSString stringWithFormat:@"%@ %@ %@", otherUserName, transactionText, transaction.amountString]];
-
-  if (transaction.description != nil) {
-    [forLabel setText:[NSString stringWithFormat:@"For %@", transaction.description]];
-  }
-}
-
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
@@ -94,7 +29,11 @@
       return @"On";
       break;
     case 1:
-      return @"For";
+      if ([transaction.description isEqualToString:@""] && [transaction.image.description isEqualToString:@""]) {
+        return @"";
+      } else {
+        return @"For";
+      }
       break;
     default:
       return @"";
@@ -108,19 +47,22 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   switch (section) {
     case 0:
-      return 2;
+      return 3;
       break;
     case 1:
-      return 1;
-      break;
+      {
+        int rowCount;
+        rowCount = 2;
+        if ([transaction.description isEqualToString:@""]) { rowCount--; }
+        if ([transaction.image.description isEqualToString:@""]) {rowCount--;}
+        return rowCount;
+        break;
+      }
     default:
       return 0;
       break;
   }
 }
-
-
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,8 +71,9 @@
     
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-      cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
   }
+
   NSString *thisDate;
   if (transaction.when != nil) {
     thisDate = transaction.when;
@@ -159,69 +102,36 @@
       } else {
         cell.text = transaction.createdAt;
       }
-    } else {
+    } else if (indexPath.row == 1) {
       NSString *transactionText;
       if ([transaction.creditorEmail isEqualToString:[ObjectiveResourceConfig getUser]]) {
         transactionText = @"borrowed";
       } else {
         transactionText = @"lent you";
       }
-      cell.text = [NSString stringWithFormat:@"%@ %@ %@", otherUserName, transactionText, transaction.amountString];
+      cell.text = [NSString stringWithFormat:@"%@ %@", otherUserName, transactionText];
+    } else if (indexPath.row == 2) {
+      cell.text = transaction.amountString;
     }
   } else {
-    cell.text = transaction.description;
+    if (indexPath.row == 0 && ![transaction.description isEqualToString:@""]) {
+      cell.text = transaction.description;
+    } else {
+      UIImage *cellImage = [UIImage imageWithContentsOfFile:transaction.image.description];
+      cell.image = cellImage;
+    }
   }
   return cell;
 }
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.section == 1 && ((indexPath.row == 1 && ![transaction.image.description isEqualToString:@""]) || (indexPath.row == 0 && [transaction.description isEqualToString:@""]))) {
+    UIImage *cellImage = [UIImage imageWithContentsOfFile:transaction.image.description];
+    return cellImage.size.height + 25;
+  } else {
+    return 44.0;
+  }
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 - (void)dealloc {
   [dateLabel release];
@@ -234,4 +144,3 @@
 
 
 @end
-

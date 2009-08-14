@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  include FileColumnHelper
   before_filter :custom_login_required
   include ActionView::Helpers
 
@@ -7,7 +8,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    set_iphone_params if params[:format] == "json"
+    set_iphone_params if params[:format] == "iphone"
     @transaction = Transaction.new(params[:transaction])
 
     if params[:transaction_type] == "debt"
@@ -19,7 +20,7 @@ class TransactionsController < ApplicationController
     end
 
     if @transaction.save
-      if params[:format] == "json"
+      if params[:format] == "iphone"
         render :json => @transaction
       else
         update = {
@@ -33,7 +34,7 @@ class TransactionsController < ApplicationController
         }
       end
     else
-      if params[:format] == "json"
+      if params[:format] == "iphone"
         render :status => 422, :json => @transaction.errors
       else
         render :status => 422, :json => {
@@ -63,8 +64,8 @@ class TransactionsController < ApplicationController
 
   private
   def set_iphone_params
-    params[:email] = params[:transaction].delete(:email)
-    params[:transaction_type] = params[:transaction].delete(:transaction_type)
+    params[:email] = params[:transaction].delete(:email) if params[:transaction][:email]
+    params[:transaction_type] = params[:transaction].delete(:transaction_type) if params[:transaction][:transaction_type]
   end
 end
 

@@ -17,6 +17,7 @@
   NSString *amount;
   NSString *when;
   NSString *description;
+  NSData *image;
   NSString *createdAt;
   NSDate *updatedAt;
 }
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) NSString *amount;
 @property (nonatomic, retain) NSString *when;
 @property (nonatomic, retain) NSString *description;
+@property (nonatomic, retain) NSData *image;
 @property (nonatomic, retain) NSString *createdAt;
 @property (nonatomic, retain) NSDate *updatedAt;
 +(NSArray *)transactionsWithUser:(NSString *)userId;

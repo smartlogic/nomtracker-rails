@@ -14,7 +14,7 @@
 @class DatePickerViewController;
 @class UserPickerView;
 
-@interface NewTransactionViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIAlertViewDelegate> {
+@interface NewTransactionViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
   IBOutlet UITextField *emailAddressField;
   IBOutlet UISegmentedControl *transactionType;
   IBOutlet UITextField *onField;
@@ -22,6 +22,11 @@
   IBOutlet UITextField *amount;
   IBOutlet UIButton *createTransactionButton;
   IBOutlet UIButton *selectExistingButton;
+  IBOutlet UIButton *selectImageButton;
+  IBOutlet UIImagePickerController *imagePicker;
+  IBOutlet UIImageView *imagePreview;
+  NSData *selectedImage;
+  BOOL reloadView;
   NomTrackerAppDelegate *ntDelegate;
   IBOutlet UserPickerViewController *pickUserViewController;
   IBOutlet DatePickerViewController *pickDateViewController;
@@ -38,8 +43,16 @@
 @property (nonatomic, retain) UserPickerViewController *pickUserViewController;
 @property (nonatomic, retain) DatePickerViewController *pickDateViewController;
 @property (nonatomic, retain) Transaction *transaction;
+@property (nonatomic, retain) UIButton *selectImageButton;
+@property (nonatomic, retain) UIImagePickerController *imagePicker;
+@property (nonatomic, retain) NSData *selectedImage;
+@property (nonatomic, retain) UIImageView *imagePreview;
+@property (nonatomic) BOOL reloadView;
 -(IBAction)selectExistingContact:(id)sender;
 -(IBAction)createTransaction:(id)sender;
 -(IBAction)selectDate:(id)sender;
 -(IBAction)switchTransactionType:(id)sender;
+-(IBAction)selectImage:(id)sender;
+-(void)reloadTransaction;
+-(NSData *)createMultiPartFormData:(NSDictionary *)params withImage:(NSData *)image andItemKey:(NSString *)key;
 @end

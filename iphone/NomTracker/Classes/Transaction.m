@@ -10,7 +10,7 @@
 #import "ObjectiveResource.h"
 
 @implementation Transaction
-@synthesize transactionId, creditorEmail, debtorEmail, email, transactionType, when, description, amount, createdAt, updatedAt;
+@synthesize transactionId, creditorEmail, debtorEmail, email, transactionType, when, description, amount, image, createdAt, updatedAt;
 
 +(NSArray *)transactionsWithUser:(NSString *)userId {
   NSString *transactionsPath = [NSString stringWithFormat:@"%@transactions_with_user/%@", [ObjectiveResourceConfig getRemoteSite], userId];
@@ -33,6 +33,7 @@
   [when release];
   [description release];
   [amount release];
+  [image release];
   [createdAt release];
   [updatedAt release];
   [super dealloc];

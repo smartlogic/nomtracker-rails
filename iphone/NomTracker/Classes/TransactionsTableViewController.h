@@ -13,8 +13,8 @@
 
 @interface TransactionsTableViewController : UITableViewController {
   NSString *otherUserId;
-  IBOutlet UITableView *transactionsTable;
   IBOutlet NSMutableArray *transactionsArray;
+  IBOutlet UITableView *transactionsTable;
   TransactionDetailViewController *transactionController;
 }
 @property (nonatomic, retain) NSString *otherUserId;

@@ -11,11 +11,11 @@
 @class TransactionsTableViewController;
 
 @interface BalancesTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+  NSMutableArray *balancesArray;
   IBOutlet UITableView *balancesTable;
   IBOutlet UIBarButtonItem *refreshButton;
   IBOutlet UILabel *nomworthLabel;
   IBOutlet UILabel *backgroundLabel;
-  NSMutableArray *balancesArray;
   TransactionsTableViewController *transactionsController;
 }
 @property (nonatomic, retain) NSArray *balancesArray;

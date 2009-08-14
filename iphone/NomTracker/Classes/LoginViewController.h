@@ -11,10 +11,10 @@
 
 @interface LoginViewController : UIViewController <UITextFieldDelegate> {
   IBOutlet UIButton *loginButton;
+  IBOutlet UILabel *errorLabel;
   IBOutlet UITextField *emailField;
   IBOutlet UITextField *passwordField;
   IBOutlet UIButton *rememberMeButton;
-  IBOutlet UILabel *errorLabel;
   BOOL rememberMe;
 }
 @property (nonatomic, retain) UITextField *emailField;

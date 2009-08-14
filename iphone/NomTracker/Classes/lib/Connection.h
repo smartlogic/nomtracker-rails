@@ -11,6 +11,7 @@
 @interface Connection : NSObject
 + (void) setTimeout:(float)timeout;
 + (float) timeout;
++ (Response *)sendRequest:(NSMutableURLRequest *)request withUser:(NSString *)user andPassword:(NSString *)password;
 + (Response *)post:(NSString *)body to:(NSString *)url;
 + (Response *)post:(NSString *)body to:(NSString *)url withUser:(NSString *)user andPassword:(NSString *)password;
 + (Response *)get:(NSString *)url withUser:(NSString *)user andPassword:(NSString *)password;

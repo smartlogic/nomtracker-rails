@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Transaction.h"
 
-@interface TransactionDetailViewController : UITableViewController {
+@interface TransactionDetailViewController : UITableViewController <UITableViewDelegate> {
   IBOutlet UILabel *dateLabel;
   IBOutlet UILabel *transactionLabel;
   IBOutlet UILabel *forLabel;

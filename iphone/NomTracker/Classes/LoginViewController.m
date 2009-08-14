@@ -15,11 +15,10 @@
 @synthesize emailField, passwordField, errorLabel, rememberMeButton, rememberMe;
 
 -(void)login:(id)sender {
-  NSString *email = emailField.text;
-  NSString *password = passwordField.text;
-  NSString *loginPath = [NSString stringWithFormat:@"%@users/authenticate_user?email=%@&password=%@", [ObjectiveResourceConfig getSite], email, password];
+  NSString *loginPath = [NSString stringWithFormat:@"%@users/authenticate_user?email=%@&password=%@", [ObjectiveResourceConfig getSite], emailField.text, passwordField.text];
   Response *res = [Connection post:@"" to:loginPath];
-  if (res.statusCode == 200) {
+
+  if ([res isSuccess]) { 
     [ObjectiveResourceConfig setUser:emailField.text];
     [ObjectiveResourceConfig setPassword:passwordField.text];
 
@@ -29,7 +28,7 @@
     }
     
     NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    
+
     [UIView beginAnimations:@"View Flip" context:nil];
     [UIView setAnimationDuration:1];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -56,57 +55,26 @@
   }
 }
 
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
+  // TODO - for dev only. REMOVE!
   emailField.text = @"michael@slsdev.net";
   passwordField.text = @"mikemike";
   rememberMe = NO;
   [rememberMeButton setBackgroundImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
 }
 
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
   [theTextField resignFirstResponder];
   return YES;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 
 - (void)dealloc {
   [emailField release];
   [passwordField release];
   [errorLabel release];
   [rememberMeButton release];
+  [rememberMe release];
   [super dealloc];
 }
 

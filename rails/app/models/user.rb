@@ -183,6 +183,7 @@ class User < ActiveRecord::Base
             @xml.debtor_email(transaction.debtor_email)
             @xml.created_at(transaction.created_at.strftime("%a %b %d, %Y"))
             @xml.description(transaction.description)
+            @xml.image(transaction.image)
           }
         end
       }

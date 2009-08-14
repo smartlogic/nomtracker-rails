@@ -34,19 +34,19 @@ class StoryHelper
     nick = User.create_and_activate(:name => "Nick", :password => 'nicknick', :password_confirmation => 'nicknick', :email => "nick@slsdev.net")
     michael = User.create_and_activate(:name => "Michael", :password => 'mikemike', :password_confirmation => 'mikemike', :email => "michael@slsdev.net")
 
-    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 5, :description => "pizza")
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 5, :description => "pizza", :image => dev_image)
     Transaction.create!(:creditor => adam, :debtor => nick, :amount => 2, :description => "pizza")
     Transaction.create!(:creditor => adam, :debtor => nick, :amount => 2.50, :description => "poker")
-    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 3.25, :description => "lunch")
+    Transaction.create!(:creditor => adam, :debtor => nick, :amount => 3.25, :description => "lunch", :image => dev_image)
     Transaction.create!(:creditor => adam, :debtor => nick, :amount => 1.25, :description => "pizza")
 
     Transaction.create!(:creditor => michael, :debtor => adam, :amount => 1.25, :description => "chipotle")
     Transaction.create!(:creditor => michael, :debtor => adam, :amount => 2, :description => "pizza")
-    Transaction.create!(:creditor => michael, :debtor => adam, :amount => 3.25, :description => "chinese food")
+    Transaction.create!(:creditor => michael, :debtor => adam, :amount => 3.25, :description => "chinese food", :image => dev_image)
     Transaction.create!(:creditor => michael, :debtor => adam, :amount => 4.25, :description => "pizza")
 
     Transaction.create!(:creditor => nick, :debtor => michael, :amount => 2.25, :description => "pizza")
-    Transaction.create!(:creditor => nick, :debtor => michael, :amount => 3.25, :description => "drinks")
+    Transaction.create!(:creditor => nick, :debtor => michael, :amount => 3.25, :description => "drinks", :image => dev_image("spreadsheet.png"))
     Transaction.create!(:creditor => nick, :debtor => michael, :amount => 5.25, :description => "pizza")
     Transaction.create!(:creditor => nick, :debtor => michael, :amount => 9.25, :description => "subway")
   end
@@ -60,6 +60,10 @@ class StoryHelper
     end
   end
 
+  def self.dev_image(image_name="rails.png")
+    File.open(File.join(RAILS_ROOT, "public", "images", image_name))
+  end
+
   private
 
   # Here you can run file system calls to clean out any content directories you use.
@@ -68,6 +72,8 @@ class StoryHelper
   def self.purge_assets
 
   end
+
+
 
   ### Put your Seed loading methods here:
 

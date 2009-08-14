@@ -11,20 +11,6 @@
 
 @implementation BalancesTableCell
 @synthesize columns;
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-  if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-    [self setSelectionStyle:UITableViewCellSelectionStyleGray];
-    // Initialization code
-  }
-  return self;
-}
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
-  [super setSelected:selected animated:animated];
-  // Configure the view for the selected state
-}
 
 -(void)addColumn:(CGFloat)position {
   [columns addObject:[NSNumber numberWithFloat:position]];

@@ -19,18 +19,24 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
   // Set the default colors
-  self.green = [UIColor colorWithRed:0.0 green:0.75 blue:0.21 alpha:1.0];
   self.red = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+  self.green = [UIColor colorWithRed:0.0 green:0.75 blue:0.21 alpha:1.0];
   
+  // TODO - set to actual site once possible.
   [ObjectiveResourceConfig setSite:@"http://localhost:3000/"];
   [ObjectiveResourceConfig setResponseType:JSONResponse];
-  
+
+  // Initialize login view
   LoginViewController *lvController = [[[LoginViewController alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
   self.loginController = lvController;
   [window addSubview:loginController.view];
+
   
+  // Load saved data if exists
+  // TODO - encryption!
   NSString *presetEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"nomTrackerUserEmail"];
   NSString *presetPassword = [[NSUserDefaults standardUserDefaults] objectForKey:@"nomTrackerUserPassword"];
+
   if ((presetEmail != nil) && (presetPassword != nil)) {
     [ObjectiveResourceConfig setUser:presetEmail];
     [ObjectiveResourceConfig setPassword:presetPassword];
@@ -44,12 +50,10 @@
 - (void)dealloc {
   [red release];
   [green release];
+  [window release];
   [balancesController release];
   [loginController release];
   [rootController release];
-  [window release];
   [super dealloc];
 }
-
-
 @end
