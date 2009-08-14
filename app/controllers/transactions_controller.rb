@@ -1,14 +1,16 @@
 class TransactionsController < ApplicationController
+  include FileColumnHelper
   before_filter :custom_login_required
-  
   include ActionView::Helpers
-  
+
   def index
-    
+
   end
-  
+
   def create
+    set_iphone_params if params[:format] == "iphone"
     @transaction = Transaction.new(params[:transaction])
+
     if params[:transaction_type] == "debt"
       @transaction.creditor_email = params[:email]
       @transaction.debtor         = current_user
@@ -16,21 +18,29 @@ class TransactionsController < ApplicationController
       @transaction.creditor       = current_user
       @transaction.debtor_email   = params[:email]
     end
-    
+
     if @transaction.save
-      update = {
-        :balances     => render_to_string(:partial => 'start/balances', :locals => {:user => current_user}), 
-        :transactions => render_to_string(:partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)})
-      }
-      update.merge!(global_updates)
-      render :json => {
-        :update => update,
-        :messages => {:success => "Transaction Successfully Added"}
-      }
+      if params[:format] == "iphone"
+        render :json => @transaction
+      else
+        update = {
+          :balances     => render_to_string(:partial => 'start/balances', :locals => {:user => current_user}),
+          :transactions => render_to_string(:partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)})
+        }
+        update.merge!(global_updates)
+        render :json => {
+          :update => update,
+          :messages => {:success => "Transaction Successfully Added"}
+        }
+      end
     else
-      render :status => 422, :json => {
-        :messages => {:error => "#{escape_javascript(@transaction.errors.full_messages.join('<br/>'))}"}
-      }
+      if params[:format] == "iphone"
+        render :status => 422, :json => @transaction.errors
+      else
+        render :status => 422, :json => {
+          :messages => {:error => "#{escape_javascript(@transaction.errors.full_messages.join('<br/>'))}"}
+        }
+      end
     end
   end
 
@@ -51,4 +61,11 @@ class TransactionsController < ApplicationController
       update_flash @transaction.errors
     end
   end
+
+  private
+  def set_iphone_params
+    params[:email] = params[:transaction].delete(:email) if params[:transaction][:email]
+    params[:transaction_type] = params[:transaction].delete(:transaction_type) if params[:transaction][:transaction_type]
+  end
 end
+
