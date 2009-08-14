@@ -1,0 +1,12 @@
+//
+// Prefix header for all source files of the 'NomTracker' target in the 'NomTracker' project
+//
+
+#ifdef __OBJC__
+  #import <Foundation/Foundation.h>
+  #import <UIKit/UIKit.h>
+  #import "ObjectiveResource.h"
+  #import "Response.h"
+  #import "Connection.h"
+  #import "ObjectiveSupport.h"
+#endif
