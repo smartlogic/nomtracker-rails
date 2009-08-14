@@ -51,7 +51,6 @@ class Transaction < ActiveRecord::Base
 
   private
     def validate
-      puts self.debtor.inspect
       if creditor == debtor
         errors.add :creditor, "and Debtor must be different"
       end

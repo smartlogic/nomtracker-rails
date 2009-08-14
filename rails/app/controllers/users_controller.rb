@@ -65,15 +65,4 @@ class UsersController < ApplicationController
       redirect_back_or_default('/')
     end
   end
-
-  def authenticate_user
-    user = User.authenticate(params[:email], params[:password])
-    if user
-      render :status => 200, :xml => user.to_xml
-    else
-      render :status => 422, :xml => {:response => "No"}.to_xml
-    end
-  end
-
-
 end
