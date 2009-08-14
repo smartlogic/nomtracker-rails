@@ -3,3 +3,23 @@ To build the guides:
 * Install source-highlighter (http://www.gnu.org/software/src-highlite/source-highlight.html)
 * Install the mizuho gem (http://github.com/FooBarWidget/mizuho/tree/master)
 * Run `rake guides` from the railties directory
+
+
+
+iPhone API calls
+-----------------
+
+"/balances" (StartController ln. 22) -
+  calls current_user.iphone_balances, which returns a stripped down XML version of a user's balances.
+
+"/emails" (StartController ln. 26) -
+  returns XML containing only primary email addresses for all users not current_user (will be changed to restrict returned list to network)
+
+"/transactions_with_user/:id" (StartController ln. 30) -
+  calls current_user.transactions_with(id) to return custom XML for all transactions between current_user and User.find_by_id(id), or returns an empty set if User.find_by_id(id) is nil
+
+TransactionsController.set_iphone_params (private method, TransactionsController ln. 66) -
+  Method to properly set params sent from the iPhone into the configuration expected by the Rails app.
+  The :email and :transaction_type parameters are not attributes on transaction, and the Rails app expects them as params[:email],
+  not params[:transaction][:email], which is how they are returned from the iPhone. This function properly sets the parameters so that
+  the :create method can function without having to update it significantly.
