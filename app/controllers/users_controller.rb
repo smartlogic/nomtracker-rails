@@ -65,4 +65,31 @@ class UsersController < ApplicationController
       redirect_back_or_default('/')
     end
   end
+
+
+  # iPhone API calls only, for now.
+  def balances
+    render :xml => current_user.iphone_balances
+  end
+
+  def emails
+    render :xml => current_user.network_emails
+  end
+
+  def transactions_with_user
+    if params[:id] == current_user.id
+      render :xml => []
+    else
+      render :xml => current_user.transactions_with(params[:id])
+    end
+  end
+
+  def authenticate_user
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      render :status => 200, :xml => user.to_xml
+    else
+      render :status => 422, :xml => {:response => "No"}.to_xml
+    end
+  end
 end

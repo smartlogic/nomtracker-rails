@@ -8,7 +8,8 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    set_iphone_params if params[:format] == "iphone"
+
+    set_iphone_params
     @transaction = Transaction.new(params[:transaction])
 
     if params[:transaction_type] == "debt"
@@ -20,25 +21,32 @@ class TransactionsController < ApplicationController
     end
 
     if @transaction.save
-      if params[:format] == "iphone"
-        render :json => @transaction
-      else
-        update = {
-          :balances     => render_to_string(:partial => 'start/balances', :locals => {:user => current_user}),
-          :transactions => render_to_string(:partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)})
+      respond_to do |format|
+        format.any(:html, :json) {
+          update = {
+            :balances     => render_to_string(:partial => 'start/balances', :locals => {:user => current_user}),
+            :transactions => render_to_string(:partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)})
+          }
+          update.merge!(global_updates)
+          render :json => {
+            :update => update,
+            :messages => {:success => "Transaction Successfully Added"}
+          }
         }
-        update.merge!(global_updates)
-        render :json => {
-          :update => update,
-          :messages => {:success => "Transaction Successfully Added"}
+        format.iphone {
+          render :json => @transaction.to_json
         }
+
       end
     else
-      if params[:format] == "iphone"
-        render :status => 422, :json => @transaction.errors
-      else
-        render :status => 422, :json => {
-          :messages => {:error => "#{escape_javascript(@transaction.errors.full_messages.join('<br/>'))}"}
+      respond_to do |format|
+        format.any(:json, :html) {
+          render :status => 422, :json => {
+            :messages => {:error => "#{escape_javascript(@transaction.errors.full_messages.join('<br/>'))}"}
+          }
+        }
+        format.iphone {
+          render :status => 422, :json => @transaction.errors.to_json
         }
       end
     end
@@ -68,4 +76,3 @@ class TransactionsController < ApplicationController
     params[:transaction_type] = params[:transaction].delete(:transaction_type) if params[:transaction][:transaction_type]
   end
 end
-

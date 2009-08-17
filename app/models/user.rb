@@ -201,4 +201,15 @@ class User < ActiveRecord::Base
     self.debts.update_all("debtor_id = #{user.id}")
   end
 
+  def network_emails
+    @xml = Builder::XmlMarkup.new(:indent => 2)
+    @xml.instruct! :xml, :version => "1.0"
+    @xml.emails(:type => "array") {
+      self.network.sort.each do |email|
+        @xml.email { @xml.address(email) }
+      end
+    }
+  end
+
+
 end
