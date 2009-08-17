@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include GlobalUpdates
 
+  before_filter :set_iphone_format
   helper :all # include all helpers, all the time
 
   # See ActionController::Base for details
@@ -19,4 +20,14 @@ class ApplicationController < ActionController::Base
       return false
     end
 
+    # This may have to change once we can get this on an actual iPhone
+    def is_iphone_request?
+      !!request.user_agent =~ /Darwin/
+    end
+
+    def set_iphone_format
+      if is_iphone_request?
+        request.format = :iphone
+      end
+    end
 end

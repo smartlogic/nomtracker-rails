@@ -2,9 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "start"
 
   map.start '/start',   :controller => 'start',    :action => 'index'
-  map.balances '/balances', :controller => 'start', :action => 'balances'
-  map.emails "/emails", :controller => "start", :action => "emails"
-  map.transactions_with_user "/transactions_with_user/:id", :controller => "start", :action => "transactions_with_user"
+  map.balances '/balances', :controller => 'users', :action => 'balances'
+  map.emails "/emails", :controller => "users", :action => "emails"
+  map.transactions_with_user "/transactions_with_user/:id", :controller => "users", :action => "transactions_with_user"
   map.resources :transactions
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
