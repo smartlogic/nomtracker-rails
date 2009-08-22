@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20090812135333) do
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "user_state",                :limit => 30
+    t.boolean  "wants_to_be_notified",                     :default => true, :null => false
   end
 
 # Could not dump view "normalized_transactions" because of following NoMethodError
