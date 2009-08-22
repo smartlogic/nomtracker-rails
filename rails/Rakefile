@@ -8,3 +8,7 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+task :emails => :environment do
+  puts Email.active.find(:all, :select => 'address').map(&:address).join(', ')
+end
