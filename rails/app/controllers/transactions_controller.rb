@@ -21,6 +21,7 @@ class TransactionsController < ApplicationController
     end
 
     if @transaction.save
+      TransactionNotifier.notify_if_necessary(@transaction, current_user)
       respond_to do |format|
         format.any(:html, :json) {
           update = {
