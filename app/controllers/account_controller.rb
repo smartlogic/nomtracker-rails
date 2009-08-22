@@ -65,6 +65,13 @@ class AccountController < ApplicationController
     end
   end
   
+  def update_preferences
+    current_user.wants_to_be_notified = params[:wants_to_be_notified]
+    current_user.save!
+    flash[:success] = 'Your preferences have been updated'
+    redirect_to account_path
+  end
+  
   private
     def prepare_json(email_array)
       email_array.map{|email| {:address => email.address, :verified => email.active?, :id => email.id}}
