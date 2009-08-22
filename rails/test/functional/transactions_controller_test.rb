@@ -31,7 +31,7 @@ end
 def should_not_create_a_user
   should "not create a user" do
     assert_equal @user_count, User.count
-  end  
+  end
 end
 
 def should_update_nomworth
@@ -82,47 +82,47 @@ class TransactionsControllerTest < ActionController::TestCase
       mock_empty_named_scope(User, :credits)
       get :index
     end
-    
+
     should_render_index
     should_not_render "#tbl_credits"
     should_render "#no_credits"
-    
+
   end
-  
+
   context "When a user with credits views their transaction list" do
     setup do
       log_in nick
       get :index
     end
-    
+
     should_render_index
     should_render "#tbl_credits"
     should_not_render "#no_credits"
   end
-  
+
   context "When a user with no debts views their transaction list" do
     setup do
       log_in nick
       mock_empty_named_scope(User, :debts)
       get :index
     end
-    
+
     should_render_index
     should_not_render "#tbl_debts"
-    should_render "#no_debts"    
+    should_render "#no_debts"
   end
-  
+
   context "When a user with debts views their transaction list" do
     setup do
       log_in nick
       get :index
     end
-    
+
     should_render_index
     should_render "#tbl_debts"
     should_not_render "#no_debts"
   end
-  
+
   context "When a user who has no pending transactions views their transaction list" do
     setup do
       log_in nick
@@ -130,12 +130,12 @@ class TransactionsControllerTest < ActionController::TestCase
       User.any_instance.stubs(:pending_transactions).returns([])
       get(:index)
     end
-    
+
     should_render_index
     should_render "#no_pending_transactions"
     should_not_render "#tbl_pending_transactions"
   end
-  
+
   context "When a user who has pending transactions views their transaction list" do
     setup do
       log_in nick
@@ -143,46 +143,27 @@ class TransactionsControllerTest < ActionController::TestCase
       User.any_instance.stubs(:pending_transactions).returns(["faking this...will need to fix when we actually implement this feature"])
       get(:index)
     end
-    
+
     should_render_index
     should_not_render "#no_pending_transactions"
     should_render "#tbl_pending_transactions"
   end
-  
+
   context "an authenticated user" do
     setup do
       log_in adam
       @user_count = User.count
       @txn_count  = Transaction.count
     end
-    
+
     context "creates a valid credit between existing users" do
       setup do
         post :create, valid_credit_attrs
       end
-      
+
       should_create_a_transaction
       should_not_create_a_user
-      
-      should "render JSON as a 200" do
-        assert_response :success
-        assert_equal "application/json", @response.content_type
-      end
-      
-      should_update_balances
-      should_update_transactions
-      should_flash(:success)
-      should_update_nomworth
-    end
-    
-    context "creates a valid debt between existing users" do
-      setup do
-        post :create, valid_debt_attrs
-      end
-      
-      should_create_a_transaction
-      should_not_create_a_user
-      
+
       should "render JSON as a 200" do
         assert_response :success
         assert_equal "application/json", @response.content_type
@@ -193,12 +174,31 @@ class TransactionsControllerTest < ActionController::TestCase
       should_flash(:success)
       should_update_nomworth
     end
-    
+
+    context "creates a valid debt between existing users" do
+      setup do
+        post :create, valid_debt_attrs
+      end
+
+      should_create_a_transaction
+      should_not_create_a_user
+
+      should "render JSON as a 200" do
+        assert_response :success
+        assert_equal "application/json", @response.content_type
+      end
+
+      should_update_balances
+      should_update_transactions
+      should_flash(:success)
+      should_update_nomworth
+    end
+
     context "creates a valid credit to a nonexistent user" do
       setup do
         post :create, valid_debt_attrs(:email => "someone@slsdev.net")
       end
-      
+
       should_create_a_transaction
       should_create_a_user("someone@slsdev.net")
       should_update_nomworth
@@ -206,12 +206,12 @@ class TransactionsControllerTest < ActionController::TestCase
       should_update_transactions
       should_flash(:success)
     end
-    
+
     context "creates a valid debt to a nonexistent user" do
       setup do
         post :create, valid_credit_attrs(:email => "someone@slsdev.net")
       end
-      
+
       should_create_a_transaction
       should_create_a_user("someone@slsdev.net")
       should_update_nomworth
@@ -219,20 +219,20 @@ class TransactionsControllerTest < ActionController::TestCase
       should_update_transactions
       should_flash(:success)
     end
-    
+
     context "creates an invalid credit" do
       setup do
         post :create, valid_credit_attrs(:email => adam.primary_email.address)
       end
-      
+
       should_not_create_a_transaction
       should_not_create_a_user
-    
+
       should "render JSON as a 422" do
         assert_response 422
         assert_equal "application/json", @response.content_type
       end
-    
+
       should_not_update_balances
       should_flash(:error)
       should_not_update_nomworth
@@ -244,10 +244,10 @@ class TransactionsControllerTest < ActionController::TestCase
       log_out
       get :index
     end
-    
+
     should_redirect_to_login
   end
-  
+
   private
     def valid_credit_attrs(options={})
       {:transaction_type => 'credit', :email => nick.primary_email.address,
@@ -258,7 +258,7 @@ class TransactionsControllerTest < ActionController::TestCase
         }
       }.merge(options)
     end
-    
+
     def valid_debt_attrs(options={})
       {:transaction_type => 'debt', :email => nick.primary_email.address,
         :transaction => {
@@ -266,6 +266,6 @@ class TransactionsControllerTest < ActionController::TestCase
           :when => 'yesterday',
           :description => 'Borrowed a buck for a popsicle'
         }
-      }.merge(options)      
+      }.merge(options)
     end
 end
