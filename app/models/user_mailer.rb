@@ -36,6 +36,27 @@ class UserMailer < ActionMailer::Base
     @body[:from_user] = from_user
   end
   
+  def transaction_created(user, transaction)
+    setup_email(user, user.primary_email.address)
+    if transaction.creditor = user
+      creating_user = transaction.debtor
+      verb = "borrowed"
+      to   = "from"
+    else
+      creating_user = transaction.creditor
+      verb = "lent"
+      to   = "to"
+    end
+    @subject += "#{creating_user.name} has added a new debt."
+    @body[:creating_user] = creating_user
+    @body[:notified_user] = user
+    @body[:verb]          = verb
+    @body[:to]            = to
+    @body[:amount]        = transaction.amount.abs
+    @body[:description]   = transaction.description
+    @body[:url]           = "http://#{SITE_URL}/"
+  end
+  
   protected
     def setup_email(user, email=user.primary_email.address)
       @recipients  = email
