@@ -61,6 +61,18 @@ class TransactionNotifierTest < ActiveSupport::TestCase
         TransactionNotifier.notify_if_necessary(@transaction, nick)
       end
     end
+    
+    context 'when the user to notify is pending' do
+      setup do
+        @transaction.creditor_email = 'john@slsdev.net'
+        @john = @transaction.creditor
+      end
+      
+      should 'not notify anyone' do
+        TransactionNotifier.expects(:notify).never
+        TransactionNotifier.notify_if_necessary(@transaction, adam)
+      end
+    end
   end
   
   private
