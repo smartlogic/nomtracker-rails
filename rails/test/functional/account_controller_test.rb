@@ -64,6 +64,40 @@ class AccountControllerTest < ActionController::TestCase
       should_render_template 'index'
     end
     
+    context "and he doesn't want to be notified" do
+      setup do
+        nick.wants_to_be_notified = false
+        nick.save!
+      end
+      
+      context "and he changes his notification setting" do
+        setup do
+          post :update_preferences, :wants_to_be_notified => "1"
+        end
+        
+        should "update his notification status" do
+          assert nick.reload.wants_to_be_notified?
+        end
+      end
+    end
+    
+    context "and he wants to be notified" do
+      setup do
+        nick.wants_to_be_notified = true
+        nick.save!
+      end
+      
+      context "and he changes his notification setting" do
+        setup do
+          post :update_preferences, :wants_to_be_notified => "0"
+        end
+        
+        should "update his notification status" do
+          assert !nick.reload.wants_to_be_notified?
+        end
+      end
+    end
+    
     context "and adds a new email address nick2@slsdev.net that is available" do
       setup do
         ActionMailer::Base.deliveries = []
