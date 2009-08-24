@@ -205,7 +205,7 @@ class User < ActiveRecord::Base
     @xml = Builder::XmlMarkup.new(:indent => 2)
     @xml.instruct! :xml, :version => "1.0"
     @xml.emails(:type => "array") {
-      self.network.sort.each do |email|
+      self.network.map{ |e| User.find_by_email(e)}.compact.uniq.map{ |u| u.primary_email.address}.sort.each do |email|
         @xml.email { @xml.address(email) }
       end
     }

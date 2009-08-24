@@ -26,3 +26,28 @@ ApplicationController.set_iphone_format (private method, ApplicationController l
     respond_to do |format|
   will act correctly when data is sent from an iPhone.
 
+
+Testing the iPhone App
+-----------------------
+
+Paul Barry suggseted the scan_build tool as a way to check for memory leaks in an iPhone app. The steps to install and use the tool:
+
+$ cd src
+$ curl -O http://checker.minormatter.com/checker-0.215.tar.bz2
+$ bunzip2 checker-0.215.tar.bz2
+$ tar xf checker-0.215.tar
+$ ln -s ~/src/checker-0.215/scan-build ~/bin/scan-build
+
+That last command assumes you have ~/bin in your path, you could also do "sudo ln -s checker-0.215/scan-build /usr/bin/scan-build" if you like.  Next, go into the directory than contains the .xcodeproj directory for your iPhone app:
+
+$ cd ~/Development/study/Objective-C/CS193P/Lecture1/Assignment1A/HelloStanford
+$ xcodebuild clean
+
+That last command is the same as running "Build > Clean" in XCode.  Now you can run scan build:
+
+$ scan-build -k -V xcodebuild -configuration Debug -sdk iphonesimulator3.0
+
+If that errors about saying The identity 'Whatever' doesn't match blah blah blah, you need to go to Project > Edit Project Settings and set it to not try to code sign.  See this URL for more info:
+
+http://www.oiledmachine.com/posts/2009/01/06/using-the-llvm-clang-static-analyzer-for-iphone-apps.html
+
