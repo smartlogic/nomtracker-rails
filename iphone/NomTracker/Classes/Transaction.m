@@ -19,8 +19,8 @@
 }
 
 -(NSString *)amountString {
-  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-  [numberFormatter setFormat:@"$###,###,##0.00"];
+  NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+  [numberFormatter setPositiveFormat:@"$###,###,##0.00"];
   return [numberFormatter stringFromNumber:[NSNumber numberWithFloat:fabs([[self amount] floatValue])]];  
 }
 

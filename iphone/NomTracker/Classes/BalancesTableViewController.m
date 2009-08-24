@@ -18,7 +18,7 @@
 @synthesize transactionsController;
 
 -(void)loadBalances {
-  self.balancesArray = [Balance allBalances];
+  self.balancesArray = (NSMutableArray *)[Balance allBalances];
   [balancesTable reloadData];
   [self refreshNomworth];
 }
@@ -36,8 +36,9 @@
   } else {
     [backgroundLabel setBackgroundColor:delegate.red];
   }
-  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-  [numberFormatter setFormat:@"$###,###.00;-$###,###.00"];
+  NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+  [numberFormatter setPositiveFormat:@"$###,###.00"];
+  [numberFormatter setNegativePrefix:@"-$"];
   nomworthLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:nomworth]];  
 }
 
@@ -83,10 +84,10 @@
   
   static NSString *CellIdentifier = @"Cell";
     
-  BalancesTableCell *cell = (BalancesTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//  BalancesTableCell *cell = (BalancesTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   Balance *bal = (Balance *)[balancesArray objectAtIndex:indexPath.row];
   BOOL balIsPos = bal.balanceIsPositive;
-  cell = [[[BalancesTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+  BalancesTableCell *cell = [[[BalancesTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
   // USER
   UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(25.0, 0, 175.0, tableView.rowHeight)] autorelease];
   [cell addColumn:120];

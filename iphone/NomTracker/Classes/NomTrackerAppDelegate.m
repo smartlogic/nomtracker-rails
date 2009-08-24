@@ -23,7 +23,7 @@
   self.green = [UIColor colorWithRed:0.0 green:0.75 blue:0.21 alpha:1.0];
   
   // TODO - set to actual site once possible.
-  [ObjectiveResourceConfig setSite:@"http://localhost:3000/"];
+  [ObjectiveResourceConfig setSite:@"http://nomtracker.slsdev.net/"];
   [ObjectiveResourceConfig setResponseType:JSONResponse];
 
   // Initialize login view

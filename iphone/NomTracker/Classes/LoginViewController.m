@@ -58,8 +58,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // TODO - for dev only. REMOVE!
-  emailField.text = @"michael@slsdev.net";
-  passwordField.text = @"mikemike";
+  emailField.text = @"michael.berkowitz@gmail.com";
+  passwordField.text = @"zenboy2";
   rememberMe = NO;
   [rememberMeButton setBackgroundImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
 }
@@ -74,7 +74,6 @@
   [passwordField release];
   [errorLabel release];
   [rememberMeButton release];
-  [rememberMe release];
   [super dealloc];
 }
 

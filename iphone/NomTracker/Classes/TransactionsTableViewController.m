@@ -25,7 +25,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  self.transactionsArray = [Transaction transactionsWithUser:self.otherUserId];
+  self.transactionsArray = (NSMutableArray *)[Transaction transactionsWithUser:self.otherUserId];
   [transactionsTable reloadData];
 }
 
@@ -53,9 +53,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
   
-  BalancesTableCell *cell = (BalancesTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//  BalancesTableCell *cell = (BalancesTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   Transaction *thisTransaction = [transactionsArray objectAtIndex:indexPath.row];
-  cell = [[[BalancesTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+  BalancesTableCell *cell = [[[BalancesTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
   // USER
   UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(25.0, 0, 175.0, tableView.rowHeight)] autorelease];
   [cell addColumn:120];

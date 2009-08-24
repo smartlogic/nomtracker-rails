@@ -19,7 +19,7 @@
 }
 
 -(IBAction)selectDate:(id)sender {
-  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
   [dateFormatter setDateStyle:NSDateFormatterShortStyle];
   ntvController.onField.text = [dateFormatter stringFromDate:[datePicker date]];
   

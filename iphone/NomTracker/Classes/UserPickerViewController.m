@@ -23,7 +23,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   NSArray *array = [Email allEmails];
-  self.emailsArray = array;
+  self.emailsArray = (NSMutableArray *)array;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -35,23 +35,20 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-  return [[emailsArray objectAtIndex:row] address];
+  return (NSString *)[[emailsArray objectAtIndex:row] address];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-  ntvController.emailAddressField.text = [[emailsArray objectAtIndex:row] address];
+  ntvController.emailAddressField.text = (NSString *)[[emailsArray objectAtIndex:row] address];
 
-  [UIView beginAnimations:@"View Curl" context:nil];
-  [UIView setAnimationDuration:1.00];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-  [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view.superview cache:YES];
+//  [UIView beginAnimations:@"View Curl" context:nil];
+//  [UIView setAnimationDuration:1.00];
+//  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//  [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view.superview cache:YES];
   
   [self.view removeFromSuperview];  
 
-  [UIView commitAnimations];
-  
-  
-
+//  [UIView commitAnimations];
 }
 
 - (void)didReceiveMemoryWarning {

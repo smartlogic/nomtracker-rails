@@ -12,13 +12,16 @@
 #import "UserPickerViewController.h"
 #import "DatePickerViewController.h"
 
+#import <CoreGraphics/CoreGraphics.h>
+#import <QuartzCore/CAAnimation.h>
+
 @implementation NewTransactionViewController
 @synthesize emailAddressField, transactionType, onField, forField, createTransactionButton, selectExistingButton, amount, transaction, ntDelegate, reloadView;
 @synthesize pickUserViewController, pickDateViewController;
 @synthesize selectImageButton, imagePicker, selectedImage, imagePreview;
-
+@synthesize scrollView;
 -(IBAction)createTransaction:(id)sender {
-  NSString *urlString = @"http://localhost:3000/transactions";
+  NSString *urlString = [NSString stringWithFormat:@"%@transactions", [ObjectiveResourceConfig getSite]];
   NSURL *url = [NSURL URLWithString:urlString];
   NSMutableURLRequest *urlRequest = [[[NSMutableURLRequest alloc] initWithURL:url] autorelease];
   [urlRequest setHTTPMethod:@"POST"];
@@ -93,7 +96,8 @@
   [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
   [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
 
-  [self.view.superview addSubview:upvController.view];  
+  [self.view.superview addSubview:upvController.view]; 
+  
   [UIView commitAnimations];
 }
 
@@ -112,11 +116,11 @@
 
 -(IBAction)switchTransactionType:(id)sender {
   if ([transactionType selectedSegmentIndex] == 0) {
-    [transactionType setImage:[UIImage imageNamed:@"borrowed_unlit.png"] forSegmentAtIndex:0];
+    [transactionType setImage:[UIImage imageNamed:@"borrowed_unlit_checked.png"] forSegmentAtIndex:0];
     [transactionType setImage:[UIImage imageNamed:@"lentme_lit.png"] forSegmentAtIndex:1];
   } else {
     [transactionType setImage:[UIImage imageNamed:@"borrowed_lit.png"] forSegmentAtIndex:0];
-    [transactionType setImage:[UIImage imageNamed:@"lentme_unlit.png"] forSegmentAtIndex:1];
+    [transactionType setImage:[UIImage imageNamed:@"lentme_unlit_checked.png"] forSegmentAtIndex:1];
   }
 }
 
@@ -149,7 +153,7 @@
   
   [self.imagePreview removeFromSuperview];
   
-  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
   [dateFormatter setDateStyle:NSDateFormatterShortStyle];
   onField.text = [dateFormatter stringFromDate:[NSDate date]];
   
@@ -171,7 +175,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)img editingInfo:(NSDictionary *)editInfo {
   self.selectedImage = [NSData dataWithData:UIImageJPEGRepresentation(img, 0.5)];
   UIImageView *iView = [[UIImageView alloc] initWithImage:img];
-  iView.frame = CGRectMake(40.0f, 280.0f, 80.0f, 120.0f);
+  iView.frame = CGRectMake(31.0f, 256.0f, 80.0f, 120.0f);
   self.imagePreview = iView;
   [iView release];
   [self.view addSubview:self.imagePreview];

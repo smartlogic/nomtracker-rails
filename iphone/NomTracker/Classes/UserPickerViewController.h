@@ -16,6 +16,6 @@
   IBOutlet NewTransactionViewController *ntvController;
 }
 @property (nonatomic, retain) UIPickerView *userPicker;
-@property (nonatomic, retain) NSArray *emailsArray;
+@property (nonatomic, retain) NSMutableArray *emailsArray;
 @property (nonatomic, retain) NewTransactionViewController *ntvController;
 @end

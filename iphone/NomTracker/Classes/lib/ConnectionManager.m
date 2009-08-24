@@ -43,7 +43,7 @@ static ConnectionManager *sharedConnectionManager = nil;
 {
     @synchronized(self) {
         if (sharedConnectionManager == nil) {
-            [[self alloc] init]; // assignment not done here
+            [[[self alloc] init] autorelease]; // assignment not done here
         }
     }
     return sharedConnectionManager;

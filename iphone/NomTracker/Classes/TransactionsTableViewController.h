@@ -18,7 +18,7 @@
   TransactionDetailViewController *transactionController;
 }
 @property (nonatomic, retain) NSString *otherUserId;
-@property (nonatomic, retain) NSArray *transactionsArray;
+@property (nonatomic, retain) NSMutableArray *transactionsArray;
 @property (nonatomic, retain) UITableView *transactionsTable;
 @property (nonatomic, retain) TransactionDetailViewController *transactionController;
 @end

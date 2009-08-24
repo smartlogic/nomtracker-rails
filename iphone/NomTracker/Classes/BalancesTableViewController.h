@@ -18,7 +18,7 @@
   IBOutlet UILabel *backgroundLabel;
   TransactionsTableViewController *transactionsController;
 }
-@property (nonatomic, retain) NSArray *balancesArray;
+@property (nonatomic, retain) NSMutableArray *balancesArray;
 @property (nonatomic, retain) IBOutlet UITableView *balancesTable;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *refreshButton;
 @property (nonatomic, retain) IBOutlet UILabel *nomworthLabel;
