@@ -43,6 +43,11 @@ class UserMailerTest < ActiveSupport::TestCase
     john = User.create!(john_attrs)
     assert_nothing_raised { UserMailer.deliver_invitation(nick, john.primary_email) }
   end
+  
+  def test_new_transaction_notification
+    trans = Transaction.create!(:creditor => nick, :debtor => adam, :amount => 5)
+    assert_nothing_raised { UserMailer.deliver_transaction_created(nick, trans) }
+  end
 
   private
 
