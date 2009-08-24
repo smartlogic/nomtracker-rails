@@ -1,2 +1,0 @@
-/Users/mikowitz/Documents/iPhone/NomTracker/Classes/Email.m:21: warning: property 'emailId' requires method '-emailId' to be defined - use @synthesize, @dynamic or provide a method implementation
-/Users/mikowitz/Documents/iPhone/NomTracker/Classes/Email.m:21: warning: property 'emailId' requires the method 'setEmailId:' to be defined - use @synthesize, @dynamic or provide a method implementation
