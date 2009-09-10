@@ -24,6 +24,7 @@
   
   // TODO - set to actual site once possible.
   [ObjectiveResourceConfig setSite:@"http://nomtracker.slsdev.net/"];
+//  [ObjectiveResourceConfig setSite:@"http://localhost:3000/"];
   [ObjectiveResourceConfig setResponseType:JSONResponse];
 
   // Initialize login view

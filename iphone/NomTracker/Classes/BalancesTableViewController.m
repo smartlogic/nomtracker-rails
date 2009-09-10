@@ -48,6 +48,9 @@
 
 - (void)viewDidLoad {
   self.title = @"Your Balances";
+  UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Balances" style:UIBarButtonItemStyleDone target:self action:nil];
+  self.navigationItem.backBarButtonItem = backButton;
+  [backButton release];
 }
 
 
