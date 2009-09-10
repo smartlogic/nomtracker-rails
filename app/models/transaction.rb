@@ -1,4 +1,4 @@
-# require 'file_column'
+require 'paperclip'
 
 class Transaction < ActiveRecord::Base
   include FileColumnHelper
@@ -6,7 +6,13 @@ class Transaction < ActiveRecord::Base
   belongs_to :creditor, :class_name => 'User'
   belongs_to :debtor,   :class_name => 'User'
 
-  file_column :image, :magick => { :geometry => "250x250" }
+  has_attached_file(
+                    :image,
+                    :url => "/paperclip/:class/#{RAILS_ENV}_environment/:id/:filename"
+                    )
+
+  validates_attachment_size :image, :less_than => 2.megabytes
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
   validates_presence_of :amount, :creditor_id, :debtor_id
   validates_length_of :when,        :maximum => 50,  :allow_blank => true

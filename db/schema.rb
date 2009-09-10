@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090812135333) do
+ActiveRecord::Schema.define(:version => 20090827134927) do
 
   create_table "emails", :force => true do |t|
     t.string  "address"
@@ -34,12 +34,15 @@ ActiveRecord::Schema.define(:version => 20090812135333) do
   create_table "transactions", :force => true do |t|
     t.integer  "creditor_id"
     t.integer  "debtor_id"
-    t.decimal  "amount",      :precision => 8, :scale => 2
+    t.decimal  "amount",             :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "when"
     t.string   "description"
-    t.string   "image"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.string   "image_file_size"
+    t.string   "image_updated_at"
   end
 
   add_index "transactions", ["creditor_id"], :name => "index_transactions_on_creditor_id"

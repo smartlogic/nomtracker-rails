@@ -75,7 +75,4 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
 
-require 'file_column'
-require 'file_column_helper'
-
 SITE_URL = "nomtracker.com" unless Object.const_defined?(:SITE_URL)
