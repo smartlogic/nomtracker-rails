@@ -12,3 +12,5 @@ gems:
   version: '~> 2.0.9'
 - name: rmagick
   version: '~> 2.11.0'
+- name: thoughtbot-paperclip
+  version: '~> 2.2.9.2'
