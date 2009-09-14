@@ -12,12 +12,19 @@
 #import "Email.h"
 
 @implementation LoginViewController
-@synthesize emailField, passwordField, errorLabel, rememberMeButton, rememberMe;
+@synthesize emailField, passwordField, errorLabel, rememberMeButton, rememberMe, spinner;
 
 -(void)login:(id)sender {
+  spinner.hidesWhenStopped = YES;
+  spinner.hidden = NO;
+  [spinner startAnimating];
+  NSLog(@"spinning...");
+  
+  errorLabel.text = @"";
   NSString *loginPath = [NSString stringWithFormat:@"%@users/authenticate_user?email=%@&password=%@", [ObjectiveResourceConfig getSite], emailField.text, passwordField.text];
   Response *res = [Connection post:@"" to:loginPath];
 
+  
   if ([res isSuccess]) { 
     [ObjectiveResourceConfig setUser:emailField.text];
     [ObjectiveResourceConfig setPassword:passwordField.text];
@@ -43,6 +50,7 @@
     passwordField.text = @"";
     errorLabel.text = @"Login failed.";
   }
+  [spinner stopAnimating];
 }
 
 -(IBAction)toggleRememberMe:(id)sender {
@@ -60,6 +68,15 @@
   // TODO - for dev only. REMOVE!
   rememberMe = NO;
   [rememberMeButton setBackgroundImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
+}
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+  errorLabel.text = @"";
+}
+
+-(void)keyboardWasShown:(NSNotification *)aNotification {
+  NSLog(@"OK");
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {

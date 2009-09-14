@@ -15,12 +15,14 @@
   IBOutlet UITextField *emailField;
   IBOutlet UITextField *passwordField;
   IBOutlet UIButton *rememberMeButton;
+  IBOutlet UIActivityIndicatorView *spinner;
   BOOL rememberMe;
 }
 @property (nonatomic, retain) UITextField *emailField;
 @property (nonatomic, retain) UITextField *passwordField;
 @property (nonatomic, retain) UILabel *errorLabel;
 @property (nonatomic, retain) UIButton *rememberMeButton;
+@property (nonatomic, retain) UIActivityIndicatorView *spinner;
 @property (nonatomic) BOOL rememberMe;
 -(IBAction)login:(id)sender;
 -(IBAction)toggleRememberMe:(id)sender;
