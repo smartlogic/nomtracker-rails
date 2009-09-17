@@ -10,8 +10,7 @@ class Transaction < ActiveRecord::Base
                     :url => "/paperclip/:class/#{RAILS_ENV}_environment/:id/:filename"
                     )
 
-  validates_attachment_size :image, :less_than => 2.megabytes
-  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_size :image, :less_than => 2.megabytes, :allow_blank => true
 
   validates_presence_of :amount, :creditor_id, :debtor_id
   validates_length_of :when,        :maximum => 50,  :allow_blank => true
