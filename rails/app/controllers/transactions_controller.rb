@@ -1,5 +1,4 @@
  class TransactionsController < ApplicationController
-  include FileColumnHelper
   before_filter :custom_login_required
   include ActionView::Helpers
 
