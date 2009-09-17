@@ -13,7 +13,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  [self popToRootViewControllerAnimated:YES];
+  [self popToRootViewControllerAnimated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
