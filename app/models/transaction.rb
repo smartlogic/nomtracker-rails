@@ -1,7 +1,6 @@
 require 'paperclip'
 
 class Transaction < ActiveRecord::Base
-  include FileColumnHelper
 
   belongs_to :creditor, :class_name => 'User'
   belongs_to :debtor,   :class_name => 'User'
