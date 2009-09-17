@@ -18,4 +18,7 @@
 @property (nonatomic, retain) UIPickerView *userPicker;
 @property (nonatomic, retain) NSMutableArray *emailsArray;
 @property (nonatomic, retain) NewTransactionViewController *ntvController;
+-(IBAction)selectUser:(id)sender;
+-(IBAction)leaveAsIs:(id)sender;
+-(void)fadeAway;
 @end

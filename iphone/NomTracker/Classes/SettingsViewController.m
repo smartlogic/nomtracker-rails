@@ -43,6 +43,12 @@
   currentUser.text = [ObjectiveResourceConfig getUser]; 
 }
 
+-(IBAction)launchWebsite:(id)sender {
+  NSURL *ntURL = [NSURL URLWithString:@"http://www.smartlogicsolutions.com/"];
+  NSLog(@"%@", ntURL);
+  [[UIApplication sharedApplication] openURL:ntURL];
+}
+
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
 }

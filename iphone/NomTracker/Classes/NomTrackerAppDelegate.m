@@ -22,9 +22,8 @@
   self.red = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
   self.green = [UIColor colorWithRed:0.0 green:0.75 blue:0.21 alpha:1.0];
   
-  // TODO - set to actual site once possible.
-  [ObjectiveResourceConfig setSite:@"http://nomtracker.slsdev.net/"];
-//  [ObjectiveResourceConfig setSite:@"http://localhost:3000/"];
+  [ObjectiveResourceConfig setSite:@"http://www.nomtracker.com/"];
+  
   [ObjectiveResourceConfig setResponseType:JSONResponse];
 
   // Initialize login view
@@ -41,12 +40,12 @@
   if ((presetEmail != nil) && (presetPassword != nil)) {
     [ObjectiveResourceConfig setUser:presetEmail];
     [ObjectiveResourceConfig setPassword:presetPassword];
+    [loginController.view removeFromSuperview];
     [window addSubview:rootController.view];
     [rootController setSelectedIndex:2];
   }
   [window makeKeyAndVisible];
 }
-
 
 - (void)dealloc {
   [red release];

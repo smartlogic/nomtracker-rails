@@ -26,4 +26,5 @@
 @property (nonatomic) BOOL rememberMe;
 -(IBAction)login:(id)sender;
 -(IBAction)toggleRememberMe:(id)sender;
+-(IBAction)launchWebsite:(id)sender;
 @end

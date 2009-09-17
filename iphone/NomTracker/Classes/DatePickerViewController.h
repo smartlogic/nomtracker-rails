@@ -17,4 +17,6 @@
 @property (nonatomic, retain) UIDatePicker *datePicker;
 @property (nonatomic, retain) NewTransactionViewController *ntvController;
 -(IBAction)selectDate:(id)sender;
+-(IBAction)leaveAsIs:(id)sender;
+-(void)fadeAway;
 @end

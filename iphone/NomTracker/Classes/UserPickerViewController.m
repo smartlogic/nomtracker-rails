@@ -38,17 +38,25 @@
   return (NSString *)[[emailsArray objectAtIndex:row] address];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-  ntvController.emailAddressField.text = (NSString *)[[emailsArray objectAtIndex:row] address];
 
-//  [UIView beginAnimations:@"View Curl" context:nil];
-//  [UIView setAnimationDuration:1.00];
-//  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-//  [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view.superview cache:YES];
+-(IBAction)selectUser:(id)sender {
+  ntvController.emailAddressField.text = (NSString *)[[emailsArray objectAtIndex:[userPicker selectedRowInComponent:0]] address];
+  [self fadeAway];
+}
+
+-(IBAction)leaveAsIs:(id)sender {
+  [self fadeAway];
+}
+
+-(void)fadeAway {
   
-  [self.view removeFromSuperview];  
-
-//  [UIView commitAnimations];
+  self.view.alpha = 1;
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:1];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+  self.view.alpha = 0;
+  
+  [UIView commitAnimations];  
 }
 
 - (void)didReceiveMemoryWarning {

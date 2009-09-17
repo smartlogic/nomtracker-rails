@@ -44,7 +44,7 @@
     [self.view removeFromSuperview];
     [delegate.window addSubview:delegate.rootController.view];
     [delegate.rootController setSelectedIndex:0];
-
+    
     [UIView commitAnimations];
   } else {
     passwordField.text = @"";
@@ -63,13 +63,18 @@
   }
 }
 
+-(IBAction)launchWebsite:(id)sender {
+  NSURL *ntURL = [NSURL URLWithString:@"http://www.smartlogicsolutions.com/"];
+  NSLog(@"%@", ntURL);
+  [[UIApplication sharedApplication] openURL:ntURL];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   // TODO - for dev only. REMOVE!
   rememberMe = NO;
   [rememberMeButton setBackgroundImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
 }
-
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
   errorLabel.text = @"";
@@ -81,6 +86,9 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
   [theTextField resignFirstResponder];
+  if (theTextField == emailField) {
+    [passwordField becomeFirstResponder];
+  }
   return YES;
 }
 

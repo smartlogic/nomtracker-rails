@@ -22,18 +22,24 @@
   NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
   [dateFormatter setDateStyle:NSDateFormatterShortStyle];
   ntvController.onField.text = [dateFormatter stringFromDate:[datePicker date]];
-  
-  [UIView beginAnimations:@"View Curl" context:nil];
-  [UIView setAnimationDuration:1.00];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-  [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view.superview cache:YES];
-  
-  [self.view removeFromSuperview];  
-  
-  [UIView commitAnimations];  
+  [self fadeAway];
 }
 
 
+-(IBAction)leaveAsIs:(id)sender {
+  [self fadeAway];
+}
+
+-(void)fadeAway {
+  
+  self.view.alpha = 1;
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:1];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+  self.view.alpha = 0;
+  
+  [UIView commitAnimations];  
+}
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];

@@ -27,6 +27,7 @@
   [urlRequest setHTTPMethod:@"POST"];
 	NSData *imageData = self.selectedImage;
 	
+  
 	// Setup POST body
 	NSString *stringBoundary = [NSString stringWithString:@"0xKhTmLbOuNdArY"];
 	NSString *contentType    = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", stringBoundary];
@@ -77,13 +78,15 @@
     [postBody appendData:[[NSString stringWithString:[params objectForKey:dKey]] dataUsingEncoding:NSUTF8StringEncoding]];
   }
 
-	[postBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@[image]\"; filename=\"%@\"\r\n", key, @"this_image.jpg" ] dataUsingEncoding:NSUTF8StringEncoding]];
-	[postBody appendData:[[NSString stringWithString:@"Content-Type: image/jpg\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];  // jpeg as data
-	[postBody appendData:[[NSString stringWithString:@"Content-Transfer-Encoding: binary\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[postBody appendData:image];  // Tack on the imageData to the end    
-	[postBody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];  
+  [postBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
   
+  if (image != NULL) {
+    [postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@[image]\"; filename=\"%@\"\r\n", key, @"this_image.jpg" ] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[[NSString stringWithString:@"Content-Type: image/jpg\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];  // jpeg as data
+    [postBody appendData:[[NSString stringWithString:@"Content-Transfer-Encoding: binary\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:image];  // Tack on the imageData to the end    
+    [postBody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];  
+  }
   return postBody;
 }
 
@@ -91,12 +94,22 @@
   UserPickerViewController *upvController = [[UserPickerViewController alloc] initWithNibName:@"UserPickerView" bundle:nil];
   upvController.ntvController = self;
 
-  [UIView beginAnimations:@"View Curl" context:nil];
-  [UIView setAnimationDuration:1.00];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-  [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
+  [[self firstResponder] resignFirstResponder];
+  
+  upvController.view.alpha = 0;
+  [self.view.superview addSubview:upvController.view];
+  
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+  [UIView setAnimationDuration:1];
+  upvController.view.alpha = 1;
+  
+//  [UIView beginAnimations:@"View Flip" context:nil];
+//  [UIView setAnimationDuration:1.50];
+//  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//  [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
 
-  [self.view.superview addSubview:upvController.view]; 
+
   
   [UIView commitAnimations];
 }
@@ -104,13 +117,23 @@
 -(IBAction)selectDate:(id)sender {
   DatePickerViewController *dpvController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerView" bundle:nil];
   dpvController.ntvController = self;
-  
-  [UIView beginAnimations:@"View Curl" context:nil];
-  [UIView setAnimationDuration:1.00];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-  [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
-  
+
+  [[self firstResponder] resignFirstResponder];
+
+  dpvController.view.alpha = 0;
   [self.view.superview addSubview:dpvController.view];  
+  
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+  [UIView setAnimationDuration:1];
+  dpvController.view.alpha = 1;
+  
+//  [UIView beginAnimations:@"View Curl" context:nil];
+//  [UIView setAnimationDuration:1.50];
+//  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//  [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
+  
+
   [UIView commitAnimations];
 }
 
@@ -153,13 +176,13 @@
   
   [self.imagePreview removeFromSuperview];
   
-  NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-  [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-  onField.text = [dateFormatter stringFromDate:[NSDate date]];
+//  NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//  [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+//  onField.text = [dateFormatter stringFromDate:[NSDate date]];
   
   amount.text = @"";
   forField.text = @"";
-  onField.enabled = NO;
+//  onField.enabled = NO;
   emailAddressField.text = @"";  
 }
 
@@ -183,6 +206,11 @@
   
   self.reloadView = NO;
   [[picker parentViewController] dismissModalViewControllerAnimated:YES];
+}
+
+-(BOOL)textFieldDidBeginEditing:(UITextField *)textField {
+//  NSLog(@"%@", [self firstResponder]);
+  return YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
