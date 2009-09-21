@@ -90,11 +90,14 @@
   return postBody;
 }
 
+
+
+
 -(IBAction)selectExistingContact:(id)sender {
   UserPickerViewController *upvController = [[UserPickerViewController alloc] initWithNibName:@"UserPickerView" bundle:nil];
   upvController.ntvController = self;
 
-  [[self firstResponder] resignFirstResponder];
+  [[self.view.window firstResponder] resignFirstResponder];
   
   upvController.view.alpha = 0;
   [self.view.superview addSubview:upvController.view];
@@ -118,7 +121,7 @@
   DatePickerViewController *dpvController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerView" bundle:nil];
   dpvController.ntvController = self;
 
-  [[self firstResponder] resignFirstResponder];
+  [[self.view.window firstResponder] resignFirstResponder];
 
   dpvController.view.alpha = 0;
   [self.view.superview addSubview:dpvController.view];  
@@ -165,25 +168,24 @@
   UserPickerViewController *upvController = [[UserPickerViewController alloc] initWithNibName:@"UserPickerView" bundle:nil];
   self.pickUserViewController = upvController;
   [upvController release];
-  Transaction *t = [[Transaction alloc] init];
-  self.transaction = t;
-  [t release];
+  if (self.transaction == NULL) {
+    Transaction *t = [[Transaction alloc] init];
+    self.transaction = t;
+    [t release];
+  }
   
   self.imagePicker = [[UIImagePickerController alloc] init];
   imagePicker.allowsImageEditing = NO;
   imagePicker.delegate = self;
   imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   
-  [self.imagePreview removeFromSuperview];
-  
-//  NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-//  [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-//  onField.text = [dateFormatter stringFromDate:[NSDate date]];
-  
-  amount.text = @"";
-  forField.text = @"";
-//  onField.enabled = NO;
-  emailAddressField.text = @"";  
+//  [self.imagePreview removeFromSuperview];
+
+//  amount.text = @"";
+//  forField.text = @"";
+//  onField.text = @"";
+//  emailAddressField.text = @"";
+//  transactionType.selectedSegmentIndex = 0;
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -206,11 +208,6 @@
   
   self.reloadView = NO;
   [[picker parentViewController] dismissModalViewControllerAnimated:YES];
-}
-
--(BOOL)textFieldDidBeginEditing:(UITextField *)textField {
-//  NSLog(@"%@", [self firstResponder]);
-  return YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
