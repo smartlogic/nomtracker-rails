@@ -31,7 +31,7 @@
     nomworth += balanceValue;
   }
   NomTrackerAppDelegate *delegate = [UIApplication sharedApplication].delegate;
-  if (nomworth > 0) {
+  if (nomworth >= 0) {
     [backgroundLabel setBackgroundColor:delegate.green];
   } else {
     [backgroundLabel setBackgroundColor:delegate.red];
