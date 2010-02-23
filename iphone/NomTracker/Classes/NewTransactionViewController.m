@@ -11,6 +11,7 @@
 #import "Transaction.h"
 #import "UserPickerViewController.h"
 #import "DatePickerViewController.h"
+#import "FindFirstResponder.h"
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/CAAnimation.h>
@@ -91,13 +92,14 @@
 }
 
 
-
-
 -(IBAction)selectExistingContact:(id)sender {
   UserPickerViewController *upvController = [[UserPickerViewController alloc] initWithNibName:@"UserPickerView" bundle:nil];
   upvController.ntvController = self;
 
-  [[self.view.window firstResponder] resignFirstResponder];
+  UIView *thisFirstResponder = [self.view.superview findFirstResponder];
+  if (thisFirstResponder != nil) {
+    [thisFirstResponder resignFirstResponder];
+  }
   
   upvController.view.alpha = 0;
   [self.view.superview addSubview:upvController.view];
@@ -107,13 +109,6 @@
   [UIView setAnimationDuration:1];
   upvController.view.alpha = 1;
   
-//  [UIView beginAnimations:@"View Flip" context:nil];
-//  [UIView setAnimationDuration:1.50];
-//  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-//  [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
-
-
-  
   [UIView commitAnimations];
 }
 
@@ -121,8 +116,11 @@
   DatePickerViewController *dpvController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerView" bundle:nil];
   dpvController.ntvController = self;
 
-  [[self.view.window firstResponder] resignFirstResponder];
-
+  UIView *thisFirstResponder = [self.view.superview findFirstResponder];
+  if (thisFirstResponder != nil) {
+    [thisFirstResponder resignFirstResponder];
+  }
+  
   dpvController.view.alpha = 0;
   [self.view.superview addSubview:dpvController.view];  
   
@@ -131,12 +129,6 @@
   [UIView setAnimationDuration:1];
   dpvController.view.alpha = 1;
   
-//  [UIView beginAnimations:@"View Curl" context:nil];
-//  [UIView setAnimationDuration:1.50];
-//  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-//  [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.superview cache:YES];
-  
-
   [UIView commitAnimations];
 }
 
@@ -175,7 +167,7 @@
   }
   
   self.imagePicker = [[UIImagePickerController alloc] init];
-  imagePicker.allowsImageEditing = NO;
+  imagePicker.allowsEditing = NO;
   imagePicker.delegate = self;
   imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   
