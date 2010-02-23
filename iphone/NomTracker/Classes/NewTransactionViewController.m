@@ -53,11 +53,21 @@
   Response *res = [Connection sendRequest:urlRequest withUser:[ObjectiveResourceConfig getUser] andPassword:[ObjectiveResourceConfig getPassword]];
   NSError *aError = nil;
   if ([res isError]) {
+    // On an error, does not clear submitted data. The form will keep its state
+    // if the user moves away and back to the form.
     aError = res.error;
     NSString *errors = [[NSString stringWithFormat:@"%@", [[aError errors] componentsJoinedByString:@"\n"]] stringByReplacingOccurrencesOfString:@"_id" withString:@""];
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"There were errors saving this transaction" message:errors delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
     [alert show];
   } else if ([res isSuccess]) {
+    // Clear data on a successful transaction.
+    [self.imagePreview removeFromSuperview];
+    amount.text = @"";
+    forField.text = @"";
+    onField.text = @"";
+    emailAddressField.text = @"";
+    transactionType.selectedSegmentIndex = 0;
+
     NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     delegate.rootController.selectedIndex = 0;
     [[delegate balancesController] popToRootViewControllerAnimated:YES];
@@ -171,13 +181,7 @@
   imagePicker.delegate = self;
   imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   
-//  [self.imagePreview removeFromSuperview];
 
-//  amount.text = @"";
-//  forField.text = @"";
-//  onField.text = @"";
-//  emailAddressField.text = @"";
-//  transactionType.selectedSegmentIndex = 0;
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
