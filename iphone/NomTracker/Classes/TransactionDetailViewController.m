@@ -98,9 +98,9 @@
   if (indexPath.section == 0) {
     if (indexPath.row == 0) {
       if (transaction.when != nil) {
-        [cell setText:[NSString stringWithFormat:@"%@", transaction.when]];
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@", transaction.when]];
       } else {
-        [cell setText:[NSString stringWithFormat:@"%@", transaction.createdAt]];
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@", transaction.createdAt]];
       }
     } else if (indexPath.row == 1) {
       NSString *transactionText;
@@ -109,16 +109,16 @@
       } else {
         transactionText = @"lent you";
       }
-      [cell setText:[NSString stringWithFormat:@"%@ %@", otherUserName, transactionText]];
+      [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@", otherUserName, transactionText]];
     } else if (indexPath.row == 2) {
-      [cell setText:[NSString stringWithFormat:@"%@", transaction.amountString]];
+      [cell.textLabel setText:[NSString stringWithFormat:@"%@", transaction.amountString]];
     }
   } else {
     if (indexPath.row == 0 && ![transaction.description isEqualToString:@""]) {
-      [cell setText:[NSString stringWithFormat:@"%@", transaction.description]];
+      [cell.textLabel setText:[NSString stringWithFormat:@"%@", transaction.description]];
     } else {
       UIImage *cellImage = [UIImage imageWithContentsOfFile:transaction.image.description];
-      cell.image = cellImage;
+      [cell.imageView setImage:cellImage];
     }
   }
   return cell;
