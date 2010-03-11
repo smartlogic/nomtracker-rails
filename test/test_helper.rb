@@ -5,6 +5,7 @@ require 'story_helper'
 require 'shoulda'
 require 'mocha'
 require 'json'
+require 'redgreen'
 require File.join(File.dirname(__FILE__), 'shoulda_ext')
 
 class Test::Unit::TestCase

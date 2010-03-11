@@ -3,4 +3,4 @@ defaults:
   install_options: --no-ri --no-rdoc
 gems:
 - name: sanitize_email
-  version: '~> 0.1.1'
+  version: '= 0.3.6'
