@@ -1,0 +1,16 @@
+- Can't see password field while typing on the login screen
+- Screen transition from login to tab view stutters and shows tab bar in the wrong spot momentarily
+
+- Selecting debit/credit on balance screen shows list view of old transactions w/o explanation
+
+- borrowed/lent selection on new transaction screen is confusing
+- date field should default to current date/time
+- shouldn't be able to type in date field
+- date selection button freezes application
+- Attaching an image to a transaction should allow you to take a picture as well as select one from your camera roll
+- putting cursor focus on "for" field partially hides the field w/ the keyboard
+- pushing "select from existing contacts" button crashes the application
+
+- Starting up when you're logged in should send you to the new transaction screen first
+
+- Tab bar is unresponsive the first time you try to use it
