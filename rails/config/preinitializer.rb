@@ -1,7 +1,7 @@
 # Ensure that proper versions of gems in config/geminstaller.yml are activated.
 require 'rubygems'
 gem 'rails', '= 2.3.2'
-gem 'geminstaller', '= 0.5.2'
+gem 'geminstaller', '= 0.5.4'
 require 'geminstaller'
 
 rails_env = ENV['RAILS_ENV'] || 'development'

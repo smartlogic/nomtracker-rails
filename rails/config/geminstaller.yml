@@ -6,8 +6,8 @@ gems:
   version: '= 2.3.2'
 - name: state_machine
   version: '~> 0.7.3'
-- name: rails_sql_views
-  version: '~> 0.7.0'
+- name: rubaidh-rails_sql_views 
+  version: '~> 0.7.1'
 - name: haml
   version: '~> 2.0.9'
 - name: rmagick
