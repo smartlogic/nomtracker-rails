@@ -44,11 +44,18 @@ class UserMailerTest < ActiveSupport::TestCase
     assert_nothing_raised { UserMailer.deliver_invitation(nick, john.primary_email) }
   end
   
-  def test_new_transaction_notification
+  def test_new_transaction_notification_when_initiator_is_creditor
     trans = Transaction.create!(:creditor => nick, :debtor => adam, :amount => 5)
-    assert_nothing_raised { UserMailer.deliver_transaction_created(nick, trans) }
+    assert_nothing_raised { @email = UserMailer.deliver_transaction_created(nick, trans) }
+    assert @email.body =~ /Hi Nick,\n\nAdam/
   end
 
+  def test_new_transaction_notification_when_initiator_is_creditor
+    trans = Transaction.create!(:creditor => nick, :debtor => adam, :amount => 5)
+    assert_nothing_raised { @email = UserMailer.deliver_transaction_created(adam, trans) }
+    assert @email.body =~ /Hi Adam,\n\nNick/
+  end
+  
   private
 
     def encode(subject)
