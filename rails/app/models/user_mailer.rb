@@ -38,7 +38,7 @@ class UserMailer < ActionMailer::Base
   
   def transaction_created(user, transaction)
     setup_email(user, user.primary_email.address)
-    if transaction.creditor = user
+    if transaction.creditor == user
       creating_user = transaction.debtor
       verb = "borrowed"
       to   = "from"
