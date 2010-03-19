@@ -1,5 +1,9 @@
-.DS_Store
-build/
+# xcode noise
+build/*
 *.pbxuser
-*.perspective
-*.perspectivev3
+*.mode1v3
+*.perspective*
+
+# osx noise
+.DS_Store
+profile
