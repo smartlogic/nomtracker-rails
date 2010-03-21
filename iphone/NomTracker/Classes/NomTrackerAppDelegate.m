@@ -30,7 +30,6 @@
   LoginViewController *lvController = [[[LoginViewController alloc] initWithNibName:@"LoginView" bundle:nil] autorelease];
   self.loginController = lvController;
   [window addSubview:loginController.view];
-
   
   // Load saved data if exists
   // TODO - encryption!

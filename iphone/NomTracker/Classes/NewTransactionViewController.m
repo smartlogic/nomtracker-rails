@@ -20,7 +20,41 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
   self.transaction = [[Transaction alloc]init];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void) keyboardWillShow: (NSNotification*) aNotification;
+{  
+  NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+  if( [[delegate rootController] selectedViewController] == self) {
+    NSLog(@"txn keyboard will show");
+    CGRect rect = [[self view] frame];	
+    if(rect.origin.y == 0) {
+      rect.origin.y -= 75;
+      [UIView beginAnimations:nil context:NULL];	
+      [UIView setAnimationDuration:0.3];	
+      [[self view] setFrame: rect];  
+      [UIView commitAnimations];
+    }
+  }
+}
+
+- (void) keyboardDidHide: (NSNotification*) aNotification;
+{
+  NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+  if( [[delegate rootController] selectedViewController] == self) {
+    NSLog(@"txn keyboard will hide");
+    [UIView beginAnimations:nil context:NULL];	
+    [UIView setAnimationDuration:0.3];	
+    CGRect rect = [[self view] frame];	
+    rect.origin.y += 75;   
+    [[self view] setFrame: rect];	
+    [UIView commitAnimations];
+  }
 }
 
 -(IBAction)createTransaction:(id)sender {
@@ -56,6 +90,8 @@
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"There were errors saving this transaction" message:errors delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
     [alert show];
   } else if ([res isSuccess]) {
+    
+    // Clear new transaction form
     amount.text = @"";
     forField.text = @"";
     emailAddressField.text = @"";
@@ -63,6 +99,7 @@
     [transaction release];
     transaction = [[Transaction alloc] init];
     
+    // Show the user the transaction list
     NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     delegate.rootController.selectedIndex = 0;
     [[delegate balancesController] popToRootViewControllerAnimated:YES];
@@ -101,7 +138,16 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
   [theTextField resignFirstResponder];
-  return YES;
+  if(theTextField == emailAddressField) {
+    [amount becomeFirstResponder];
+  }
+  else if(theTextField == amount) {
+    [forField becomeFirstResponder];
+  }
+  else {    
+    return YES;
+  }
+  return NO;
 }
 
 - (void)dealloc {
@@ -112,6 +158,10 @@
   [amount release];
   [transaction release];
   [ntDelegate release];
+  
+  [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardWillShowNotification];
+  [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardDidHideNotification];
+
   [super dealloc];
 }
 
