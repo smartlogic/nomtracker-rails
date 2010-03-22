@@ -265,12 +265,6 @@ div#footer {
 	font-size: 65%;
 }
 
-div#footer a {
-	background: transparent url(/images/breadcrumb.gif) no-repeat center left;
-	padding-left: 12px;
-	padding-right: 5px;
-}
-
 /*********** Transaction Autocomplete Form *************/
 div.autocomplete {
   position:absolute;
