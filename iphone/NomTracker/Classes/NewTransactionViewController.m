@@ -9,7 +9,7 @@
 #import "NomTrackerAppDelegate.h"
 #import "NewTransactionViewController.h"
 #import "Transaction.h"
-#import "FindFirstResponder.h"
+#import "UserPickerViewController.h"
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/CAAnimation.h>
@@ -26,6 +26,11 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
+
+- (void)selectContact:(id)sender {
+  UserPickerViewController *upvController = [[UserPickerViewController alloc] initWithNibName:@"UserPickerView" bundle:nil];
+  upvController.ntvController = self;
+  [self presentModalViewController:upvController animated:YES];}
 
 - (void) keyboardWillShow: (NSNotification*) aNotification;
 {  

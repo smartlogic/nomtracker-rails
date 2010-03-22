@@ -33,5 +33,6 @@
 
 -(IBAction)createTransaction:(id)sender;
 -(IBAction)switchTransactionType:(id)sender;
+-(IBAction)selectContact:(id)sender;
 -(NSData *)createMultiPartFormData:(NSDictionary *)params withItemKey:(NSString *)key;
 @end
