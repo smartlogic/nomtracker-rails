@@ -13,14 +13,6 @@
 @implementation UserPickerViewController
 @synthesize userPicker, emailsArray, ntvController;
 
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-  [super loadView];
-}
-
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   NSArray *array = [Email allEmails];
   self.emailsArray = (NSMutableArray *)array;
@@ -38,31 +30,18 @@
   return (NSString *)[[emailsArray objectAtIndex:row] address];
 }
 
-
 -(IBAction)selectUser:(id)sender {
   ntvController.emailAddressField.text = (NSString *)[[emailsArray objectAtIndex:[userPicker selectedRowInComponent:0]] address];
-  [self fadeAway];
+  [self dismissModalViewControllerAnimated: YES];
 }
 
--(IBAction)leaveAsIs:(id)sender {
-  [self fadeAway];
-}
-
--(void)fadeAway {
-  
-  self.view.alpha = 1;
-  [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:1];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-  self.view.alpha = 0;
-  
-  [UIView commitAnimations];  
+-(IBAction)cancel:(id)sender {
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 }
-
 
 - (void)dealloc {
   [emailsArray release];
@@ -70,6 +49,5 @@
   [userPicker release];
   [super dealloc];
 }
-
 
 @end

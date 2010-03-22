@@ -15,7 +15,6 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		5F14E976102CEB5200495EA1 /* TransactionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F14E975102CEB5200495EA1 /* TransactionDetailViewController.m */; };
 		5F14E996102CEEE700495EA1 /* TransactionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14E995102CEEE700495EA1 /* TransactionDetailView.xib */; };
-		5F14E9C9102CFADC00495EA1 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F14E9C8102CFADC00495EA1 /* DatePickerViewController.m */; };
 		5F14EA27102D2B3C00495EA1 /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14EA26102D2B3C00495EA1 /* DatePickerView.xib */; };
 		5F909F5F10306C0C00EB8FC2 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F909F1010306C0C00EB8FC2 /* Connection.m */; };
 		5F909F6010306C0C00EB8FC2 /* ConnectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F909F1210306C0C00EB8FC2 /* ConnectionDelegate.m */; };
@@ -77,7 +76,6 @@
 		5FAD57FA102B226B000B5D28 /* NewTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAD57F9102B226B000B5D28 /* NewTransactionViewController.m */; };
 		5FAD57FC102B2279000B5D28 /* NewTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD57FB102B2279000B5D28 /* NewTransactionView.xib */; };
 		5FAD5807102B2487000B5D28 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAD5806102B2487000B5D28 /* Transaction.m */; };
-		5FAD5A12102B3D9E000B5D28 /* UserPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAD5A11102B3D9E000B5D28 /* UserPickerViewController.m */; };
 		5FAD5BC5102B4D9A000B5D28 /* UserPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5BC4102B4D9A000B5D28 /* UserPickerView.xib */; };
 		5FAD5BCB102B4EFA000B5D28 /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAD5BCA102B4EFA000B5D28 /* Email.m */; };
 		5FAD5DCE102B640F000B5D28 /* login_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5DCD102B640F000B5D28 /* login_background.png */; };
@@ -85,12 +83,14 @@
 		5FAD5EB7102B767F000B5D28 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5EB5102B767F000B5D28 /* checked.png */; };
 		5FAD5EB8102B767F000B5D28 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5EB6102B767F000B5D28 /* unchecked.png */; };
 		5FB670681030C7F5007E804E /* sign_out2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB670671030C7F5007E804E /* sign_out2.png */; };
+		6423964A1153DBE100250C75 /* new_transaction_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 642396491153DBE100250C75 /* new_transaction_background.png */; };
 		646780A511489146007C7DD5 /* sign_in_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780A411489146007C7DD5 /* sign_in_background.png */; };
 		646780B11148925B007C7DD5 /* SLS_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B01148925B007C7DD5 /* SLS_Logo.png */; };
-		646780B311489277007C7DD5 /* transaction_background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B211489277007C7DD5 /* transaction_background2.png */; };
 		646780B51148929C007C7DD5 /* lentme_unlit_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B41148929C007C7DD5 /* lentme_unlit_checked.png */; };
 		646780B7114892A3007C7DD5 /* borrowed_unlit_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B6114892A3007C7DD5 /* borrowed_unlit_checked.png */; };
 		646780B9114892AF007C7DD5 /* add_image_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B8114892AF007C7DD5 /* add_image_camera.png */; };
+		64A2F9F31157F00200351320 /* UserPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A2F9F21157F00200351320 /* UserPickerViewController.m */; };
+		64A2FA161157F24100351320 /* nom_icon_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 64A2FA151157F24100351320 /* nom_icon_01.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,8 +106,6 @@
 		5F14E974102CEB5200495EA1 /* TransactionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionDetailViewController.h; sourceTree = "<group>"; };
 		5F14E975102CEB5200495EA1 /* TransactionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDetailViewController.m; sourceTree = "<group>"; };
 		5F14E995102CEEE700495EA1 /* TransactionDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionDetailView.xib; sourceTree = "<group>"; };
-		5F14E9C7102CFADC00495EA1 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
-		5F14E9C8102CFADC00495EA1 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		5F14EA26102D2B3C00495EA1 /* DatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerView.xib; sourceTree = "<group>"; };
 		5F909F0F10306C0C00EB8FC2 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		5F909F1010306C0C00EB8FC2 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
@@ -219,8 +217,6 @@
 		5FAD57FB102B2279000B5D28 /* NewTransactionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewTransactionView.xib; sourceTree = "<group>"; };
 		5FAD5805102B2487000B5D28 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
 		5FAD5806102B2487000B5D28 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
-		5FAD5A10102B3D9E000B5D28 /* UserPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPickerViewController.h; sourceTree = "<group>"; };
-		5FAD5A11102B3D9E000B5D28 /* UserPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPickerViewController.m; sourceTree = "<group>"; };
 		5FAD5BC4102B4D9A000B5D28 /* UserPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserPickerView.xib; sourceTree = "<group>"; };
 		5FAD5BC9102B4EFA000B5D28 /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		5FAD5BCA102B4EFA000B5D28 /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
@@ -229,12 +225,15 @@
 		5FAD5EB5102B767F000B5D28 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		5FAD5EB6102B767F000B5D28 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		5FB670671030C7F5007E804E /* sign_out2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_out2.png; sourceTree = "<group>"; };
+		642396491153DBE100250C75 /* new_transaction_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_transaction_background.png; sourceTree = "<group>"; };
 		646780A411489146007C7DD5 /* sign_in_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_background.png; sourceTree = "<group>"; };
 		646780B01148925B007C7DD5 /* SLS_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SLS_Logo.png; sourceTree = "<group>"; };
-		646780B211489277007C7DD5 /* transaction_background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transaction_background2.png; sourceTree = "<group>"; };
 		646780B41148929C007C7DD5 /* lentme_unlit_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lentme_unlit_checked.png; sourceTree = "<group>"; };
 		646780B6114892A3007C7DD5 /* borrowed_unlit_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = borrowed_unlit_checked.png; sourceTree = "<group>"; };
 		646780B8114892AF007C7DD5 /* add_image_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_image_camera.png; sourceTree = "<group>"; };
+		64A2F9F11157F00200351320 /* UserPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPickerViewController.h; sourceTree = "<group>"; };
+		64A2F9F21157F00200351320 /* UserPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPickerViewController.m; sourceTree = "<group>"; };
+		64A2FA151157F24100351320 /* nom_icon_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nom_icon_01.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,9 +254,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				64A2F9F11157F00200351320 /* UserPickerViewController.h */,
+				64A2F9F21157F00200351320 /* UserPickerViewController.m */,
 				5F909F0E10306C0C00EB8FC2 /* lib */,
-				5F14E9C7102CFADC00495EA1 /* DatePickerViewController.h */,
-				5F14E9C8102CFADC00495EA1 /* DatePickerViewController.m */,
 				5FAD57A2102AC38D000B5D28 /* BalancesTableCell.h */,
 				5FAD57A3102AC38D000B5D28 /* BalancesTableCell.m */,
 				1D3623240D0F684500981E51 /* NomTrackerAppDelegate.h */,
@@ -276,8 +275,6 @@
 				5FAD57F9102B226B000B5D28 /* NewTransactionViewController.m */,
 				5FAD5805102B2487000B5D28 /* Transaction.h */,
 				5FAD5806102B2487000B5D28 /* Transaction.m */,
-				5FAD5A10102B3D9E000B5D28 /* UserPickerViewController.h */,
-				5FAD5A11102B3D9E000B5D28 /* UserPickerViewController.m */,
 				5FAD5BC9102B4EFA000B5D28 /* Email.h */,
 				5FAD5BCA102B4EFA000B5D28 /* Email.m */,
 				5F925DE5102BC4F1005AC101 /* SettingsViewController.h */,
@@ -348,10 +345,11 @@
 		5F14E9A6102CF8DA00495EA1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				64A2FA151157F24100351320 /* nom_icon_01.png */,
+				642396491153DBE100250C75 /* new_transaction_background.png */,
 				646780B8114892AF007C7DD5 /* add_image_camera.png */,
 				646780B6114892A3007C7DD5 /* borrowed_unlit_checked.png */,
 				646780B41148929C007C7DD5 /* lentme_unlit_checked.png */,
-				646780B211489277007C7DD5 /* transaction_background2.png */,
 				646780B01148925B007C7DD5 /* SLS_Logo.png */,
 				646780A411489146007C7DD5 /* sign_in_background.png */,
 				5FB670671030C7F5007E804E /* sign_out2.png */,
@@ -585,10 +583,11 @@
 				5FB670681030C7F5007E804E /* sign_out2.png in Resources */,
 				646780A511489146007C7DD5 /* sign_in_background.png in Resources */,
 				646780B11148925B007C7DD5 /* SLS_Logo.png in Resources */,
-				646780B311489277007C7DD5 /* transaction_background2.png in Resources */,
 				646780B51148929C007C7DD5 /* lentme_unlit_checked.png in Resources */,
 				646780B7114892A3007C7DD5 /* borrowed_unlit_checked.png in Resources */,
 				646780B9114892AF007C7DD5 /* add_image_camera.png in Resources */,
+				6423964A1153DBE100250C75 /* new_transaction_background.png in Resources */,
+				64A2FA161157F24100351320 /* nom_icon_01.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,11 +608,9 @@
 				5FAD57A4102AC38D000B5D28 /* BalancesTableCell.m in Sources */,
 				5FAD57FA102B226B000B5D28 /* NewTransactionViewController.m in Sources */,
 				5FAD5807102B2487000B5D28 /* Transaction.m in Sources */,
-				5FAD5A12102B3D9E000B5D28 /* UserPickerViewController.m in Sources */,
 				5FAD5BCB102B4EFA000B5D28 /* Email.m in Sources */,
 				5F925DE7102BC4F1005AC101 /* SettingsViewController.m in Sources */,
 				5F14E976102CEB5200495EA1 /* TransactionDetailViewController.m in Sources */,
-				5F14E9C9102CFADC00495EA1 /* DatePickerViewController.m in Sources */,
 				5F909F5F10306C0C00EB8FC2 /* Connection.m in Sources */,
 				5F909F6010306C0C00EB8FC2 /* ConnectionDelegate.m in Sources */,
 				5F909F6110306C0C00EB8FC2 /* ConnectionManager.m in Sources */,
@@ -646,6 +643,7 @@
 				5F909F7C10306C0C00EB8FC2 /* NSString+XMLSerializableSupport.m in Sources */,
 				5F909F7D10306C0C00EB8FC2 /* ObjectiveResourceConfig.m in Sources */,
 				5F909F7E10306C0C00EB8FC2 /* Response.m in Sources */,
+				64A2F9F31157F00200351320 /* UserPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

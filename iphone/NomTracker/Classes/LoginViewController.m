@@ -71,17 +71,41 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  // TODO - for dev only. REMOVE!
   rememberMe = NO;
   [rememberMeButton setBackgroundImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateSelected];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginKeyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
   errorLabel.text = @"";
 }
 
--(void)keyboardWasShown:(NSNotification *)aNotification {
-  NSLog(@"OK");
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+}
+
+- (void) loginKeyboardWillShow: (NSNotification*) aNotification;
+{		    
+  CGRect rect = [[self view] frame];	
+  if(rect.origin.y == 0) {
+    rect.origin.y -= 60;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];	
+    [[self view] setFrame: rect];  
+    [UIView commitAnimations];
+  }
+}
+
+- (void) loginKeyboardDidHide: (NSNotification*) aNotification;
+{
+  CGRect rect = [[self view] frame];	
+  [UIView beginAnimations:nil context:NULL];	
+  [UIView setAnimationDuration:0.3];	  
+  rect.origin.y += 60;   
+  [[self view] setFrame: rect];	
+  [UIView commitAnimations];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -97,6 +121,10 @@
   [passwordField release];
   [errorLabel release];
   [rememberMeButton release];
+  
+  [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardWillShowNotification];
+  [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardDidHideNotification];
+  
   [super dealloc];
 }
 
