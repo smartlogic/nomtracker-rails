@@ -7,6 +7,15 @@
 
 /************* HEADER - stuff at the top of the page ************/
 
+#header img {
+	margin-top: 15px;
+	float: left;
+}
+
+#header #status {
+	float: right;
+}
+
 /* Breadcrumb - top left */
 div#breadcrumb { float: left; }
 

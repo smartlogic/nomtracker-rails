@@ -27,6 +27,10 @@
           = link_to "Log In", login_path, :accesskey => "l"
       %br{:style => 'clear: both;'}
       
+      %img{:src => "images/nomtracker_header.png"}
+      %div#status
+      %br{:style => "clear: both;"}
+      
     - if flash[:notice]
       .success= flash[:notice]
     = yield
