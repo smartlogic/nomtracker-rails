@@ -25,11 +25,11 @@ div#header {
 	
 /************* MAIN - the actual content ************/
 body {
-	background-color: white;
+	background: #E0F5FF url(/images/nomtracker_background.png) no-repeat fixed center top;
+	background-attachment: fixed;
 	color:	black;
 	font-family: Arial,Verdana,sans-serif;
-	padding: 1em;
-	width:	50em;
+	width:	825px;
 	margin: auto;
 }
 
