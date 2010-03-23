@@ -6,23 +6,20 @@
 /** May want to switch this all over to "knob buttons toolbar icons by itweek" - also FOSS */
 
 /************* HEADER - stuff at the top of the page ************/
-div#header {
-	font-size: 115%;
+
+/* Breadcrumb - top left */
+div#breadcrumb { float: left; }
+
+div#breadcrumb a {
+    background: transparent url(/images/breadcrumb.gif) no-repeat center right;
+    padding-right: 18px; /*adjust bullet image padding*/
 }
 
-	/* Breadcrumb - top left */
-	div#breadcrumb { float: left; }
-	
-	div#breadcrumb a {
-		background: transparent url(/images/breadcrumb.gif) no-repeat center right;
-		padding-right: 18px; /*adjust bullet image padding*/
-	}
-
-	/* Account Links - top right */
-	div#account_links {
-		float:right;
-	}
-	
+/* Account Links - top right */
+div#account_links {
+    float:right;
+}
+ 
 /************* MAIN - the actual content ************/
 body {
 	background: #E0F5FF url(/images/nomtracker_background.png) no-repeat fixed center top;
@@ -96,8 +93,8 @@ img {
 	}
 	
 	#debts, .debt {
-		background-color: #FF4848;
-		color: white;
+		background-color: #FF786E;
+		color: #4D4D4D;
 		font-weight: bold;
 	}
 	
@@ -106,8 +103,8 @@ img {
 	}
 	
 	#credits, .credit {
-		background-color: #1FCB4A;
-		color: white;
+		background-color: #BEE6B4;
+		color: #4D4D4D;
 		font-weight: bold;
 	}
 	
@@ -146,13 +143,8 @@ img {
 	
 	table tr td.utility_links {
 		border-left: solid 1px #CCCCCC;
-		background-color: #5757FF;
-		color: #999999;
-		width: 15%;
-	}
-	
-	table tr td.utility_links a {
-		color: white;
+		color: #4D4D4D;
+		width: 20%;
 	}
 	
 	/* The paginator */
