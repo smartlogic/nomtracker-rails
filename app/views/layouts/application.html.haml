@@ -28,7 +28,13 @@
       %br{:style => 'clear: both;'}
       
       %img{:src => "images/nomtracker_header.png"}
-      %div#status
+      
+      - if logged_in?
+        %div#status
+          %div#nomworth.rounded
+          %div#owing.rounded
+          %div#owed.rounded
+          
       %br{:style => "clear: both;"}
       
     - if flash[:notice]
