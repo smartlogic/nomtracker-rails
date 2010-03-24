@@ -7,6 +7,10 @@
 
 /************* HEADER - stuff at the top of the page ************/
 
+#header {
+	margin-top: 10px;
+}
+
 	#header img {
 		margin-top: 15px;
 		float: left;
