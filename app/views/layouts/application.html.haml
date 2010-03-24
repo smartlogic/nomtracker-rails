@@ -9,15 +9,8 @@
     = yield(:head)
   %body
     #header
-      #breadcrumb
-        = link_to "Nomtracker", root_path
-        = yield :breadcrumb
       #account_links
         - if logged_in?
-          = h(current_user.name) 
-          |
-          = h(current_user.primary_email.address) 
-          |
           = link_to "My Account", account_url, :accesskey => "a"
           |
           = link_to "Logout", logout_path, :accesskey => "l"
@@ -27,7 +20,8 @@
           = link_to "Log In", login_path, :accesskey => "l"
       %br{:style => 'clear: both;'}
       
-      %img{:src => "images/nomtracker_header.png"}
+      %a{:href => root_path}
+        %img{:src => "images/nomtracker_header.png"}
       
       - if logged_in?
         %div#status
