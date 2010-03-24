@@ -14,33 +14,41 @@
 
 #header #status {
 	float: right;
-	width: 450px;
+	width: 450px;	
 }
 
 	#header .rounded {
-		-moz-border-radius-bottomleft: 10px;
-	  -webkit-border-bottom-left-radius: 10px;
-	  border-bottom-left-radius: 10px;
+		-moz-border-radius-bottomleft: 15px;
+	  -webkit-border-bottom-left-radius: 15px;
+	  border-bottom-left-radius: 15px;
 	
-	  -moz-border-radius-bottomright: 10px;
-	  -webkit-border-bottom-right-radius: 10px;
-	  border-bottom-right-radius: 10px;
+	  -moz-border-radius-bottomright: 15px;
+	  -webkit-border-bottom-right-radius: 15px;
+	  border-bottom-right-radius: 15px;
 	
-		-moz-border-radius-topleft: 10px;
-	  -webkit-border-top-left-radius: 10px;
-	  border-top-left-radius: 10px;	
+		-moz-border-radius-topleft: 15px;
+	  -webkit-border-top-left-radius: 15px;
+	  border-top-left-radius: 15px;	
 	
-		-moz-border-radius-topright: 10px;
-	  -webkit-border-top-right-radius: 10px;
-	  border-top-right-radius: 10px;
+		-moz-border-radius-topright: 15px;
+	  -webkit-border-top-right-radius: 15px;
+	  border-top-right-radius: 15px;
 	}
 	
 	#header #status #nomworth {
-		height: 150px;
+		height: 130px;
 		width: 150px;
 		margin: 20px;
+		padding: 10px 0;
 		background-color: #BEE6B4;
 		float: left;
+		text-align: center;
+	}
+	
+	#header #status #nomworth span {
+		display: inline-block;
+		font-size: 250%;
+		margin: 25px 0;
 	}
 	
 	#header #status #owing,
