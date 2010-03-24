@@ -7,15 +7,15 @@
 
 /************* HEADER - stuff at the top of the page ************/
 
-#header img {
-	margin-top: 15px;
-	float: left;
-}
+	#header img {
+		margin-top: 15px;
+		float: left;
+	}
 
-#header #status {
-	float: right;
-	width: 450px;	
-}
+	#header #status {
+		float: right;
+		width: 410px;	
+	}
 
 	#header .rounded {
 		-moz-border-radius-bottomleft: 15px;
@@ -35,37 +35,37 @@
 	  border-top-right-radius: 15px;
 	}
 	
-	#header #status #nomworth {
-		height: 130px;
-		width: 150px;
-		margin: 20px;
-		padding: 10px 0;
-		background-color: #BEE6B4;
-		float: left;
-		text-align: center;
-	}
+		#header #status #nomworth {
+			height: 130px;
+			width: 180px;
+			margin: 20px;
+			padding: 10px 0;
+			background-color: #BEE6B4;
+			float: left;
+			text-align: center;
+		}
 	
-	#header #status #nomworth span {
-		display: inline-block;
-		font-size: 250%;
-		margin: 25px 0;
-	}
+		#header #status #nomworth span {
+			display: inline-block;
+			font-size: 250%;
+			margin: 25px 0;
+		}
 	
-	#header #status #owing,
-	#header #status #owed {
-		height: 60px;
-		width: 225px;
-		float:right;
-		margin: 20px 22px 10px 10px;
-	}
+		#header #status #owing,
+		#header #status #owed {
+			height: 65px;
+			width: 180px;
+			float:right;
+		}
 	
-	#header #status #owing {
-		background-color: #FF786E;
-	}
+		#header #status #owing {
+			background-color: #FF786E;
+			margin: 20px 0;
+		}
 	
-	#header #status #owed {
-		background-color: #C8F0FF;
-	}
+		#header #status #owed {
+			background-color: #C8F0FF;
+		}
 	
 /* Breadcrumb - top left */
 div#breadcrumb { float: left; }
