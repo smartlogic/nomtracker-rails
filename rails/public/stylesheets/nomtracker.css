@@ -81,6 +81,12 @@ body {
 .content {
 	margin: 0 20px;
 }
+
+	.content p {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
 .rounded {
 	-moz-border-radius-bottomleft: 15px;
 	-webkit-border-bottom-left-radius: 15px;
@@ -271,11 +277,29 @@ img {
 	}
 	
 	input[type=button], input[type=submit] {
-		border: 1px solid black;
-		color: black;
-		font-size: 1em;
-		padding: 3px 6px;
-		vertical-align: top;
+		color: #4D4D4D;
+		border: 1px solid #64C8FF;
+		background: #E1F5FF;
+		height: 40px;
+		
+		-moz-border-radius-bottomleft: 20px;
+		-webkit-border-bottom-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+
+		-moz-border-radius-bottomright: 20px;
+		-webkit-border-bottom-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+
+		-moz-border-radius-topleft: 20px;
+		-webkit-border-top-left-radius: 20px;
+		border-top-left-radius: 20px;	
+
+		-moz-border-radius-topright: 20px;
+		-webkit-border-top-right-radius: 20px;
+		border-top-right-radius: 20px;
+		
+		font-size: 18px;
+		vertical-align: middle;
 	}
 	
 	input[type=checkbox] {
@@ -288,26 +312,8 @@ img {
 			width: 7em;
 		}
 		
-		/* Sign up link that appears on the main page only */
-		.special_sign_up_link {
-			text-align: center;
-		}
-		
-		.special_sign_up_link a, .special_sign_up_link a:visited {
-			font-weight: bold;
-			font-size: 125%;
-			display: inline;
-			background-color: white;
-			border: solid 2px #3baef7;
-			text-align: center;
-			padding: .2em .5em;
-			margin: 1em 0em 0em 0em;
-		}
-		
-		.special_sign_up_link a:hover {
-			background-color: #3baef7;
-			color: white;
-			text-decoration: none;
+		.signup_button {
+			width: 200px;
 		}
 	
 	/* misc. */
@@ -391,27 +397,7 @@ div.autocomplete ul li {
 	
 	#add_new_transaction input[type='submit'] {
 		display: inline-block;
-		height: 40px;
 		width: 200px;
-		color: #4D4D4D;
 		margin-left: 125px;
 		margin-bottom: 25px;
-		border: 1px solid #64C8FF;
-		background: #E1F5FF;
-		
-		-moz-border-radius-bottomleft: 20px;
-		-webkit-border-bottom-left-radius: 20px;
-		border-bottom-left-radius: 20px;
-
-		-moz-border-radius-bottomright: 20px;
-		-webkit-border-bottom-right-radius: 20px;
-		border-bottom-right-radius: 20px;
-
-		-moz-border-radius-topleft: 20px;
-		-webkit-border-top-left-radius: 20px;
-		border-top-left-radius: 20px;	
-
-		-moz-border-radius-topright: 20px;
-		-webkit-border-top-right-radius: 20px;
-		border-top-right-radius: 20px;
 	}
