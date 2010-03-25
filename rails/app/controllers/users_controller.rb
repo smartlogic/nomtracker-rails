@@ -8,10 +8,10 @@ class UsersController < ApplicationController
     end
   end
 
-
   def new
     @user = User.new
     @preset_email = params[:email]
+    render :layout => 'session'
   end
 
   def find

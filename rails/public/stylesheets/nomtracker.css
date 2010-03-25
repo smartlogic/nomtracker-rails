@@ -457,3 +457,7 @@ div.autocomplete ul li {
 		.session .content_bubble .form_row:first-child {
 			margin-top: 35px;
 		}
+
+		.session .wide_content_bubble {
+			width: 100%;
+		}
