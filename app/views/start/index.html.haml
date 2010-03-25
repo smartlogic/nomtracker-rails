@@ -43,10 +43,6 @@
   %div.content
     #balances_messages
     = render :partial => 'balances', :locals => {:user => current_user}
-    
-  %h1#recent_transactions Recent Transactions
-  %div.content
-    = render :partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)}
     %p= link_to "View all Transactions", transactions_path
     
 :javascript
