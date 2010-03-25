@@ -32,7 +32,7 @@
       %br{:style => "clear: both;"}
       
     - if flash[:notice]
-      .success= flash[:notice]
+      .success.rounded= flash[:notice]
     = yield
     #footer
       &copy; 2009 All Rights Reserved.
