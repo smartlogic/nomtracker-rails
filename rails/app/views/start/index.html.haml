@@ -43,7 +43,7 @@
   %div.content
     #balances_messages
     = render :partial => 'balances', :locals => {:user => current_user}
-    %p= link_to "View all Transactions", transactions_path
+    %p{:style => "margin-left: 20px;"}= link_to "View all Transactions", transactions_path
     
 :javascript
   Event.observe(window, 'load', function() {
