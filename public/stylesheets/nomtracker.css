@@ -52,7 +52,7 @@
 		}
 	
 		#header #status #owed {
-			background-color: #C8F0FF;
+			background-color: #E1F5FF;
 		}
 	
 /* Breadcrumb - top left */
@@ -111,28 +111,28 @@ img {
 
 	/* Flash Messages */
 	.informational, .success, .warning, .error {
-		width: 775px;
-		height: 35px;
+		width: 750px;
+		min-height: 20px;
 		margin: 0 auto;
 		color: #4D4D4D;
 		text-align: center;
-		padding-top: 15px;
+		padding: 15px;
 	}
 	
 	.error {
-		background-color: #FFBABA;
+		background-color: #FF786E;
 	}
 	
 	.warning {
-		background-color: #FEEFB3;
+		background-color: #FFEBAA;
 	}
 	
 	.informational {
-		background-color: #BDE5F8;
+		background-color: #E1F5FF;
 	}
 	
 	.success {
-		background-color: #E1F5FF;
+		background-color: #BEE6B4;
 		
 	}
 	
@@ -148,7 +148,7 @@ img {
 
 	/* Headings */
 	h1 {
-		font-size: 140%;
+		font-size: 18px;
 		width: 735px;
 		height: 20px;
 		font-size: 18px;
@@ -370,6 +370,7 @@ div.autocomplete ul li {
 	#add_new_transaction input[type='text'] {
 		border: 1px solid #C8C8C8;
 		height: 32px;
+		color: #4D4D4D;
 		
 		-moz-border-radius-bottomleft: 8px;
 		-webkit-border-bottom-left-radius: 8px;
@@ -394,6 +395,7 @@ div.autocomplete ul li {
 		width: 200px;
 		color: #4D4D4D;
 		margin-left: 125px;
+		margin-bottom: 25px;
 		border: 1px solid #64C8FF;
 		background: #E1F5FF;
 		
