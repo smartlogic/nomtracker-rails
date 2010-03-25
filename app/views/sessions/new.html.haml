@@ -1,25 +1,23 @@
-%h1
-  Log In
-
 - if @error
-  %p.error.rounded= h(@error)
-  
-- form_tag session_path do
-  %p
-    = label_tag 'email'
-    %br
-    = text_field_tag 'email', @email
-  %p
-    = label_tag 'password'
-    %br
-    = password_field_tag 'password', nil
-  -# 
-    Uncomment this if you want this functionality
-    %p 
-      %strong= label_tag 'remember_me', 'Remember me'
-      %strong= check_box_tag 'remember_me', '1', @remember_me
+  .error.rounded= h(@error)
+  %p{:style => "clear: both;"}
 
-  %p
-    = submit_tag 'Log in'
+.content_bubble#login_form
+  - form_tag session_path do
+    .form_row
+      = label_tag 'email', nil, :style => "display: inline-block;width: 100px;"
+      = text_field_tag 'email', @email, :style => "width: 250px"
+    
+    .form_row
+      = label_tag 'password', nil, :style => "display: inline-block;width: 100px;"
+      = password_field_tag 'password', nil, :style => "width: 250px"
+          
+    %div{:style => "width: 100%;text-align:center"}
+      = submit_tag 'Log in', :style => "margin: 20px 0;"
+      %br
+      = link_to "New to Nomtracker? Click here to sign up!", new_user_url
 
-= link_to "Register", new_user_url
+.content_bubble
+  %p NomTracker tracks nominal debts... nom nom nom nom nom nom nom nom nom nom nom nom ....
+
+%div{:style => "clear: both;"}

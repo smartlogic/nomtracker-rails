@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
+    %title= yield(:title) || 'nomtracker'
+    = javascript_include_tag :defaults
+    = stylesheet_link_tag 'nomtracker'
+    = yield(:head)
+  %body
+    #header{:style => "width: 875px;"}
+      %a{:href => root_path}
+        %img{:src => "images/welcome_screen_logo.png", :style => "margin-bottom: 10px"}
+    
+    %div{:style => "clear: both;"}
+    
+    %div.session
+      = yield
+      
+    #footer
+      %div{:style => "width: 100%;text-align:center"}
+        &copy; 2009 All Rights Reserved.
+        = link_to 'SmartLogic Solutions', 'http://www.smartlogicsolutions.com/'
+        |
+        = link_to 'About', '/about.htm'
+        |
+        = link_to 'Privacy', 'http://smartlogicsolutions.com/privacy'
+        |
+        = link_to 'TOS', 'http://smartlogicsolutions.com/disclaimer'
+
+    - if( RAILS_ENV == 'production')
+      :javascript 
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      :javascript      
+        try {
+          var pageTracker = _gat._getTracker("UA-15335872-1");
+          pageTracker._trackPageview();
+        } catch(err) {}
