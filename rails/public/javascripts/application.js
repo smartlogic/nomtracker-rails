@@ -2,10 +2,10 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 var Messaging = {
-  error   : new Template("<div class='error'>#{message}</div>"),
-  warning : new Template("<div class='warning'>#{message}</div>"),
-  info    : new Template("<div class='info'>#{message}</div>"),
-  success : new Template("<div class='success'>#{message}</div>"),
+  error   : new Template("<div class='error rounded'>#{message}</div>"),
+  warning : new Template("<div class='warning rounded'>#{message}</div>"),
+  info    : new Template("<div class='info rounded'>#{message}</div>"),
+  success : new Template("<div class='success rounded'>#{message}</div>"),
   
   generate : function(json) {
     var html = "";

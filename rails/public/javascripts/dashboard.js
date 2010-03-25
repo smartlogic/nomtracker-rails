@@ -1,11 +1,3 @@
-
-function openNewTransactionForm() {
-	$('open_transaction_form_link').hide();
-	$('add_new_transaction').show();
-	$('email').focus();
-	$('email').select();
-}
-
 function finishCreateTransaction(response) {
   var json = response.responseText.evalJSON();
   if (json.update.balances) {
@@ -15,8 +7,8 @@ function finishCreateTransaction(response) {
     $('recent_transactions_report').update(json.update.transactions);
   }
   $('new_transaction').reset();
-  $('new_transaction_flash').className = "success";
-  $('new_transaction_flash').update(json.messages.success);
+  $('flash').className = "success rounded";
+  $('flash').update(json.messages.success);
   $('email').focus();
 	$('email').select();
   
@@ -24,9 +16,9 @@ function finishCreateTransaction(response) {
 }
 
 function failCreateTransaction(response) {
-  var json = response.responseText.evalJSON();
-  $('new_transaction_flash').className = 'error';
-  $('new_transaction_flash').update(json.messages.error);
+  var json = response.responseText.evalJSON();	
+  $('flash').className = 'error rounded';
+  $('flash').update(json.messages.error);
 }
 
 var getTodaysDateForNewTransaction = function () {
@@ -38,10 +30,9 @@ var getTodaysDateForNewTransaction = function () {
 }();
 
 function startNegateBalance(email, amount) {
-  openNewTransactionForm();
   $('new_transaction').reset();
-  $('new_transaction_flash').className = 'informational';
-  $('new_transaction_flash').update("Please type in a description and press return to clear your balance with " + email);
+  $('flash').className = 'informational rounded';
+  $('flash').update("Please type in a description and press return to clear your balance with " + email);
   $('email').value = email;
   if (amount >= 0.0) {
     $('transaction_type_debt').checked = true;
