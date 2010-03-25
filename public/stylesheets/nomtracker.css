@@ -8,7 +8,9 @@
 /************* HEADER - stuff at the top of the page ************/
 
 #header {
+	margin: 0 auto;
 	margin-top: 10px;
+	width: 775px;
 }
 
 	#header img {
@@ -19,24 +21,6 @@
 	#header #status {
 		float: right;
 		width: 410px;	
-	}
-
-	#header .rounded {
-		-moz-border-radius-bottomleft: 15px;
-	  -webkit-border-bottom-left-radius: 15px;
-	  border-bottom-left-radius: 15px;
-	
-	  -moz-border-radius-bottomright: 15px;
-	  -webkit-border-bottom-right-radius: 15px;
-	  border-bottom-right-radius: 15px;
-	
-		-moz-border-radius-topleft: 15px;
-	  -webkit-border-top-left-radius: 15px;
-	  border-top-left-radius: 15px;	
-	
-		-moz-border-radius-topright: 15px;
-	  -webkit-border-top-right-radius: 15px;
-	  border-top-right-radius: 15px;
 	}
 	
 		#header #status #nomworth {
@@ -88,10 +72,31 @@ div#account_links {
 body {
 	background: #E0F5FF url(/images/nomtracker_background.png) no-repeat fixed center top;
 	background-attachment: fixed;
-	color:	black;
+	color:	#4D4D4D;
 	font-family: Arial,Verdana,sans-serif;
 	width:	825px;
 	margin: auto;
+}
+
+.content {
+	margin: 0 20px;
+}
+.rounded {
+	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+
+	-moz-border-radius-bottomright: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+
+	-moz-border-radius-topleft: 15px;
+	-webkit-border-top-left-radius: 15px;
+	border-top-left-radius: 15px;	
+
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 15px;
+	border-top-right-radius: 15px;
 }
 
 div#main {
@@ -106,35 +111,29 @@ img {
 
 	/* Flash Messages */
 	.informational, .success, .warning, .error {
-		border: 1px solid;
-		margin: 10px 0px;
-		padding: .6em .5em .6em 40px;
-		background-repeat: no-repeat;
-		background-position: 10px center;
+		width: 775px;
+		height: 35px;
+		margin: 0 auto;
+		color: #4D4D4D;
+		text-align: center;
+		padding-top: 15px;
 	}
 	
 	.error {
-		color: #D8000C;
 		background-color: #FFBABA;
-		background-image: url('/images/redex.gif');
 	}
 	
 	.warning {
-		color: #9F6000;
 		background-color: #FEEFB3;
-		background-image: url('/images/warning.gif');
 	}
 	
 	.informational {
-		color: #00529B;
 		background-color: #BDE5F8;
-		background-image: url('/images/info.png');
 	}
 	
 	.success {
-		color: #4F8A10;
-		background-color: #DFF2BF;
-		background-image:url('/images/check.gif');
+		background-color: #E1F5FF;
+		
 	}
 	
 	/* Links */
@@ -150,10 +149,16 @@ img {
 	/* Headings */
 	h1 {
 		font-size: 140%;
-		margin-top: 1.5em;
-		padding: .1em 1em .1em .25em;
-		background-color: #4D4D4D;
-		color: white;
+		width: 735px;
+		height: 20px;
+		font-size: 18px;
+		font-weight: normal;
+		background-image: url('/images/header_background_full.png');
+		margin-left: auto;
+		margin-right: auto;
+		color: #969696;
+		border: 1px solid #B4B4B4;
+		padding: 10px 20px;
 	}
 	
 	#debts, .debt {
@@ -343,3 +348,68 @@ div.autocomplete ul li {
   height:32px;
   cursor:pointer;
 }
+
+#add_new_transaction{
+	margin-left: 25px;
+	width: 460px;
+	display: inline-block;
+}
+
+	#add_new_transaction .form_row {
+		margin: 15px 0;
+	}
+	
+	#add_new_transaction .form_row:first-child {
+		margin-top: 25px;
+	}
+	
+	#add_new_transaction input[type='radio'] {
+		margin: 0;
+	}
+	
+	#add_new_transaction input[type='text'] {
+		border: 1px solid #C8C8C8;
+		height: 32px;
+		
+		-moz-border-radius-bottomleft: 8px;
+		-webkit-border-bottom-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+
+		-moz-border-radius-bottomright: 8px;
+		-webkit-border-bottom-right-radius: 8px;
+		border-bottom-right-radius: 8px;
+
+		-moz-border-radius-topleft: 8px;
+		-webkit-border-top-left-radius: 8px;
+		border-top-left-radius: 8px;	
+
+		-moz-border-radius-topright: 8px;
+		-webkit-border-top-right-radius: 8px;
+		border-top-right-radius: 8px;
+	}
+	
+	#add_new_transaction input[type='submit'] {
+		display: inline-block;
+		height: 40px;
+		width: 200px;
+		color: #4D4D4D;
+		margin-left: 125px;
+		border: 1px solid #64C8FF;
+		background: #E1F5FF;
+		
+		-moz-border-radius-bottomleft: 20px;
+		-webkit-border-bottom-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+
+		-moz-border-radius-bottomright: 20px;
+		-webkit-border-bottom-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+
+		-moz-border-radius-topleft: 20px;
+		-webkit-border-top-left-radius: 20px;
+		border-top-left-radius: 20px;	
+
+		-moz-border-radius-topright: 20px;
+		-webkit-border-top-right-radius: 20px;
+		border-top-right-radius: 20px;
+	}
