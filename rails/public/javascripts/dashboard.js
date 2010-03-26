@@ -3,9 +3,6 @@ function finishCreateTransaction(response) {
   if (json.update.balances) {
     $('balance_report').update(json.update.balances);
   }
-  if (json.update.transactions) {
-    $('recent_transactions_report').update(json.update.transactions);
-  }
   $('new_transaction').reset();
   $('flash').className = "success rounded";
   $('flash').update(json.messages.success);

@@ -29,10 +29,10 @@
         = label_tag 'wants_to_be_notified', "Send me an email when a new debt/credit is assigned to me"
       
       %p
-        = submit_tag 'Save Preferences'
+        = submit_tag 'Save Preferences', :style => "width: 200px;"
 
 :javascript
   Event.observe(window, 'load', function() {
-    updateNomworth(#{current_user.nomworth});
-    redrawEmails(#{@email_json});
+    redrawEmails(#{@email_json})
+    updateNomworth(#{current_user.nomworth}, #{current_user.balances.select(){|b| b[:balance] > 0}.size}, #{current_user.balances.select(){|b| b[:balance] < 0}.size});
   });

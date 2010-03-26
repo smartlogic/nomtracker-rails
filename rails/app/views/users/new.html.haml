@@ -1,4 +1,6 @@
 = error_messages_for :user, :header_message => nil, :message => nil, :class => 'error rounded'
+- unless @user.errors.empty?
+  %p{:style => "clear: both;"}
 
 - @user.password = @user.password_confirmation = nil
 .wide_content_bubble.content_bubble

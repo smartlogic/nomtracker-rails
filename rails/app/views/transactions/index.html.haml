@@ -4,8 +4,8 @@
 .main
   %h1 Transactions
   = render :partial => 'recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all)}
-
+  
 :javascript
   Event.observe(window, 'load', function() {
-    updateNomworth(#{current_user.nomworth});
+    updateNomworth(#{current_user.nomworth}, #{current_user.balances.select(){|b| b[:balance] > 0}.size}, #{current_user.balances.select(){|b| b[:balance] < 0}.size});
   });
