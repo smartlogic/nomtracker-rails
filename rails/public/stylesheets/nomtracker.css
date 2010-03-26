@@ -28,7 +28,7 @@
 			width: 180px;
 			margin: 20px;
 			padding: 10px 0;
-			background-color: #BEE6B4;
+			background-color: #B4DC96;
 			float: left;
 			text-align: center;
 		}
@@ -55,7 +55,7 @@
 		}
 	
 		#header #status #owed {
-			background-color: #E1F5FF;
+			background-color: #C8F0FF;
 		}
 	
 /* Breadcrumb - top left */
@@ -144,11 +144,11 @@ img {
 	}
 	
 	.informational {
-		background-color: #E1F5FF;
+		background-color: #C8F0FF;
 	}
 	
 	.success {
-		background-color: #BEE6B4;
+		background-color: #B4DC96;
 		
 	}
 	
@@ -188,7 +188,7 @@ img {
 	}
 	
 	#credits, .credit {
-		background-color: #BEE6B4;
+		background-color: #B4DC96;
 		color: #4D4D4D;
 		font-weight: bold;
 	}
@@ -287,7 +287,7 @@ img {
 	input[type=button], input[type=submit] {
 		color: #4D4D4D;
 		border: 1px solid #64C8FF;
-		background: #E1F5FF;
+		background: #C8F0FF;
 		width: 150px;
 		height: 40px;
 		
