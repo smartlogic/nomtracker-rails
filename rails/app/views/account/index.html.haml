@@ -31,8 +31,6 @@
 
 :javascript
   Event.observe(window, 'load', function() {
-    // Only dynamic JS inline
+    updateNomworth(#{current_user.nomworth});
     redrawEmails(#{@email_json});
   });
-
-  
