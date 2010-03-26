@@ -132,6 +132,10 @@ img {
 		background-color: #FF786E;
 	}
 	
+		.error ul {
+			list-style: none;
+		}
+	
 	.warning {
 		background-color: #FFEBAA;
 	}
@@ -460,4 +464,11 @@ div.autocomplete ul li {
 
 		.session .wide_content_bubble {
 			width: 100%;
+			margin-top: 20px;
 		}
+
+.form_row .fieldWithErrors {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
