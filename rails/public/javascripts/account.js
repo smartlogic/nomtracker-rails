@@ -1,6 +1,6 @@
-var verifiedEmailTemplate = new Template("<img src='/images/check.gif' alt='verified' title='#{email} has been verified' /> <input type='text' name='email' value='#{email}' readonly='readonly' /> <a href='javascript:void(0)' onclick='removeEmail(#{id});'><img src='/images/redex.gif' alt='remove #{email}' title='Click here to remove this email address from your account' /></a>");
+var verifiedEmailTemplate = new Template("<li class='verified'>#{email}<a href='javascript:void(0)' onclick='removeEmail(#{id});' class='action'><img src='/images/remove_icon.png' alt='remove #{email}' title='Click here to remove this email address from your account' /></a><br/><span>verified</span></li>");
 
-var unverifiedEmailTemplate = new Template("<img src='/images/warning.gif' alt='unverified' title='#{email} has not been verified' /> <input type='text' name='email' value='#{email}' readonly='readonly' /> <a href='javascript:void(0)' onclick='removeEmail(#{id});'><img src='/images/redex.gif' alt='remove #{email}' title='Click here to remove this email address from your account' /></a> or <a href='javascript:void(0)' onclick='resendActivationEmail(#{id});'>resend activation email</a>");
+var unverifiedEmailTemplate = new Template("<li class='unverified'>#{email}<a href='javascript:void(0)' onclick='removeEmail(#{id});' class='action'><img src='/images/remove_icon.png' alt='remove #{email}' title='Click here to remove this email address from your account' /></a><br/><span>unverified</span> <a href='javascript:void(0)' onclick='resendActivationEmail(#{id});'>resend activation email</a></li>");
 
 function redrawEmails(emails) {
   var html = $A(emails).map(function(email) {
@@ -9,7 +9,8 @@ function redrawEmails(emails) {
     } else {
       return unverifiedEmailTemplate.evaluate({email: email.address, id: email.id});
     }
-  }).join('<br />');
+  }).join('');
+	html = "<ul>" + html + "</ul>"
   $('email_addresses').update(html);
 }
 
@@ -63,6 +64,9 @@ Event.observe(window, 'load', function() {
         var json = response.responseText.evalJSON();
         redrawEmails(json['emails']);
         updateEmailMessaging(json.messages);
+				$('new_email_address').hide();
+				$('add_another_email_link').show();
+				$('email').value = "";
       },
       
       onFailure: function(response) {
