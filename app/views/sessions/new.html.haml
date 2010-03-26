@@ -1,12 +1,12 @@
 - if @error
   .error.rounded= h(@error)
-  %p{:style => "clear: both;"}
+  %p{:style => "clear: both;margin-bottom: 40px;"}
 
 - if flash[:notice]
   .informational.rounded= h(flash[:notice])
-  %p{:style => "clear: both;"}
+  %p{:style => "clear: both;margin-bottom: 40px"}
   
-.content_bubble#login_form
+.content_bubble#login_form.overlap
   - form_tag session_path do
     .form_row
       = label_tag 'email', nil, :style => "display: inline-block;width: 100px;"
@@ -21,7 +21,7 @@
       %br
       = link_to "New to Nomtracker? Click here to sign up!", new_user_url
 
-.content_bubble
+.content_bubble.overlap
   %p NomTracker tracks nominal debts... nom nom nom nom nom nom nom nom nom nom nom nom ....
 
 %div{:style => "clear: both;"}
