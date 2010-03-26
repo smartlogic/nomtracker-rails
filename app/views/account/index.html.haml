@@ -4,28 +4,25 @@
 - content_for :breadcrumb do
   My Account
 
-%h1 Email Addresses
 #email_addresses_messages
+  - if flash[:success]
+    .success.rounded= flash[:success]
+
+%h1 Email Addresses
 #email_addresses
-#new_email_address{:style => 'display: none;'}
+#new_email_address{:style => 'display: none;width: 735px;margin: 0 20px;'}
   = text_field_tag 'email', ''
   = submit_tag 'Add', :id => 'add_email_button'
 = link_to 'Add Another', 'javascript:void(0)', :id => 'add_another_email_link'
     
 
 %h1 Preferences
-#preferences
-  - if flash[:success]
-    .success= flash[:success]
+
+#preferences.content
   - form_tag(update_preferences_account_path) do
     = hidden_field_tag 'hidden_wants_to_be_notified', '0', :name => 'wants_to_be_notified'
     = check_box_tag 'wants_to_be_notified', '1', current_user.wants_to_be_notified
     = label_tag 'wants_to_be_notified', "Send me an email when a new debt/credit is assigned to me"
-    / %br 
-    / = check_box_tag 'user', 'rss_enabled', {}, :disabled => true
-    / = label 'user', 'rss_enabled', "Enable my RSS feed for debts/credits assigned to me"
-    / = text_field_tag 'rssurl', '', :style => 'width: 98%;', :value => 'http://nomtracker.com/rss/1634/asdf23rawfraw4fa34fa34ga3g4ha3g5hag5mah4gjhagjha4jg5hj4agh', :disabled => true
-
     %br
     = submit_tag 'Save Preferences'
 

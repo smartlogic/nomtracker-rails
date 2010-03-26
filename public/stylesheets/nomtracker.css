@@ -470,3 +470,40 @@ div.autocomplete ul li {
 	margin: 0;
 	padding: 0;
 }
+
+#email_addresses {
+	width: 735px;
+}
+
+#email_addresses ul {
+	list-style: none;
+	width: 100%;
+	margin: 0 10px;
+}
+
+#email_addresses li {
+	border-top: 1px solid #4D4D4D;
+	margin: 5px 0;
+	padding: 5px;
+}
+
+#email_addresses li a.action {
+	float: right;
+}
+
+#email_addresses li span,
+#email_addresses li a {
+	font-size: 12px;
+}
+
+#email_addresses li.verified span {
+	color: #B4DC95;
+}
+
+#email_addresses li.unverified span {
+	color: #FF786D;
+}
+
+#email_addresses ul li:first-child {
+	border-top: none;
+}
