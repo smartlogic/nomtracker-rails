@@ -466,6 +466,12 @@ div.autocomplete ul li {
 		.session .wide_content_bubble {
 			width: 100%;
 		}
+	
+	.overlap { 
+		margin-top: -30px;
+		position: relative;
+		z-index: 1;
+	}
 
 .form_row .fieldWithErrors {
 	display: inline;

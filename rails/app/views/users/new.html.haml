@@ -1,9 +1,9 @@
 = error_messages_for :user, :header_message => nil, :message => nil, :class => 'error rounded'
 - unless @user.errors.empty?
-  %p{:style => "clear: both;"}
+  %p{:style => "clear: both;margin-bottom: 40px;"}
 
 - @user.password = @user.password_confirmation = nil
-.wide_content_bubble.content_bubble
+.wide_content_bubble.content_bubble.overlap
   - form_for :user, :url => users_path do |f|
     %div{:style => "width: 50%; float: left;"}
       .form_row{:style => "margin-top: 20px;"}
