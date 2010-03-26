@@ -36,14 +36,17 @@
 		#header #status #nomworth span {
 			display: inline-block;
 			font-size: 250%;
+			font-weight: bold;
 			margin: 25px 0;
 		}
 	
 		#header #status #owing,
 		#header #status #owed {
-			height: 65px;
+			height: 25px;
 			width: 180px;
 			float:right;
+			text-align: center;
+			padding: 20px 0;
 		}
 	
 		#header #status #owing {
@@ -175,7 +178,7 @@ img {
 	}
 	
 	#debts, .debt {
-		background-color: #FF786E;
+		background-color: #FF786E !important;
 		color: #4D4D4D;
 		font-weight: bold;
 	}
@@ -462,7 +465,6 @@ div.autocomplete ul li {
 
 		.session .wide_content_bubble {
 			width: 100%;
-			margin-top: 20px;
 		}
 
 .form_row .fieldWithErrors {

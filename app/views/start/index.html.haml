@@ -43,9 +43,9 @@
   %div.content
     #balances_messages
     = render :partial => 'balances', :locals => {:user => current_user}
-    %p= link_to "View all Transactions", transactions_path
-    
+    %p= link_to "View all Transactions", transactions_path  
+
 :javascript
   Event.observe(window, 'load', function() {
-    updateNomworth(#{current_user.nomworth});
+    updateNomworth(#{current_user.nomworth}, #{current_user.balances.select(){|b| b[:balance] > 0}.size}, #{current_user.balances.select(){|b| b[:balance] < 0}.size});
   });
