@@ -417,10 +417,10 @@ div.autocomplete ul li {
 	margin: 0 auto;
 }
 	.session input[type='submit'] {
-		border: 1px solid #64C8FF;
+		border: 1px solid #64C8FF;		
 		background: white;
 		font-size: 16px;
-		color: #64C8FF;
+		color: #FF6354;
 	}
 
 	.session .content_bubble {
