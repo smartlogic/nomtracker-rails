@@ -2,15 +2,10 @@
   My Transactions
 
 .main
-  %h1#pending Pending
-  = render :partial => 'pending_report', :locals => {:user => current_user}
-		
-  %hr.space
+  %h1 Transactions
+  = render :partial => 'recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all)}
 
-  %h1#credits Credits
-  %p $ others owe to you
-  = render :partial => 'credit_report', :locals => {:user => current_user}
-
-  %h1#debts Debts
-  %p $ you owe
-  = render :partial => 'debt_report', :locals => {:user => current_user}
+:javascript
+  Event.observe(window, 'load', function() {
+    updateNomworth(#{current_user.nomworth});
+  });
