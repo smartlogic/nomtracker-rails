@@ -2,6 +2,10 @@
   .error.rounded= h(@error)
   %p{:style => "clear: both;"}
 
+- if flash[:notice]
+  .informational.rounded= h(flash[:notice])
+  %p{:style => "clear: both;"}
+  
 .content_bubble#login_form
   - form_tag session_path do
     .form_row
