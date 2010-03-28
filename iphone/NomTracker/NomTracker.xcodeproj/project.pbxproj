@@ -84,6 +84,8 @@
 		5FAD5EB8102B767F000B5D28 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FAD5EB6102B767F000B5D28 /* unchecked.png */; };
 		5FB670681030C7F5007E804E /* sign_out2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB670671030C7F5007E804E /* sign_out2.png */; };
 		6423964A1153DBE100250C75 /* new_transaction_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 642396491153DBE100250C75 /* new_transaction_background.png */; };
+		645D5AC6115EB59F00370F05 /* sign_in_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 645D5AC5115EB59F00370F05 /* sign_in_01.png */; };
+		645D5AC8115EB5F500370F05 /* sign_in_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 645D5AC7115EB5F500370F05 /* sign_in_button.png */; };
 		646780A511489146007C7DD5 /* sign_in_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780A411489146007C7DD5 /* sign_in_background.png */; };
 		646780B11148925B007C7DD5 /* SLS_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B01148925B007C7DD5 /* SLS_Logo.png */; };
 		646780B51148929C007C7DD5 /* lentme_unlit_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B41148929C007C7DD5 /* lentme_unlit_checked.png */; };
@@ -226,6 +228,8 @@
 		5FAD5EB6102B767F000B5D28 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		5FB670671030C7F5007E804E /* sign_out2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_out2.png; sourceTree = "<group>"; };
 		642396491153DBE100250C75 /* new_transaction_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_transaction_background.png; sourceTree = "<group>"; };
+		645D5AC5115EB59F00370F05 /* sign_in_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_01.png; sourceTree = "<group>"; };
+		645D5AC7115EB5F500370F05 /* sign_in_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_button.png; sourceTree = "<group>"; };
 		646780A411489146007C7DD5 /* sign_in_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_background.png; sourceTree = "<group>"; };
 		646780B01148925B007C7DD5 /* SLS_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SLS_Logo.png; sourceTree = "<group>"; };
 		646780B41148929C007C7DD5 /* lentme_unlit_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lentme_unlit_checked.png; sourceTree = "<group>"; };
@@ -345,6 +349,8 @@
 		5F14E9A6102CF8DA00495EA1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				645D5AC7115EB5F500370F05 /* sign_in_button.png */,
+				645D5AC5115EB59F00370F05 /* sign_in_01.png */,
 				64A2FA151157F24100351320 /* nom_icon_01.png */,
 				642396491153DBE100250C75 /* new_transaction_background.png */,
 				646780B8114892AF007C7DD5 /* add_image_camera.png */,
@@ -588,6 +594,8 @@
 				646780B9114892AF007C7DD5 /* add_image_camera.png in Resources */,
 				6423964A1153DBE100250C75 /* new_transaction_background.png in Resources */,
 				64A2FA161157F24100351320 /* nom_icon_01.png in Resources */,
+				645D5AC6115EB59F00370F05 /* sign_in_01.png in Resources */,
+				645D5AC8115EB5F500370F05 /* sign_in_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
