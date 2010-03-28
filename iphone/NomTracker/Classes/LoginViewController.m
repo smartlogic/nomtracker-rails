@@ -64,7 +64,7 @@
 }
 
 -(IBAction)launchWebsite:(id)sender {
-  NSURL *ntURL = [NSURL URLWithString:@"http://www.smartlogicsolutions.com/"];
+  NSURL *ntURL = [NSURL URLWithString:@"http://www.nomtracker.com/users/new"];
   NSLog(@"%@", ntURL);
   [[UIApplication sharedApplication] openURL:ntURL];
 }
@@ -90,7 +90,7 @@
 {		    
   CGRect rect = [[self view] frame];	
   if(rect.origin.y == 0) {
-    rect.origin.y -= 60;
+    rect.origin.y -= 50;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];	
     [[self view] setFrame: rect];  
@@ -103,7 +103,7 @@
   CGRect rect = [[self view] frame];	
   [UIView beginAnimations:nil context:NULL];	
   [UIView setAnimationDuration:0.3];	  
-  rect.origin.y += 60;   
+  rect.origin.y += 50;   
   [[self view] setFrame: rect];	
   [UIView commitAnimations];
 }
