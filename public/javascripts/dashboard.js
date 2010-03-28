@@ -8,7 +8,9 @@ function finishCreateTransaction(response) {
   $('flash').update(json.messages.success);
   $('email').focus();
 	$('email').select();
-  
+	
+  showNeutral();
+
   updateGlobals(json.update);
 }
 
@@ -60,4 +62,22 @@ function sendInvitation(email_id, address) {
       updateBalancesMessaging(json['messages']);
     }
   });
+}
+
+function showLent() {
+  $('neutral').hide();
+  $('borrowed').hide();
+  $('lent').show();
+}
+
+function showBorrowed() {
+  $('neutral').hide();
+  $('lent').hide();
+  $('borrowed').show();
+}
+
+function showNeutral() {
+  $('lent').hide();
+  $('borrowed').hide();
+	$('neutral').show();
 }

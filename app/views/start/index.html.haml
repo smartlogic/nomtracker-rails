@@ -26,7 +26,7 @@
 
           = f.label :amount, "Amount", :style => "display: inline-block; width: 70px;"
           %span{:style => "font-size: 20px;"}$
-          = f.text_field :amount, :style => "width: 100px"        
+          = f.text_field :amount, :style => "width: 100px"
 
         .form_row
           = f.label :description, nil, :style => "display: inline-block;width: 90px;"
@@ -37,7 +37,9 @@
       - javascript_tag do
         new Ajax.JsonAutocompleter('email', 'autocomplete_choices', '/users/find', { paramName: 'email', });
     
-    %img{:src => "images/baby_nom_image.png", :style => "float: right;margin-top: 20px"}
+    %img#neutral{:src => "images/baby_nom_image.png", :style => "float: right;margin-top: 20px"}
+    %img#lent{:src => "images/money_fan.png", :style => "float: right; margin-top: 20px; display: none;"}
+    %img#borrowed{:src => "images/wallet.png", :style => "float: right; margin-top: 20px; display: none;"}    
 
   %h1#balances Balances
   %div.content
@@ -48,4 +50,16 @@
 :javascript
   Event.observe(window, 'load', function() {
     updateNomworth(#{current_user.nomworth}, #{current_user.balances.select(){|b| b[:balance] > 0}.size}, #{current_user.balances.select(){|b| b[:balance] < 0}.size});
+    if( $('transaction_type_credit').checked ) {
+      $('neutral').hide();
+      $('lent').show();
+    }
+    else if( $('transaction_type_debt').checked ) {
+      $('neutral').hide();
+      $('borrowed').show();
+    }
   });
+  
+  Event.observe('transaction_type_credit', 'change', showLent);
+  
+  Event.observe('transaction_type_debt', 'change', showBorrowed);
