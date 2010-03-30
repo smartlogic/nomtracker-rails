@@ -85,6 +85,7 @@
 		5FB670681030C7F5007E804E /* sign_out2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FB670671030C7F5007E804E /* sign_out2.png */; };
 		6416AE6811628EF000FEA944 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 6416AE6711628EF000FEA944 /* settings.png */; };
 		6416AE6B11628F2900FEA944 /* sign_out_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6416AE6A11628F2900FEA944 /* sign_out_button.png */; };
+		6416AE86116295C800FEA944 /* new_transaction2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6416AE85116295C800FEA944 /* new_transaction2.png */; };
 		6423964A1153DBE100250C75 /* new_transaction_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 642396491153DBE100250C75 /* new_transaction_background.png */; };
 		645D5AC6115EB59F00370F05 /* sign_in_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 645D5AC5115EB59F00370F05 /* sign_in_01.png */; };
 		645D5AC8115EB5F500370F05 /* sign_in_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 645D5AC7115EB5F500370F05 /* sign_in_button.png */; };
@@ -95,6 +96,8 @@
 		646780B9114892AF007C7DD5 /* add_image_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B8114892AF007C7DD5 /* add_image_camera.png */; };
 		64A2F9F31157F00200351320 /* UserPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A2F9F21157F00200351320 /* UserPickerViewController.m */; };
 		64A2FA161157F24100351320 /* nom_icon_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 64A2FA151157F24100351320 /* nom_icon_01.png */; };
+		64EFFCE6116296F500FBE730 /* contact_button2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EFFCE5116296F500FBE730 /* contact_button2.png */; };
+		64EFFCE8116297E100FBE730 /* submit_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EFFCE7116297E100FBE730 /* submit_button.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -231,6 +234,7 @@
 		5FB670671030C7F5007E804E /* sign_out2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_out2.png; sourceTree = "<group>"; };
 		6416AE6711628EF000FEA944 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		6416AE6A11628F2900FEA944 /* sign_out_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_out_button.png; sourceTree = "<group>"; };
+		6416AE85116295C800FEA944 /* new_transaction2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_transaction2.png; sourceTree = "<group>"; };
 		642396491153DBE100250C75 /* new_transaction_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_transaction_background.png; sourceTree = "<group>"; };
 		645D5AC5115EB59F00370F05 /* sign_in_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_01.png; sourceTree = "<group>"; };
 		645D5AC7115EB5F500370F05 /* sign_in_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_button.png; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 		64A2F9F11157F00200351320 /* UserPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPickerViewController.h; sourceTree = "<group>"; };
 		64A2F9F21157F00200351320 /* UserPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPickerViewController.m; sourceTree = "<group>"; };
 		64A2FA151157F24100351320 /* nom_icon_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nom_icon_01.png; sourceTree = "<group>"; };
+		64EFFCE5116296F500FBE730 /* contact_button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact_button2.png; sourceTree = "<group>"; };
+		64EFFCE7116297E100FBE730 /* submit_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit_button.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -353,6 +359,9 @@
 		5F14E9A6102CF8DA00495EA1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				64EFFCE7116297E100FBE730 /* submit_button.png */,
+				64EFFCE5116296F500FBE730 /* contact_button2.png */,
+				6416AE85116295C800FEA944 /* new_transaction2.png */,
 				6416AE6A11628F2900FEA944 /* sign_out_button.png */,
 				6416AE6711628EF000FEA944 /* settings.png */,
 				645D5AC7115EB5F500370F05 /* sign_in_button.png */,
@@ -604,6 +613,9 @@
 				645D5AC8115EB5F500370F05 /* sign_in_button.png in Resources */,
 				6416AE6811628EF000FEA944 /* settings.png in Resources */,
 				6416AE6B11628F2900FEA944 /* sign_out_button.png in Resources */,
+				6416AE86116295C800FEA944 /* new_transaction2.png in Resources */,
+				64EFFCE6116296F500FBE730 /* contact_button2.png in Resources */,
+				64EFFCE8116297E100FBE730 /* submit_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

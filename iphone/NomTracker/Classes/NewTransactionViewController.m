@@ -39,7 +39,7 @@
     NSLog(@"txn keyboard will show");
     CGRect rect = [[self view] frame];	
     if(rect.origin.y == 0) {
-      rect.origin.y -= 75;
+      rect.origin.y -= 62;
       [UIView beginAnimations:nil context:NULL];	
       [UIView setAnimationDuration:0.3];	
       [[self view] setFrame: rect];  
@@ -56,7 +56,7 @@
     [UIView beginAnimations:nil context:NULL];	
     [UIView setAnimationDuration:0.3];	
     CGRect rect = [[self view] frame];	
-    rect.origin.y += 75;   
+    rect.origin.y += 62;   
     [[self view] setFrame: rect];	
     [UIView commitAnimations];
   }
