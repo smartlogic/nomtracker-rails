@@ -10,11 +10,8 @@
 
 
 @interface SettingsViewController : UIViewController {
-  IBOutlet UILabel *currentUser;
   IBOutlet UIButton *logoutButton;
 }
-@property (nonatomic, retain) UILabel *currentUser;
 @property (nonatomic, retain) UIButton *logoutButton;
 -(IBAction)logout:(id)sender;
--(IBAction)launchWebsite:(id)sender;
 @end

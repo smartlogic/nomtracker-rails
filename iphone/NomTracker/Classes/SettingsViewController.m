@@ -11,7 +11,7 @@
 #import "NomTrackerAppDelegate.h"
 
 @implementation SettingsViewController
-@synthesize currentUser, logoutButton;
+@synthesize logoutButton;
 
 -(IBAction)logout:(id)sender {
   NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
@@ -40,25 +40,15 @@
 
 -(void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  currentUser.text = [ObjectiveResourceConfig getUser]; 
-}
-
--(IBAction)launchWebsite:(id)sender {
-  NSURL *ntURL = [NSURL URLWithString:@"http://www.smartlogicsolutions.com/"];
-  NSLog(@"%@", ntURL);
-  [[UIApplication sharedApplication] openURL:ntURL];
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
 }
 
-
 - (void)dealloc {
-  [currentUser release];
   [logoutButton release];
   [super dealloc];
 }
-
 
 @end
