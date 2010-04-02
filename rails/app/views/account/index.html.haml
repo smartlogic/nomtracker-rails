@@ -3,6 +3,9 @@
   
 - content_for :breadcrumb do
   My Account
+  
+- content_for :nav_link do
+  = link_to "Dashboard", root_path
 
 #email_addresses_messages
   - if flash[:success]

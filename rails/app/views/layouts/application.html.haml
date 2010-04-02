@@ -11,7 +11,7 @@
     #header
       #account_links
         - if logged_in?
-          = link_to "My Account", account_url, :accesskey => "a"
+          = yield(:nav_link) || link_to("My Account", account_url, :accesskey => "a")
           |
           = link_to "Logout", logout_path, :accesskey => "l"
         - else
