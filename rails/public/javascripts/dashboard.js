@@ -18,6 +18,7 @@ function failCreateTransaction(response) {
   var json = response.responseText.evalJSON();	
   $('flash').className = 'error rounded';
   $('flash').update(json.messages.error);
+	document.location.href="#flash";
 }
 
 var getTodaysDateForNewTransaction = function () {
