@@ -2,8 +2,8 @@
   - if transactions.size > 0
     %table#tbl_recent_transactions
       %tr 
-        %th Date
-        %th{:style => "text-align: right;"} Transaction
+        %th{:style => "width: 20%"} Date
+        %th{:style => "text-align: right;width: 30%"} Transaction
         %th Amount
         %th{:width => '50%'} Description
       - transactions.each do |txn|
