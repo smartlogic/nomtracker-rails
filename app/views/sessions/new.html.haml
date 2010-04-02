@@ -10,6 +10,7 @@
   %p NomTracker tracks nominal debts... nom nom nom nom nom nom nom nom nom nom nom nom ....
   
 .content_bubble#login_form.overlap
+  %h2 Login
   - form_tag session_path do
     .form_row
       = label_tag 'email', nil, :style => "display: inline-block;width: 100px;"
@@ -25,3 +26,8 @@
       = link_to "New to Nomtracker? Click here to sign up!", new_user_url  
 
 %div{:style => "clear: both;"}
+
+:javascript
+  Event.observe(window, 'load', function() {
+    $("email").focus();
+  });
