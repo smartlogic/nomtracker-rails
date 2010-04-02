@@ -101,6 +101,9 @@
 		64A2FA161157F24100351320 /* nom_icon_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 64A2FA151157F24100351320 /* nom_icon_01.png */; };
 		64EFFCE6116296F500FBE730 /* contact_button2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EFFCE5116296F500FBE730 /* contact_button2.png */; };
 		64EFFCE8116297E100FBE730 /* submit_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EFFCE7116297E100FBE730 /* submit_button.png */; };
+		64FD6D7B1165817400248800 /* tab_bar_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FD6D781165817400248800 /* tab_bar_add.png */; };
+		64FD6D7C1165817400248800 /* tab_bar_balances.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FD6D791165817400248800 /* tab_bar_balances.png */; };
+		64FD6D7D1165817400248800 /* tab_bar_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FD6D7A1165817400248800 /* tab_bar_settings.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -254,6 +257,9 @@
 		64A2FA151157F24100351320 /* nom_icon_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nom_icon_01.png; sourceTree = "<group>"; };
 		64EFFCE5116296F500FBE730 /* contact_button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact_button2.png; sourceTree = "<group>"; };
 		64EFFCE7116297E100FBE730 /* submit_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit_button.png; sourceTree = "<group>"; };
+		64FD6D781165817400248800 /* tab_bar_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_bar_add.png; sourceTree = "<group>"; };
+		64FD6D791165817400248800 /* tab_bar_balances.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_bar_balances.png; sourceTree = "<group>"; };
+		64FD6D7A1165817400248800 /* tab_bar_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_bar_settings.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -365,6 +371,9 @@
 		5F14E9A6102CF8DA00495EA1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				64FD6D781165817400248800 /* tab_bar_add.png */,
+				64FD6D791165817400248800 /* tab_bar_balances.png */,
+				64FD6D7A1165817400248800 /* tab_bar_settings.png */,
 				6466F3731162E6A70066B2B0 /* radio_1.png */,
 				6466F3741162E6A70066B2B0 /* radio_2.png */,
 				6466F3751162E6A70066B2B0 /* radio_3.png */,
@@ -628,6 +637,9 @@
 				6466F3761162E6A70066B2B0 /* radio_1.png in Resources */,
 				6466F3771162E6A70066B2B0 /* radio_2.png in Resources */,
 				6466F3781162E6A70066B2B0 /* radio_3.png in Resources */,
+				64FD6D7B1165817400248800 /* tab_bar_add.png in Resources */,
+				64FD6D7C1165817400248800 /* tab_bar_balances.png in Resources */,
+				64FD6D7D1165817400248800 /* tab_bar_settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
