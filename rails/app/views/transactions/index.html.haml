@@ -3,9 +3,9 @@
 
 .main
   %h1 Transactions
-  .content
+  %div.content
     %p This is a list of all debts/credits that you entered or that others have entered on your behalf.
-  = render :partial => 'recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all)}
+    = render :partial => 'recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all)}
   
 :javascript
   Event.observe(window, 'load', function() {
