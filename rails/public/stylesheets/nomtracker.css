@@ -386,6 +386,7 @@ div.autocomplete ul li {
 	input[type='password'] {
 		border: 1px solid #C8C8C8;
 		height: 32px;
+		line-height: 32px;
 		color: #4D4D4D;
 		
 		-moz-border-radius-bottomleft: 8px;
