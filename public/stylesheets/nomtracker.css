@@ -428,7 +428,7 @@ div.autocomplete ul li {
 		height: 300px;
 		width: 420px;
 		padding: 35px 0;
-		float: right;
+		float: left;
 	
 		-moz-border-radius-bottomleft: 20px;
 		-webkit-border-bottom-left-radius: 20px;
@@ -452,7 +452,7 @@ div.autocomplete ul li {
 	}
 	
 	.session #login_form {
-		float: left;
+		float: right;
 	}
 	
 		.session .content_bubble .form_row {
