@@ -5,23 +5,23 @@
 - if flash[:notice]
   .informational.rounded= h(flash[:notice])
   %p{:style => "clear: both;margin-bottom: 40px"}
+
+.content_bubble.overlap
+  %p NomTracker tracks nominal debts... nom nom nom nom nom nom nom nom nom nom nom nom ....
   
 .content_bubble#login_form.overlap
   - form_tag session_path do
     .form_row
       = label_tag 'email', nil, :style => "display: inline-block;width: 100px;"
       = text_field_tag 'email', @email, :style => "width: 250px"
-    
+
     .form_row
       = label_tag 'password', nil, :style => "display: inline-block;width: 100px;"
       = password_field_tag 'password', nil, :style => "width: 250px"
-          
+
     %div{:style => "width: 100%;text-align:center"}
       = submit_tag 'Log in', :style => "margin: 20px 0;"
       %br
-      = link_to "New to Nomtracker? Click here to sign up!", new_user_url
-
-.content_bubble.overlap
-  %p NomTracker tracks nominal debts... nom nom nom nom nom nom nom nom nom nom nom nom ....
+      = link_to "New to Nomtracker? Click here to sign up!", new_user_url  
 
 %div{:style => "clear: both;"}
