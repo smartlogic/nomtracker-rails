@@ -42,7 +42,7 @@
       respond_to do |format|
         format.any(:json, :html) {
           render :status => 422, :json => {
-            :messages => {:error => "#{escape_javascript(@transaction.errors.full_messages.join('<br/>'))}"}
+            :messages => {:error => @transaction.errors.full_messages.map{|m| h(m)}.join('<br/>')}
           }
         }
         format.iphone {
