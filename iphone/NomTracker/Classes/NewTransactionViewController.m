@@ -15,7 +15,7 @@
 #import <QuartzCore/CAAnimation.h>
 
 @implementation NewTransactionViewController
-@synthesize emailAddressField, transactionType, forField, createTransactionButton, amount, transaction, ntDelegate;
+@synthesize emailAddressField, forField, createTransactionButton, amount, transaction, ntDelegate, borrowedButton, lentButton;
 @synthesize scrollView;
 
 - (void)viewDidLoad {
@@ -77,7 +77,6 @@
   transaction.amount = amount.text;
   transaction.description = forField.text;
   transaction.email = emailAddressField.text;
-  transaction.transactionType = [transactionType selectedSegmentIndex] == 0 ? @"credit" : @"debt";
 	
   // Add form values to request body
   NSData *myNewBody;
@@ -100,7 +99,6 @@
     amount.text = @"";
     forField.text = @"";
     emailAddressField.text = @"";
-    transactionType.selectedSegmentIndex = 0;
     [transaction release];
     transaction = [[Transaction alloc] init];
     
@@ -131,14 +129,16 @@
   return postBody;
 }
 
--(IBAction)switchTransactionType:(id)sender {
-  if ([transactionType selectedSegmentIndex] == 0) {
-    [transactionType setImage:[UIImage imageNamed:@"borrowed_unlit_checked.png"] forSegmentAtIndex:0];
-    [transactionType setImage:[UIImage imageNamed:@"lentme_lit.png"] forSegmentAtIndex:1];
-  } else {
-    [transactionType setImage:[UIImage imageNamed:@"borrowed_lit.png"] forSegmentAtIndex:0];
-    [transactionType setImage:[UIImage imageNamed:@"lentme_unlit_checked.png"] forSegmentAtIndex:1];
-  }
+-(IBAction)selectBorrowed:(id)sender {
+  borrowedButton.highlighted = YES;
+  lentButton.highlighted = NO;
+  transaction.transactionType = @"credit";
+}
+
+-(IBAction)selectLent:(id)sender {
+  lentButton.highlighted = YES;
+  borrowedButton.highlighted = NO;
+  transaction.transactionType = @"debt";  
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -157,7 +157,8 @@
 
 - (void)dealloc {
   [emailAddressField release];
-  [transactionType release];
+  [borrowedButton release];
+  [lentButton release];
   [forField release];
   [createTransactionButton release];
   [amount release];
