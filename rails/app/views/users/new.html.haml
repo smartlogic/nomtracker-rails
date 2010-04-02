@@ -30,3 +30,8 @@
         NomTracker is not responsible for people not paying you back blah blah blah, nom nom nom...      
       
 %div{:style => "clear: both;"}
+
+:javascript
+  Event.observe(window, 'load', function() {
+    $("user_name").focus();
+  });
