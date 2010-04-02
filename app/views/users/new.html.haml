@@ -6,7 +6,7 @@
 .wide_content_bubble.content_bubble.overlap
   - form_for :user, :url => users_path do |f|
     %div{:style => "width: 50%; float: left;"}
-      .form_row{:style => "margin-top: 20px;"}
+      .form_row{:style => "margin-top: 10px;"}
         = f.label 'name', nil, :style => "display: inline-block;width: 138px;"
         = f.text_field :name
 
@@ -21,11 +21,12 @@
       .form_row
         = f.label 'password_confirmation', 'Confirm Password', :style => "display: inline-block;width: 138px;"
         = f.password_field :password_confirmation
-    
+      
+      %div{:style => "width: 100%;text-align:center;margin: 0;padding: 0;"}
+        = submit_tag 'Sign Up'
+          
     %div{:style => "width: 49%;float: right;"}      
       %p
-        NomTracker is not responsible for people not paying you back blah blah blah, nom nom nom...
-      %div{:style => "width: 100%;text-align:center"}
-        = submit_tag 'Sign Up', :style => "margin: 20px 0;"
+        NomTracker is not responsible for people not paying you back blah blah blah, nom nom nom...      
       
 %div{:style => "clear: both;"}
