@@ -313,11 +313,6 @@ img {
 		vertical-align: middle;
 	}
 	
-	input[type=checkbox] {
-		width: 2em;
-		height: 2em;
-	}
-	
 		/* Specific to the Sign In form that appears in the top right */
 		#sign_in_form form input[type=text], #sign_in_form form input[type=password] {
 			width: 7em;

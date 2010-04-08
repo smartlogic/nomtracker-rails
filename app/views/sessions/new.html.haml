@@ -21,6 +21,9 @@
       = password_field_tag 'password', nil, :style => "width: 250px"
 
     %div{:style => "width: 100%;text-align:center"}
+      = check_box_tag 'remember_me', 1, @remember_me
+      = label_tag 'remember_me', 'Remember me'
+      %br
       = submit_tag 'Log in', :style => "margin: 20px 0;"
       %br
       = link_to "New to Nomtracker? Click here to sign up!", new_user_url  
