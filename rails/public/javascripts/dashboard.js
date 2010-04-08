@@ -45,7 +45,7 @@ function startNegateBalance(email, amount) {
 }
 
 function updateBalancesMessaging(json) {
-  var div = $('balances_messages');
+  var div = $('flash');
   div.update(Messaging.generate(json));
 }
 
