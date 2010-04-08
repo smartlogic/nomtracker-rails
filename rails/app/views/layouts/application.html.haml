@@ -20,14 +20,15 @@
           = link_to "Log In", login_path, :accesskey => "l"
       %br{:style => 'clear: both;'}
       
-      %a{:href => root_path}
-        %img{:src => "images/nomtracker_header.png"}
+      - if !yield(:hide_chrome)
+        %a{:href => root_path}
+          %img{:src => "images/nomtracker_header.png"}
       
-      - if logged_in?
-        %div#status
-          %div#nomworth.rounded
-          %div#owing.rounded
-          %div#owed.rounded
+        - if logged_in?
+          %div#status
+            %div#nomworth.rounded
+            %div#owing.rounded
+            %div#owed.rounded
           
       %br{:style => "clear: both;"}
       
@@ -40,7 +41,7 @@
       &copy; 2009 All Rights Reserved.
       = link_to 'SmartLogic Solutions', 'http://www.smartlogicsolutions.com/'
       |
-      = link_to 'About', '/about.htm'
+      = link_to 'About', about_path
       |
       = link_to 'Privacy', 'http://smartlogicsolutions.com/privacy'
       |
