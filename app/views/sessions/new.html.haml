@@ -11,6 +11,7 @@
   
 .content_bubble#login_form.overlap
   - form_tag session_path do
+    %h2 Log In:
     .form_row
       = label_tag 'email', nil, :style => "display: inline-block;width: 100px;"
       = text_field_tag 'email', @email, :style => "width: 250px"

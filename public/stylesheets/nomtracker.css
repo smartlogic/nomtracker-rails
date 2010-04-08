@@ -175,6 +175,10 @@ img {
 		padding: 10px 20px;
 	}
 	
+	h2 {
+		padding-left: 20px;
+	}
+	
 	#debts, .debt {
 		background-color: #FF786E !important;
 		color: #4D4D4D;
