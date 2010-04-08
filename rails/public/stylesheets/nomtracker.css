@@ -168,11 +168,9 @@ img {
 		width: 735px;
 		height: 20px;
 		font-size: 18px;
-		font-weight: normal;
 		background-image: url('/images/header_background_full.png');
 		margin-left: auto;
 		margin-right: auto;
-		color: #969696;
 		border: 1px solid #B4B4B4;
 		padding: 10px 20px;
 	}
