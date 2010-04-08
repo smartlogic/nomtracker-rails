@@ -65,5 +65,6 @@ class UserMailer < ActionMailer::Base
       @sent_on     = Time.now
       @body[:user]  = user
       @body[:email] = email
+      @content_type = "text/plain"
     end
 end
