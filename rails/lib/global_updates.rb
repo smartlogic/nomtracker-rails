@@ -4,7 +4,11 @@ module GlobalUpdates
   # e.g. render :json => {:something => something_else, :update => {:some_data => "blah"}.merge(global_updates)}
   def global_updates
     raise StandardError.new('Cannot call #global_updates when no one is logged in') if !current_user
-    {:nomworth => current_user.nomworth}
+    {
+      :nomworth => current_user.nomworth,
+      :you_owe => current_user.balances.select(){|b| b[:balance] < 0}.size,
+      :owe_you => current_user.balances.select(){|b| b[:balance] > 0}.size
+    }
   end
   
   private :global_updates

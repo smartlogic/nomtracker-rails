@@ -13,6 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register',                  :controller => 'users', :action => 'create'
   map.signup   '/signup',                    :controller => 'users', :action => 'new'
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
+  
+  map.about '/about',                        :controller => 'about', :action => 'index'
 
   map.resources :users, :only => [:new, :create, :index], :collection => [:find, :authenticate_user]
 

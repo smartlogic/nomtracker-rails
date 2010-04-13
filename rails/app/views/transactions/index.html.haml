@@ -2,15 +2,12 @@
   My Transactions
 
 .main
-  %h1#pending Pending
-  = render :partial => 'pending_report', :locals => {:user => current_user}
-		
-  %hr.space
-
-  %h1#credits Credits
-  %p $ others owe to you
-  = render :partial => 'credit_report', :locals => {:user => current_user}
-
-  %h1#debts Debts
-  %p $ you owe
-  = render :partial => 'debt_report', :locals => {:user => current_user}
+  %h1 Transactions
+  %div.content
+    %p This is a list of all debts/credits that you entered or that others have entered on your behalf.
+    = render :partial => 'recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all)}
+  
+:javascript
+  Event.observe(window, 'load', function() {
+    updateNomworth(#{current_user.nomworth}, #{current_user.balances.select(){|b| b[:balance] > 0}.size}, #{current_user.balances.select(){|b| b[:balance] < 0}.size});
+  });

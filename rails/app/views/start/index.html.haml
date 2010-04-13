@@ -6,29 +6,60 @@
   My Dashboard
 
 .main
-  %p#welcome_message 
-    = "Welcome to nomtracker."
+  %h1 Add a new debt or credit    
+  
+  %div.content
+    #add_new_transaction
+      - remote_form_for Transaction.new, {:success => 'finishCreateTransaction(request)', :failure => 'failCreateTransaction(request)'} do |f|
+      
+        .form_row
+          = f.label :email, nil, :style => "display: inline-block;width: 90px;"
+          = text_field_tag 'email', nil, :style => "width: 340px;"
+          #autocomplete_choices.autocomplete        
 
-  %h1 Add new credits and debts
-  %div
-    #new_transaction_flash
-    = link_to("#{image_tag('plus.gif', :alt => 'plus symbol')} Add a new debt or credit", "javascript:void(0)", :onclick => 'openNewTransactionForm()', :id => 'open_transaction_form_link')
-  #add_new_transaction{:style => "display: none"}
-    = render :partial => 'add_debt'
+        .form_row
+          = radio_button_tag 'transaction_type', 'credit'
+          = label_tag 'transaction_type_credit', 'Borrowed', :style => "display: inline-block; width: 100px;"
+
+          = radio_button_tag 'transaction_type', 'debt'
+          = label_tag 'transaction_type_debt', 'Lent me', :style => "display: inline-block; width: 100px;"
+
+          = f.label :amount, "Amount", :style => "display: inline-block; width: 70px;"
+          %span{:style => "font-size: 20px;"}$
+          = f.text_field :amount, :style => "width: 100px"
+
+        .form_row
+          = f.label :description, nil, :style => "display: inline-block;width: 90px;"
+          = f.text_field :description, :style => "width: 340px;"
+
+        = f.submit "Enter Transaction"          
+
+      - javascript_tag do
+        new Ajax.JsonAutocompleter('email', 'autocomplete_choices', '/users/find', { paramName: 'email', });
+    
+    %img#neutral{:src => "images/baby_nom_image.png", :style => "float: right;margin-top: 20px"}
+    %img#lent{:src => "images/money_fan.png", :style => "float: right; margin-top: 20px; display: none;"}
+    %img#borrowed{:src => "images/wallet.png", :style => "float: right; margin-top: 20px; display: none;"}    
 
   %h1#balances Balances
-  %div 
+  %div.content
     #balances_messages
-    %p Your nonzero balances by individual
     = render :partial => 'balances', :locals => {:user => current_user}
-    
-  %h1#recent_transactions Recent Transactions
-  %div
-    = render :partial => 'transactions/recent', :locals => {:user => current_user, :transactions => current_user.transactions.sorted.find(:all, :limit => 5)}
-    %p= link_to "View all Transactions", transactions_path
-    
+    %p= link_to "View all Transactions", transactions_path  
+
 :javascript
   Event.observe(window, 'load', function() {
-    updateNomworth(#{current_user.nomworth});
+    updateNomworth(#{current_user.nomworth}, #{current_user.balances.select(){|b| b[:balance] > 0}.size}, #{current_user.balances.select(){|b| b[:balance] < 0}.size});
+    if( $('transaction_type_credit').checked ) {
+      $('neutral').hide();
+      $('lent').show();
+    }
+    else if( $('transaction_type_debt').checked ) {
+      $('neutral').hide();
+      $('borrowed').show();
+    }
   });
   
+  Event.observe('transaction_type_credit', 'change', showLent);
+  
+  Event.observe('transaction_type_debt', 'change', showBorrowed);

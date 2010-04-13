@@ -8,10 +8,10 @@ class UsersController < ApplicationController
     end
   end
 
-
   def new
     @user = User.new
     @preset_email = params[:email]
+    render :layout => 'session'
   end
 
   def find
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code.  Please click the link in that email to confirm your account."
       redirect_to root_path
     else
-      render :action => 'new'
+      render :action => 'new', :layout => 'session'
     end
   end
 

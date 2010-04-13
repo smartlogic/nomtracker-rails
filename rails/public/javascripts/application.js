@@ -2,10 +2,10 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 var Messaging = {
-  error   : new Template("<div class='error'>#{message}</div>"),
-  warning : new Template("<div class='warning'>#{message}</div>"),
-  info    : new Template("<div class='info'>#{message}</div>"),
-  success : new Template("<div class='success'>#{message}</div>"),
+  error   : new Template("<div class='error rounded'>#{message}</div>"),
+  warning : new Template("<div class='warning rounded'>#{message}</div>"),
+  info    : new Template("<div class='info rounded'>#{message}</div>"),
+  success : new Template("<div class='success rounded'>#{message}</div>"),
   
   generate : function(json) {
     var html = "";
@@ -27,16 +27,28 @@ var Messaging = {
   }
 };
 
-function updateNomworth(amount) {
+function updateNomworth(amount, owe_you, you_owe) {
   var klass = amount >= 0.0 ? "credit" : "debt";
   var msg   = amount >= 0.0 ? "You're rich!" : "You're a deadbeat!";
-  var template = new Template("Welcome to nomtracker. Your <em>nomworth</em> is <span id='nomworth' class='#{klass}'>$#{nomworth}</span>. #{msg}");
-  $('welcome_message').update(template.evaluate({nomworth: amount.abs().toFixed(2), klass: klass, msg: msg }));
+  var template = new Template("Your nomworth is: <br/> <span>$#{nomworth}</span> <br/> #{msg}");
+	var owe_you_template = new Template("#{owe_you} #{msg} you.");
+	var owe_message = owe_you === 1 ? "person owes" : "people owe";
+	var you_owe_template = new Template("You owe #{you_owe} #{msg}.");
+	var you_owe_message = you_owe === 1 ? "person" : "people";
+  $('nomworth').update(template.evaluate({nomworth: amount.abs().toFixed(2), klass: klass, msg: msg }));
+	if( amount < 0 ) {
+		$('nomworth').addClassName('debt');
+	}
+	else {
+		$('nomworth').removeClassName('debt');
+	}
+	$('owing').update(you_owe_template.evaluate({you_owe: you_owe, msg: you_owe_message}));
+	$('owed').update(owe_you_template.evaluate({owe_you: owe_you, msg: owe_message}));
 }
 
 function updateGlobals(obj) {
   // Nomworth
   if (obj.nomworth !== undefined) {
-    updateNomworth(obj.nomworth);
+    updateNomworth(obj.nomworth, obj.owe_you, obj.you_owe);
   }
 }
