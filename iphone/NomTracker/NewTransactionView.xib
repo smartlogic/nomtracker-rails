@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">528</int>
-		<string key="IBDocument.SystemVersion">10C540</string>
+		<string key="IBDocument.SystemVersion">10D573</string>
 		<string key="IBDocument.InterfaceBuilderVersion">740</string>
-		<string key="IBDocument.AppKitVersion">1038.25</string>
-		<string key="IBDocument.HIToolboxVersion">458.00</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">460.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">62</string>
@@ -229,8 +229,8 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">radio_3.png</string>
 						</object>
-						<reference key="IBUISelectedImage" ref="1012297794"/>
-						<object class="NSCustomResource" key="IBUINormalImage" id="868536187">
+						<reference key="IBUISelectedBackgroundImage" ref="1012297794"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="718621749">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">radio_1.png</string>
 						</object>
@@ -255,8 +255,8 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">radio_2.png</string>
 						</object>
-						<reference key="IBUISelectedImage" ref="89547319"/>
-						<reference key="IBUINormalImage" ref="868536187"/>
+						<reference key="IBUISelectedBackgroundImage" ref="89547319"/>
+						<reference key="IBUINormalBackgroundImage" ref="718621749"/>
 					</object>
 					<object class="IBUILabel" id="680764507">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -407,6 +407,22 @@
 					</object>
 					<int key="connectionID">90</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">borrowedButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="595170506"/>
+					</object>
+					<int key="connectionID">91</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lentButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="770010593"/>
+					</object>
+					<int key="connectionID">92</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -430,9 +446,9 @@
 							<reference ref="165773791"/>
 							<reference ref="170582325"/>
 							<reference ref="770010593"/>
-							<reference ref="595170506"/>
 							<reference ref="680764507"/>
 							<reference ref="393733753"/>
+							<reference ref="595170506"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -559,7 +575,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">90</int>
+			<int key="maxID">92</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

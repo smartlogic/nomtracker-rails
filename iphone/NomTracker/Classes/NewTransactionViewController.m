@@ -131,14 +131,18 @@
 }
 
 -(IBAction)selectBorrowed:(id)sender {
-  borrowedButton.highlighted = YES;
-  lentButton.highlighted = NO;
+  
+  [borrowedButton setSelected: YES];
+  [lentButton setSelected: NO];
+  
   transaction.transactionType = @"credit";
 }
 
 -(IBAction)selectLent:(id)sender {
-  lentButton.highlighted = YES;
-  borrowedButton.highlighted = NO;
+  
+  [lentButton setSelected: YES];
+  [borrowedButton setSelected: NO];
+  
   transaction.transactionType = @"debt";  
 }
 
