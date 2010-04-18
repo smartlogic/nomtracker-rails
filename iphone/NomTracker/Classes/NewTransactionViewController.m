@@ -30,7 +30,8 @@
 - (void)selectContact:(id)sender {
   UserPickerViewController *upvController = [[UserPickerViewController alloc] initWithNibName:@"UserPickerView" bundle:nil];
   upvController.ntvController = self;
-  [self presentModalViewController:upvController animated:YES];}
+  [self presentModalViewController:upvController animated:YES];
+}
 
 - (void) keyboardWillShow: (NSNotification*) aNotification;
 {  
