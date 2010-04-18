@@ -43,24 +43,36 @@
     cell = transactionTableViewCell;
   }
   
+  NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+  
+  // AMOUNT
+  UILabel *amountLabel = (UILabel*) [cell viewWithTag:2];  
+  amountLabel.textColor = delegate.darkTextColor;
+  amountLabel.text = [thisTransaction amountString];
+  
   // USER
   UILabel *textLabel = (UILabel*) [cell viewWithTag:1];
   textLabel.text = [thisTransaction createdAt];
-  textLabel.textColor = [UIColor blackColor];
-  
-  // AMOUNT
-  UILabel *amountLabel = (UILabel*) [cell viewWithTag:2];
-  NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-  if ([thisTransaction.creditorEmail isEqualToString:[ObjectiveResourceConfig getUser]]) {
-    amountLabel.textColor = delegate.green;
+  if ([[thisTransaction.creditorEmail uppercaseString] isEqualToString:[[ObjectiveResourceConfig getUser] uppercaseString]]) {
+    textLabel.textColor = indexPath.row % 2 == 0 ? delegate.greenOnBlue : delegate.greenOnWhite;
   } else {
-    amountLabel.textColor = delegate.red;
-  }
-  amountLabel.text = [thisTransaction amountString];
+    textLabel.textColor = indexPath.row % 2 == 0 ? delegate.redOnBlue : delegate.redOnWhite;
+    amountLabel.text = [NSString stringWithFormat:@"- %@", amountLabel.text];
+  } 
   
   return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+  
+  NomTrackerAppDelegate *delegate = [UIApplication sharedApplication].delegate;  
+  if(indexPath.row % 2 == 0) {
+    cell.backgroundColor = delegate.alternateRowBackground; 
+  }
+  else {
+    cell.backgroundColor = delegate.white;
+  }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   TransactionDetailViewController *tController = [[TransactionDetailViewController alloc] initWithNibName:@"TransactionDetailView" bundle:nil];
@@ -82,6 +94,4 @@
   [super dealloc];
 }
 
-
 @end
-
