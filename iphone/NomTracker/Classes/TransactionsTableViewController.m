@@ -8,20 +8,11 @@
 
 #import "TransactionsTableViewController.h"
 #import "Transaction.h"
-#import "BalancesTableCell.h"
 #import "NomTrackerAppDelegate.h"
 #import "TransactionDetailViewController.h"
 
 @implementation TransactionsTableViewController
-@synthesize otherUserId, transactionsArray, transactionsTable, transactionController;
-
-- (void)viewDidLoad {
-  [super viewDidLoad];
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-
+@synthesize otherUserId, transactionsArray, transactionsTable, transactionController, transactionTableViewCell;
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
@@ -33,52 +24,40 @@
 	[super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
-#pragma mark Table view methods
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return [transactionsArray count];
 }
 
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {  
   
-//  BalancesTableCell *cell = (BalancesTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   Transaction *thisTransaction = [transactionsArray objectAtIndex:indexPath.row];
-  BalancesTableCell *cell = [[[BalancesTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
-  // USER
-  UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(25.0, 0, 175.0, tableView.rowHeight)] autorelease];
-  [cell addColumn:120];
+
+  static NSString *CellIdentifier = @"Cell";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if( cell == nil) {
+    [[NSBundle mainBundle] loadNibNamed:@"TransactionTableViewCell" owner:self options:NULL];
+    cell = transactionTableViewCell;
+  }
   
-  label.text = [thisTransaction createdAt];
-  label.textAlignment = UITextAlignmentLeft;
-  label.textColor = [UIColor blackColor];
-  label.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
-  [cell.contentView addSubview:label];
+  // USER
+  UILabel *textLabel = (UILabel*) [cell viewWithTag:1];
+  textLabel.text = [thisTransaction createdAt];
+  textLabel.textColor = [UIColor blackColor];
   
   // AMOUNT
-  label = [[[UILabel alloc] initWithFrame:CGRectMake(200.0, 0, 100.0, tableView.rowHeight)] autorelease];
-  [cell addColumn:120];
+  UILabel *amountLabel = (UILabel*) [cell viewWithTag:2];
   NomTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
   if ([thisTransaction.creditorEmail isEqualToString:[ObjectiveResourceConfig getUser]]) {
-    label.textColor = delegate.green;
+    amountLabel.textColor = delegate.green;
   } else {
-    label.textColor = delegate.red;
+    amountLabel.textColor = delegate.red;
   }
-  label.textAlignment = UITextAlignmentRight;
-  label.text = [thisTransaction amountString];
-  label.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
-  [cell.contentView addSubview:label];
+  amountLabel.text = [thisTransaction amountString];
+  
   return cell;
 }
 

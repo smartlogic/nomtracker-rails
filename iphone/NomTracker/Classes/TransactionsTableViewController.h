@@ -16,9 +16,12 @@
   IBOutlet NSMutableArray *transactionsArray;
   IBOutlet UITableView *transactionsTable;
   TransactionDetailViewController *transactionController;
+  UITableViewCell *transactionTableViewCell;
 }
 @property (nonatomic, retain) NSString *otherUserId;
 @property (nonatomic, retain) NSMutableArray *transactionsArray;
 @property (nonatomic, retain) UITableView *transactionsTable;
 @property (nonatomic, retain) TransactionDetailViewController *transactionController;
+@property (nonatomic, retain) IBOutlet UITableViewCell *transactionTableViewCell;
+
 @end

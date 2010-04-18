@@ -17,6 +17,7 @@
   IBOutlet UILabel *nomworthLabel;
   IBOutlet UILabel *backgroundLabel;
   TransactionsTableViewController *transactionsController;
+  UITableViewCell *balancesTableViewCell;
 }
 @property (nonatomic, retain) NSMutableArray *balancesArray;
 @property (nonatomic, retain) IBOutlet UITableView *balancesTable;
@@ -24,6 +25,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *nomworthLabel;
 @property (nonatomic, retain) IBOutlet UILabel *backgroundLabel;
 @property (nonatomic, retain) TransactionsTableViewController *transactionsController;
+@property (nonatomic, retain) IBOutlet UITableViewCell *balancesTableViewCell;
+
 -(void)loadBalances;
 -(void)refreshNomworth;
 -(IBAction)refreshButtonPressed:(id)sender;

@@ -29,8 +29,9 @@
 
 -(NSString *)balanceString {
   NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
-  [numberFormatter setPositiveFormat:@"###,###,##0.00"];
-  return [numberFormatter stringFromNumber:[NSNumber numberWithFloat:fabs([[self balance] floatValue])]];  
+  [numberFormatter setPositiveFormat:@"$###,###,##0.00"];
+  [numberFormatter setNegativeFormat:@"- $###,###,##0.00"];
+  return [numberFormatter stringFromNumber:[NSNumber numberWithFloat:[[self balance] floatValue]]];  
 }
 
 -(NSString *)nameField:(BOOL)fullEmail {
