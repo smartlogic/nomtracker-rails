@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">528</int>
-		<string key="IBDocument.SystemVersion">10C540</string>
+		<string key="IBDocument.SystemVersion">10D573</string>
 		<string key="IBDocument.InterfaceBuilderVersion">740</string>
-		<string key="IBDocument.AppKitVersion">1038.25</string>
-		<string key="IBDocument.HIToolboxVersion">458.00</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">460.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">62</string>
@@ -80,12 +80,15 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="568882401">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="837038922">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">sign_out_button_pressed.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUIDisabledImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">sign_out.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="568882401"/>
-						<reference key="IBUISelectedImage" ref="568882401"/>
+						<reference key="IBUISelectedImage" ref="837038922"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">sign_out_button.png</string>

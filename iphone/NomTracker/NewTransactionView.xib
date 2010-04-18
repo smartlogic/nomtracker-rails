@@ -80,12 +80,15 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="479796502">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="845519683">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">submit_button_pressed.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUIDisabledImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">transaction_submit.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="479796502"/>
-						<reference key="IBUISelectedImage" ref="479796502"/>
+						<reference key="IBUISelectedImage" ref="845519683"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">submit_button.png</string>
