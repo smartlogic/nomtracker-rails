@@ -51,7 +51,7 @@
     [ObjectiveResourceConfig setPassword:presetPassword];
     [loginController.view removeFromSuperview];
     [window addSubview:rootController.view];
-    [rootController setSelectedIndex:2];
+    [rootController setSelectedIndex:1];
   }
   [window makeKeyAndVisible];
 }
