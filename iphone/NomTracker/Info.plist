@@ -9,7 +9,11 @@
 	<key>CFBundleExecutable</key>
 	<string>NomTracker</string>
 	<key>CFBundleIconFile</key>
-	<string>nom_icon_01.png</string>
+	<string>nomtracker_icon.jpg</string>
+	<key>UIPrerenderedIcon</key>
+	<string>YES</string>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>com.smartlogicsolutions.nomtracker</string>
 	<key>CFBundleInfoDictionaryVersion</key>
