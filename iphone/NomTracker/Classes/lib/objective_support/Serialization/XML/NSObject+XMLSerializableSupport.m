@@ -112,7 +112,7 @@
 + (id)fromXMLData:(NSData *)data {
 	
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-	FromXMLElementDelegate *delegate = [FromXMLElementDelegate delegateForClass:self];
+    FromXMLElementDelegate *delegate = [FromXMLElementDelegate delegateForClass:self];
     [parser setDelegate:delegate];
 	
     // Turn off all those XML nits
