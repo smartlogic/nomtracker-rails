@@ -74,13 +74,14 @@
 		6466F3771162E6A70066B2B0 /* radio_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6466F3741162E6A70066B2B0 /* radio_2.png */; };
 		6466F3781162E6A70066B2B0 /* radio_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 6466F3751162E6A70066B2B0 /* radio_3.png */; };
 		646780B11148925B007C7DD5 /* SLS_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 646780B01148925B007C7DD5 /* SLS_Logo.png */; };
+		64774A5D11DFF2720099D516 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64774A5B11DFF2720099D516 /* icon.png */; };
+		64774A5E11DFF2720099D516 /* nomtracker_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 64774A5C11DFF2720099D516 /* nomtracker_icon.png */; };
 		64A2F9F31157F00200351320 /* UserPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A2F9F21157F00200351320 /* UserPickerViewController.m */; };
 		64BBE8D6117BC428002D5563 /* sign_in_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BBE8D3117BC428002D5563 /* sign_in_button_pressed.png */; };
 		64BBE8D7117BC428002D5563 /* sign_out_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BBE8D4117BC428002D5563 /* sign_out_button_pressed.png */; };
 		64BBE8D8117BC428002D5563 /* submit_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 64BBE8D5117BC428002D5563 /* submit_button_pressed.png */; };
 		64D01D0C117BAD1A006B9FE6 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D01D0A117BAD1A006B9FE6 /* checked.png */; };
 		64D01D0D117BAD1A006B9FE6 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D01D0B117BAD1A006B9FE6 /* unchecked.png */; };
-		64D0667311B7EDCF00D760A8 /* nomtracker_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 64D0667211B7EDCF00D760A8 /* nomtracker_icon.jpg */; };
 		64EFFCE6116296F500FBE730 /* contact_button2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EFFCE5116296F500FBE730 /* contact_button2.png */; };
 		64EFFCE8116297E100FBE730 /* submit_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EFFCE7116297E100FBE730 /* submit_button.png */; };
 		64FD6D7B1165817400248800 /* tab_bar_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FD6D781165817400248800 /* tab_bar_add.png */; };
@@ -210,6 +211,8 @@
 		6466F3741162E6A70066B2B0 /* radio_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_2.png; sourceTree = "<group>"; };
 		6466F3751162E6A70066B2B0 /* radio_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_3.png; sourceTree = "<group>"; };
 		646780B01148925B007C7DD5 /* SLS_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SLS_Logo.png; sourceTree = "<group>"; };
+		64774A5B11DFF2720099D516 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		64774A5C11DFF2720099D516 /* nomtracker_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nomtracker_icon.png; sourceTree = "<group>"; };
 		64A2F9F11157F00200351320 /* UserPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPickerViewController.h; sourceTree = "<group>"; };
 		64A2F9F21157F00200351320 /* UserPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPickerViewController.m; sourceTree = "<group>"; };
 		64BBE8D3117BC428002D5563 /* sign_in_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_button_pressed.png; sourceTree = "<group>"; };
@@ -217,7 +220,6 @@
 		64BBE8D5117BC428002D5563 /* submit_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit_button_pressed.png; sourceTree = "<group>"; };
 		64D01D0A117BAD1A006B9FE6 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		64D01D0B117BAD1A006B9FE6 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
-		64D0667211B7EDCF00D760A8 /* nomtracker_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nomtracker_icon.jpg; sourceTree = "<group>"; };
 		64EFFCE5116296F500FBE730 /* contact_button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact_button2.png; sourceTree = "<group>"; };
 		64EFFCE7116297E100FBE730 /* submit_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit_button.png; sourceTree = "<group>"; };
 		64FD6D781165817400248800 /* tab_bar_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_bar_add.png; sourceTree = "<group>"; };
@@ -334,7 +336,8 @@
 		5F14E9A6102CF8DA00495EA1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				64D0667211B7EDCF00D760A8 /* nomtracker_icon.jpg */,
+				64774A5B11DFF2720099D516 /* icon.png */,
+				64774A5C11DFF2720099D516 /* nomtracker_icon.png */,
 				64BBE8D3117BC428002D5563 /* sign_in_button_pressed.png */,
 				64BBE8D4117BC428002D5563 /* sign_out_button_pressed.png */,
 				64BBE8D5117BC428002D5563 /* submit_button_pressed.png */,
@@ -566,7 +569,8 @@
 				64BBE8D6117BC428002D5563 /* sign_in_button_pressed.png in Resources */,
 				64BBE8D7117BC428002D5563 /* sign_out_button_pressed.png in Resources */,
 				64BBE8D8117BC428002D5563 /* submit_button_pressed.png in Resources */,
-				64D0667311B7EDCF00D760A8 /* nomtracker_icon.jpg in Resources */,
+				64774A5D11DFF2720099D516 /* icon.png in Resources */,
+				64774A5E11DFF2720099D516 /* nomtracker_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,11 +650,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SmartLogic Solutions";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NomTracker_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = NomTracker;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5EA31C10-472E-4644-8405-FEF8118D6C25";
 			};
 			name = Release;
 		};
