@@ -12,7 +12,7 @@ namespace :deploy do
   desc "Tarballs up the necessary files, uploads to /releases directory on server"
   task :package do  
     local = <<-SHELL
-[ -d /tmp/nomtracker ] || (cd /tmp && git clone git@git.slsdev.net:nomtracker.git);
+[ -d /tmp/nomtracker ] || (cd /tmp && git clone git@github.com:smartlogic/NomTracker.git);
 cd /tmp/nomtracker && git pull origin master && \
 cd /tmp/nomtracker/rails && tar czf nomtracker.tar.gz app config/*.yml config/*.rb config/initializers config/locales config/production db lib public Rakefile script vendor && \
 scp nomtracker.tar.gz deploy@production.slsdev.net:/var/vhosts/nomtracker/releases
