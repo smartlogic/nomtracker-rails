@@ -28,6 +28,7 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     daemons (1.1.2)
+    database_cleaner (0.6.6)
     diff-lcs (1.1.2)
     eventmachine (0.12.10)
     gherkin (2.3.6)
@@ -71,6 +72,17 @@ GEM
     rest-client (1.6.1)
       mime-types (>= 1.16)
     rmagick (2.13.1)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.5.0)
+    rspec-rails (1.3.2)
+      rack (>= 1.0.0)
+      rspec (>= 1.3.0)
     rubaidh-rails_sql_views (0.7.1)
       activerecord (>= 2.1.0)
       rake (>= 0.8.3)
@@ -94,7 +106,8 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano
-  cucumber-rails (~> 0.3.2)
+  cucumber-rails (>= 0.3, < 0.4)
+  database_cleaner (>= 0.5.0)
   gherkin
   haml
   heroku
@@ -103,9 +116,11 @@ DEPENDENCIES
   mocha
   paperclip
   pg
-  rails (~> 2.3)
+  rails (>= 2.3.11, < 3.0)
   redgreen
   rmagick
+  rspec (>= 1.3.0)
+  rspec-rails (>= 1.3.2)
   rubaidh-rails_sql_views
   rvm
   sanitize_email
