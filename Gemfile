@@ -3,27 +3,27 @@ source 'http://rubygems.org'
 gem 'i18n'
 gem 'pg'
 gem 'rails', '>= 2.3.11', '< 3.0'
-gem 'paperclip' #, '~> 2.2.9.2'
-gem 'state_machine' #, '~> 0.7.3'
-gem 'rubaidh-rails_sql_views' #, '~> 0.7.1'
-gem 'haml' #, '~> 2.0.9'
-gem 'rmagick' #, '~> 2.11.0'
-gem 'sanitize_email' #, :git => 'https://github.com/jtrupiano/sanitize_email.git'
+gem 'paperclip'
+gem 'state_machine'
+gem 'rubaidh-rails_sql_views'
+gem 'haml'
+gem 'rmagick'
+gem 'sanitize_email'
 
 group :test do
-  gem 'shoulda' #, '~> 2.10.1'
-  gem 'mocha' #, '~> 0.9.5'
-  gem 'json' #, '~> 1.1.6'
-  gem 'redgreen' #, '= 1.2.2'
+  gem 'shoulda'
+  gem 'mocha'
+  gem 'json'
+  gem 'redgreen'
 end
 
 group :development, :test do
   gem 'webrat'
-  gem 'gherkin' #, '~> 2.1.5'
+  gem 'gherkin'
   gem 'cucumber-rails', '>= 0.3', '< 0.4'
-  gem 'database_cleaner', '>= 0.5.0'
-  gem 'rspec', '>= 1.3.0'
-  gem 'rspec-rails', '>= 1.3.2'
+  gem 'database_cleaner'
+  gem 'rspec', '< 2.0'
+  gem 'rspec-rails', '< 2.0'
 end
 
 group :development do
