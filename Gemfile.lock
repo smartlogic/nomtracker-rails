@@ -1,26 +1,51 @@
+GIT
+  remote: https://github.com/jtrupiano/sanitize_email.git
+  revision: 0d2d0d3fcb553b0c80418b609856ad51b69bd5ad
+  specs:
+    sanitize_email (0.1.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (2.3.2)
-      actionpack (= 2.3.2)
-    actionpack (2.3.2)
-      activesupport (= 2.3.2)
-    activerecord (2.3.2)
-      activesupport (= 2.3.2)
-    activeresource (2.3.2)
-      activesupport (= 2.3.2)
-    activesupport (2.3.2)
-    rails (2.3.2)
-      actionmailer (= 2.3.2)
-      actionpack (= 2.3.2)
-      activerecord (= 2.3.2)
-      activeresource (= 2.3.2)
-      activesupport (= 2.3.2)
+    actionmailer (2.3.11)
+      actionpack (= 2.3.11)
+    actionpack (2.3.11)
+      activesupport (= 2.3.11)
+      rack (~> 1.1.0)
+    activerecord (2.3.11)
+      activesupport (= 2.3.11)
+    activeresource (2.3.11)
+      activesupport (= 2.3.11)
+    activesupport (2.3.11)
+    geminstaller (0.5.4)
+    haml (2.0.10)
+    mysql (2.8.1)
+    paperclip (2.2.9.2)
+    rack (1.1.2)
+    rails (2.3.11)
+      actionmailer (= 2.3.11)
+      actionpack (= 2.3.11)
+      activerecord (= 2.3.11)
+      activeresource (= 2.3.11)
+      activesupport (= 2.3.11)
       rake (>= 0.8.3)
     rake (0.8.7)
+    rmagick (2.11.1)
+    rubaidh-rails_sql_views (0.7.1)
+      activerecord (>= 2.1.0)
+      rake (>= 0.8.3)
+    state_machine (0.7.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  rails (= 2.3.2)
+  geminstaller (= 0.5.4)
+  haml (~> 2.0.9)
+  mysql
+  paperclip (~> 2.2.9.2)
+  rails (~> 2.3)
+  rmagick (~> 2.11.0)
+  rubaidh-rails_sql_views (~> 0.7.1)
+  sanitize_email!
+  state_machine (~> 0.7.3)
