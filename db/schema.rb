@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20090827134927) do
     v.column :amount
     v.column :created_at
     v.column :updated_at
-    v.column :?column?
+    v.column :when
     v.column :description
   end
 
