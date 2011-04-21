@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'i18n'
-gem 'mysql'
+gem 'pg'
 gem 'rails', '~> 2.3'
 gem 'geminstaller', '0.5.4'
 gem 'paperclip', '~> 2.2.9.2'
