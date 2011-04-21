@@ -3,9 +3,9 @@ require 'rails_sql_views'
 class CreateNormalizedTransactionsView < ActiveRecord::Migration
   def self.up
     sql = <<-SQL
-      (SELECT `id`, `creditor_id` AS `me`, `debtor_id` AS `you`, `amount`, `created_at`, `updated_at`, `when`, `description` FROM `transactions`) 
+      (SELECT id, creditor_id AS me, debtor_id AS you, amount, created_at, updated_at, 'when', description FROM transactions) 
       UNION 
-      (SELECT `id`, `debtor_id` AS `me`, `creditor_id` AS `you`, `amount` * -1 AS `amount`, `created_at`, `updated_at`, `when`, `description` FROM transactions)
+      (SELECT id, debtor_id AS me, creditor_id AS you, amount * -1 AS amount, created_at, updated_at, 'when', description FROM transactions)
     SQL
     create_view :normalized_transactions, sql do |t|
       t.column :id
