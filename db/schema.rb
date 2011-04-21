@@ -60,14 +60,14 @@ ActiveRecord::Schema.define(:version => 20090827134927) do
     t.boolean  "wants_to_be_notified",                     :default => true, :null => false
   end
 
-  create_view "normalized_transactions", "CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY INVOKER VIEW `normalized_transactions` AS (select `transactions`.`id` AS `id`,`transactions`.`creditor_id` AS `me`,`transactions`.`debtor_id` AS `you`,`transactions`.`amount` AS `amount`,`transactions`.`created_at` AS `created_at`,`transactions`.`updated_at` AS `updated_at`,`transactions`.`when` AS `when`,`transactions`.`description` AS `description` from `transactions`) union (select `transactions`.`id` AS `id`,`transactions`.`debtor_id` AS `me`,`transactions`.`creditor_id` AS `you`,(`transactions`.`amount` * -(1)) AS `amount`,`transactions`.`created_at` AS `created_at`,`transactions`.`updated_at` AS `updated_at`,`transactions`.`when` AS `when`,`transactions`.`description` AS `description` from `transactions`)", :force => true do |v|
+  create_view "normalized_transactions", "SELECT transactions.id, transactions.creditor_id AS me, transactions.debtor_id AS you, transactions.amount, transactions.created_at, transactions.updated_at, 'when', transactions.description FROM transactions UNION SELECT transactions.id, transactions.debtor_id AS me, transactions.creditor_id AS you, (transactions.amount * ((-1))::numeric) AS amount, transactions.created_at, transactions.updated_at, 'when', transactions.description FROM transactions;", :force => true do |v|
     v.column :id
     v.column :me
     v.column :you
     v.column :amount
     v.column :created_at
     v.column :updated_at
-    v.column :when
+    v.column :?column?
     v.column :description
   end
 
