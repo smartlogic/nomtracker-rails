@@ -1,3 +1,4 @@
+Feature: Users should exist and be able to login
 
 Scenario: Login an existing user
 
