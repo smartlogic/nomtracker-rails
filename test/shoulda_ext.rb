@@ -2,19 +2,19 @@
 module Shoulda
   module Nomtracker
     module Macros
-    
+
       def should_redirect_to_login
         should "be redirected to login" do
           assert_redirected_to login_path
         end
       end
-      
+
       def should_render_logout_link
         should "display a logout link in the header" do
           assert_select "a", {:href => logout_url}
         end
       end
-    
+
       def should_render(css_selector)
         should "render #{css_selector}" do
           assert_select css_selector
@@ -26,7 +26,7 @@ module Shoulda
           assert_select css_selector, false
         end
       end
-      
+
       # Messaging Streams via JSON
       def should_flash(type)
         should "return #{type} message" do
@@ -35,9 +35,9 @@ module Shoulda
           assert_not_nil json['messages'][type.to_s]
         end
       end
-            
+
     end
-  
+
     module Helpers
       def create_john
         create_user(john_attrs)
