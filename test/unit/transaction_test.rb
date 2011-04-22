@@ -2,10 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TransactionTest < ActiveSupport::TestCase
   
-  should_validate_presence_of :amount, :debtor_id, :creditor_id
-  should_ensure_length_in_range :when, 0..50
-  should_ensure_length_in_range :description, 0..255
-  
+  should validate_presence_of :amount
+  should validate_presence_of :debtor_id
+  should validate_presence_of :creditor_id
+  should ensure_length_of(:when).is_at_most(50)
+  should ensure_length_of(:description).is_at_most(255)
+
   context "A transaction object" do
     setup do 
       @transaction = Transaction.new(:amount => 10.50, :debtor => adam, :creditor => nick, :when => "Friday at 10PM", :description => "Beers at the Depot")
