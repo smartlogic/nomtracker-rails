@@ -4,14 +4,11 @@ class EmailTest < ActiveSupport::TestCase
   
   should belong_to :user
   should validate_presence_of :address
-  should validate_presence_of :address
   should validate_uniqueness_of :address
-  # XXX: heroku
-  #should ensure_length_in_range :address, 6..100
+  should ensure_length_of(:address).is_at_least(6).is_at_most(100)
 
   should have_db_index :user_id
   should have_db_index :address
-  should validate_uniqueness_of :address
 
   context "When an email is instantiated without any options" do
     setup do
