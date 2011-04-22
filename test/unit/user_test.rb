@@ -19,8 +19,8 @@ end
 
 class UserTest < ActiveSupport::TestCase
 
-  should_have_many :transactions
-  should_have_many :emails
+  should have_many :transactions
+  should have_many :emails
 
   context "When assigning an email address that does not already exist in the database" do
     setup do
