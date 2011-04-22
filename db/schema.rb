@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090827134927) do
+ActiveRecord::Schema.define(:version => 20110422214445) do
 
   create_table "emails", :force => true do |t|
     t.string  "address"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20090827134927) do
     t.decimal  "amount",             :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "when"
+    t.string   "when_at"
     t.string   "description"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -60,14 +60,14 @@ ActiveRecord::Schema.define(:version => 20090827134927) do
     t.boolean  "wants_to_be_notified",                     :default => true, :null => false
   end
 
-  create_view "normalized_transactions", "SELECT transactions.id, transactions.creditor_id AS me, transactions.debtor_id AS you, transactions.amount, transactions.created_at, transactions.updated_at, 'when', transactions.description FROM transactions UNION SELECT transactions.id, transactions.debtor_id AS me, transactions.creditor_id AS you, (transactions.amount * ((-1))::numeric) AS amount, transactions.created_at, transactions.updated_at, 'when', transactions.description FROM transactions;", :force => true do |v|
+  create_view "normalized_transactions", "SELECT transactions.id, transactions.creditor_id AS me, transactions.debtor_id AS you, transactions.amount, transactions.created_at, transactions.updated_at, transactions.when_at, transactions.description FROM transactions UNION SELECT transactions.id, transactions.debtor_id AS me, transactions.creditor_id AS you, (transactions.amount * ((-1))::numeric) AS amount, transactions.created_at, transactions.updated_at, transactions.when_at, transactions.description FROM transactions;", :force => true do |v|
     v.column :id
     v.column :me
     v.column :you
     v.column :amount
     v.column :created_at
     v.column :updated_at
-    v.column :when
+    v.column :when_at
     v.column :description
   end
 

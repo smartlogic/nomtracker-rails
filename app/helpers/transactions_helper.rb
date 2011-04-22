@@ -11,7 +11,7 @@ module TransactionsHelper
 
   def full_description(txn)
     ret = ""
-    ret << " on #{txn.when}" unless txn.when.blank?
+    ret << " on #{txn.when_at}" unless txn.when_at.blank?
     ret << " for #{txn.description}" unless txn.description.blank?
     ret
   end
