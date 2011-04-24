@@ -1,4 +1,4 @@
-class RenameWhenField < ActiveRecord::Migration
+class RenameWhenToWhenAt < ActiveRecord::Migration
   def self.up
     rename_column :transactions, :when, :when_at
     drop_view :normalized_transactions
