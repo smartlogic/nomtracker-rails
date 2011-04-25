@@ -35,8 +35,6 @@ cucumber:
 
 production:
   adapter: postgresql
+  uri: <%= ENV['DATABASE_URL'] %>
   encoding: unicode
-  database: nomtracker_production
   pool: 5
-  username: nomtracker
-  password:
