@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/nitay/rails_sql_views.git
+  remote: http://github.com/nitay/rails_sql_views.git
   revision: da1b09b37b584c74538a4d5415e6ad75281eee01
   specs:
     rails_sql_views (0.8.0)
