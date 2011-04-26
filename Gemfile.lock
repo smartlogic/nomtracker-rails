@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/tmp8/rails_sql_views.git
-  revision: f78ab939dec6df903a8d485742dc7a88d5866d13
-  specs:
-    rails_sql_views (0.8.0)
-      activerecord
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -74,6 +67,8 @@ GEM
       activeresource (= 2.3.11)
       activesupport (= 2.3.11)
       rake (>= 0.8.3)
+    rails_sql_views (0.8.0)
+      activerecord
     rake (0.8.7)
     redgreen (1.2.2)
     rest-client (1.6.1)
@@ -114,7 +109,7 @@ DEPENDENCIES
   paperclip
   pg
   rails (>= 2.3.11, < 3.0)
-  rails_sql_views!
+  rails_sql_views
   redgreen
   rmagick
   rspec (< 2.0)
