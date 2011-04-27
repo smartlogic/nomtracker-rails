@@ -20,8 +20,17 @@ config.action_controller.perform_caching             = true
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
-# Disable delivery errors, bad email addresses will be ignored
-# config.action_mailer.raise_delivery_errors = false
+config.action_mailer.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :address  => "mail.smartlogicsolutions.com",
+  :port  => 25,
+  :user_name  => "heroku",
+  :password  => "zfjdP8p*",
+  :authentication  => :login
+}
+
+config.action_mailer.raise_delivery_errors = true
+
 
 SITE_URL = ENV['SITE_URL'] || "http://www.nomtracker.com"
 config.action_mailer.delivery_method = :sendmail
