@@ -21,7 +21,7 @@ config.action_controller.perform_caching             = true
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 config.action_mailer.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
+config.action_mailer.smtp_settings = {
   :address  => "mail.smartlogicsolutions.com",
   :port  => 25,
   :user_name  => "heroku",
