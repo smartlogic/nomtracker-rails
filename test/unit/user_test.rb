@@ -19,6 +19,8 @@ end
 
 class UserTest < ActiveSupport::TestCase
 
+  subject { Factory(:user) }
+
   should have_many :transactions
   should have_many :emails
 

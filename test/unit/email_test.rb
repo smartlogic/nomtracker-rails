@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EmailTest < ActiveSupport::TestCase
 
-  subject { Factory(:user) }
-  
+  subject { Factory(:email) }
+
   should belong_to :user
   should validate_presence_of :address
   should validate_uniqueness_of :address
