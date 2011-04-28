@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EmailTest < ActiveSupport::TestCase
+
+  subject { Factory(:email) }
   
   should belong_to :user
   should validate_presence_of :address
@@ -11,9 +13,6 @@ class EmailTest < ActiveSupport::TestCase
   should have_db_index :address
 
   context "When an email is instantiated without any options" do
-    setup do
-      @email = Email.new
-    end
     
     should "be in the :pending state" do
       assert @email.pending?

@@ -11,6 +11,7 @@ gem 'rmagick'
 gem 'sanitize_email'
 
 group :test do
+  gem 'factory_girl', '1.2.4'
   gem 'shoulda'
   gem 'mocha'
   gem 'json'
