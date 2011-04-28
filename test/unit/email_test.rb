@@ -15,13 +15,14 @@ class EmailTest < ActiveSupport::TestCase
   context "When an email is instantiated without any options" do
     
     should "be in the :pending state" do
-      assert @email.pending?
+      assert subject.pending?
     end
   end
   
   context "When an email is :pending" do
     setup do
-      @email = nick.emails.create!(:address => "nick2@slsdev.net")
+      @user = Factory(:user)
+      @email = @user.emails.create!(:address => "nick2@slsdev.net")
     end
     
     should "have an activation code when saved" do
@@ -31,7 +32,8 @@ class EmailTest < ActiveSupport::TestCase
   
   context "When creating an Email with an uppercase address" do
     setup do
-      @email = Email.create!(:user => nick, :address => "NICK2@SLSDEV.NET")
+      @user = Factory(:user)
+      @email = @user.emails.create!(:address => "NICK2@SLSDEV.NET")
     end
     
     should "downcase the address before inserting into the database" do
