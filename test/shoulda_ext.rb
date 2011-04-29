@@ -38,24 +38,24 @@ module Shoulda
 
     end
 
-    module Helpers
-      def create_john
-        create_user(john_attrs)
-      end
+    # module Helpers
+    #   def create_john
+    #     create_user(john_attrs)
+    #   end
 
-      def create_user(options = {})
-        record = User.create_and_activate(create_user_attrs.merge(options))
-        record
-      end
+    #   def create_user(options = {})
+    #     record = User.create_and_activate(create_user_attrs.merge(options))
+    #     record
+    #   end
 
-      def create_user_attrs
-        { :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }
-      end
+    #   def create_user_attrs
+    #     { :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69', :name => 'Quire' }
+    #   end
 
-      def john_attrs(attrs={})
-        { :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John' }.merge(attrs)
-      end
-    end
+    #   def john_attrs(attrs={})
+    #     { :email => 'john@slsdev.net', :password => 'johnjohn', :password_confirmation => 'johnjohn', :name => 'John' }.merge(attrs)
+    #   end
+    # end
   end
 
 end

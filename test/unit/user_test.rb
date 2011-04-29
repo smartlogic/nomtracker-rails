@@ -25,19 +25,16 @@ class UserTest < ActiveSupport::TestCase
   should have_many :emails
 
   context "When assigning an email address that does not already exist in the database" do
-    setup do
-      @john = User.create!(john_attrs)
-    end
 
     should_change 'Email.count', :by => 1
     should_change 'User.count', :by => 1
 
     should "create a user john that can register and be activated" do
-      assert_nothing_raised { @john.register! && @john.activate! }
+      assert_nothing_raised { subject.register! && subject.activate! }
     end
 
     should "create a user john with 1 email address" do
-      assert_equal 1, @john.emails.size
+      assert_equal 1, subject.emails.size
     end
 
     should "set john@slsdev.net as the primary_email" do
@@ -47,12 +44,13 @@ class UserTest < ActiveSupport::TestCase
 
   context "When the email john@slsdev.net already exists in the database" do
     setup do
-      create_john
+      @john = Factory(:user)
+      #create_john
     end
 
     context "and we try to create a new user joseph with that same email address" do
       setup do
-        @joseph = User.new(john_attrs(:name => 'Joseph'))
+        @joseph = Factory.build(:user)
         @joseph.save
       end
 
@@ -68,7 +66,7 @@ class UserTest < ActiveSupport::TestCase
 
   context "When the email address john@slsdev.net is not registered in the system and User#find_by_email is called" do
     setup do
-      @user = User.find_by_email("john@slsdev.net")
+      @user = User.find_by_email('john@slsdev.net')
     end
 
     should "return nil" do
@@ -78,7 +76,7 @@ class UserTest < ActiveSupport::TestCase
 
   context "When the email address john@slsdev.net is registered in the system and User#find_by_email is called" do
     setup do
-      create_john
+      temp = Factory(:user, :email => 'john@slsdev.net')
       @user = User.find_by_email("john@slsdev.net")
     end
 
@@ -91,7 +89,7 @@ class UserTest < ActiveSupport::TestCase
 
   context "When a user john has debits of 5 and 10 and a credit of 8, john" do
     setup do
-      @john = create_john
+      @john = Factory(:user, :name => 'john', :email => 'john@slsdev.net')
       Transaction.create!(:creditor => nick, :debtor => @john, :amount => 5.0)
       Transaction.create!(:creditor => nick, :debtor => @john, :amount => 10.0)
       Transaction.create!(:creditor => @john, :debtor => nick, :amount => 8.0)
@@ -126,7 +124,7 @@ class UserTest < ActiveSupport::TestCase
     should "not be able to authenticate after being persisted to the database" do
       @user.email = 'joe@slsdev.net'
       @user.save!
-      assert !User.authenticate(@user.primary_email.address, create_user_attrs[:password]), "A :pending user should not be able to authenticate"
+      assert !User.authenticate(@user.primary_email.address, 'wrong password'), "A :pending user should not be able to authenticate"
     end
 
   end
@@ -178,13 +176,17 @@ class UserTest < ActiveSupport::TestCase
   context "When a user is :active" do
 
     setup do
-      @user = create_john
+      @user = Factory(:active_user)
     end
 
     should_require(:name)
 
     should "be able to authenticate" do
-      assert User.authenticate(@user.primary_email.address, 'johnjohn'), "An :active user should be able to authenticate"
+      puts @user.user_state
+      puts @user.primary_email.address
+      puts @user.primary_email.active
+      assert User.authenticate(@user.primary_email.address, 'password'),
+             "An :active user should be able to authenticate"
     end
 
     should "allow #add_email to be invoked" do
@@ -197,36 +199,45 @@ class UserTest < ActiveSupport::TestCase
       end
 
       should "not allow authentication with the pending email address" do
-        assert_nil User.authenticate('john2@slsdev.net', 'johnjohn'), "A :pending email should not be acceptable when trying to authenticate"
+        assert_nil User.authenticate('john2@slsdev.net', 'johnjohn'),
+                   "A :pending email should not be acceptable when trying to authenticate"
       end
     end
 
   end
 
-  context "A user nick has made transactions with users adam and michael but not john, so his network" do
+  context "A user nick has made transactions with users adam and mike but not john, so his network" do
     setup do
-      @john = create_john
+      @nick = Factory(:user, :name => 'nick', :email => 'nick@slsdev.net', :user_state => 'active')
+      @adam = Factory(:user, :name => 'adam', :email => 'adam@slsdev.net')
+      @mike = Factory(:user, :name => 'mike', :email => 'mike@slsdev.net')
+      @john = Factory(:user, :name => 'john', :email => 'john@slsdev.net')
+
+      Transaction.create!(:creditor => @nick, :debtor => @adam, :amount => 10)
+      Transaction.create!(:creditor => @nick, :debtor => @mike, :amount => 50)
     end
 
     should "include adam" do
-      assert nick.network.include?(adam.primary_email.address)
+      assert @nick.network.include?(@adam.primary_email.address)
     end
 
-    should "include michael" do
-      assert nick.network.include?(michael.primary_email.address)
+    should "include mike" do
+      assert @nick.network.include?(@mike.primary_email.address)
     end
 
     should "not include john" do
-      assert !nick.network.include?(@john.primary_email.address)
+      assert !@nick.network.include?(@john.primary_email.address)
     end
   end
 
   context "When a user nick has made transactions of +10, -40, and +50 with john" do
     setup do
-      @john = create_john
-      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 10)
-      Transaction.create!(:creditor => @john, :debtor => nick, :amount => 40)
-      Transaction.create!(:creditor => nick, :debtor => @john, :amount => 50)
+      @john = Factory(:user)
+      @nick = Factory(:user, :name => 'nick', :email => 'nick@slsdev.net', :user_state => 'active')
+
+      Transaction.create!(:creditor => @nick, :debtor => @john, :amount => 10)
+      Transaction.create!(:creditor => @john, :debtor => @nick, :amount => 40)
+      Transaction.create!(:creditor => @nick, :debtor => @john, :amount => 50)
     end
 
     should "have a balance of $20 for nick" do

@@ -44,7 +44,7 @@ class ActiveSupport::TestCase
   include StoryAccessors::Methods
   
   extend  Shoulda::Nomtracker::Macros
-  include Shoulda::Nomtracker::Helpers
+  #include Shoulda::Nomtracker::Helpers
 end
 
 class ActionController::TestCase

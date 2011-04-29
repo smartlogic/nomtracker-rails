@@ -11,13 +11,11 @@ end
 
 class GlobalUpdatesTest < ActiveSupport::TestCase
 
-  context "When a user is logged in" do
-    setup do
-      @obj = MockObject.new(nick)
-    end
+  subject { Factory(:user) }
 
+  context "When a user is logged in" do
     should "return the user's nomworth" do
-      assert_equal({:nomworth => nick.nomworth}, @obj.send(:global_updates))
+      assert_equal({:nomworth => subject.nomworth}, @obj.send(:global_updates))
     end
   end
 

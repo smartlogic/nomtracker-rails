@@ -68,6 +68,8 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
     return nil if email.blank? || password.blank?
     u = find_by_email(email.downcase) # need to get the salt
+    puts "found by email: "
+    puts u
     return nil if u.nil?
     user_email = u.emails.find(:first, :conditions => {:address => email})
     user_email && user_email.active? && u.authenticated?(password) && u.active? ? u : nil
